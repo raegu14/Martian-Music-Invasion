@@ -469,6 +469,14 @@ public class LevelManager : MonoBehaviour {
         }
     }
 
+    private void DisableFirstNote()
+    {
+        if(firstNote != null)
+        {
+            firstNote.SetActive(false);
+        }
+    }
+
 	private IEnumerator OpenFirstTutorialBox() {
 		yield return new WaitForSeconds (0.1f);
 		this.DisableBackground();
@@ -577,6 +585,8 @@ public class LevelManager : MonoBehaviour {
     {
         this.DisableSuperDogTutorial();
         this.DisableEmptyStaff();
+        this.DisableFirstNote();
+        
     }
 
     public IEnumerator StartLevel()
