@@ -19,6 +19,7 @@ public class LevelManager : MonoBehaviour {
     public GameObject superDogTutorial;
     public GameObject emptyStaff;
     public GameObject firstNote;
+    public GameObject glow;
 
     private int tutorialBoxesRemaining;
 	private GameObject[] lifeObjects;
@@ -198,7 +199,21 @@ public class LevelManager : MonoBehaviour {
 		this.SetChildrenColor (obj, new Color32 (0xFF, 0xFF, 0xFF, 0xFF));
 	}
 	
+    private void CleanUpNotes()
+    {
+        GameObject measure = GameObject.Find("Measure");
+        for (int i = 0; i < measure.transform.childCount; i++)
+        {
+            if(measure.transform.GetChild(i).name.Contains("Note"))
+            {
+                measure.transform.GetChild(i).gameObject.SetActive(false);
+            }
+        }
+    }
+
 	private IEnumerator CompleteLevelAsync() {
+        this.CleanUpTutorial();
+        this.CleanUpNotes();
 		GameManager.currentLevel = (int)(this.levelNumber + 1);
 
 		// Move the measure to the center of the screen
@@ -232,6 +247,8 @@ public class LevelManager : MonoBehaviour {
 		this.backgroundAudioSource.clip = clip;
 		this.backgroundAudioSource.volume = 1f;
 		this.backgroundAudioSource.Play ();
+
+        glow.GetComponent<Glow>().StartGlow();
 
 		yield return new WaitForSeconds (clip.length + 0.2f);
 

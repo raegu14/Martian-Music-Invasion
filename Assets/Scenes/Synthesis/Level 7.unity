@@ -1676,6 +1676,16 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
+--- !u!1 &1288530755 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1031393361222698, guid: 07488f6a4bff0b04685b008aae57ceee,
+    type: 2}
+  m_PrefabInternal: {fileID: 1504036526}
+--- !u!4 &1288530756 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 4727862075810302, guid: 07488f6a4bff0b04685b008aae57ceee,
+    type: 2}
+  m_PrefabInternal: {fileID: 1504036526}
 --- !u!1 &1299495365
 GameObject:
   m_ObjectHideFlags: 0
@@ -1988,6 +1998,48 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!1001 &1504036526
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1774827232}
+    m_Modifications:
+    - target: {fileID: 4727862075810302, guid: 07488f6a4bff0b04685b008aae57ceee, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4727862075810302, guid: 07488f6a4bff0b04685b008aae57ceee, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4727862075810302, guid: 07488f6a4bff0b04685b008aae57ceee, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4727862075810302, guid: 07488f6a4bff0b04685b008aae57ceee, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4727862075810302, guid: 07488f6a4bff0b04685b008aae57ceee, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4727862075810302, guid: 07488f6a4bff0b04685b008aae57ceee, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4727862075810302, guid: 07488f6a4bff0b04685b008aae57ceee, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4727862075810302, guid: 07488f6a4bff0b04685b008aae57ceee, type: 2}
+      propertyPath: m_RootOrder
+      value: 6
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 07488f6a4bff0b04685b008aae57ceee, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1 &1524701423
 GameObject:
   m_ObjectHideFlags: 0
@@ -2357,7 +2409,8 @@ MonoBehaviour:
   tutorialLevelIndicator: {fileID: 1524701423}
   superDogTutorial: {fileID: 1928543787}
   emptyStaff: {fileID: 819639716}
-  firstNote: {fileID: 0}
+  firstNote: {fileID: 2001629901}
+  glow: {fileID: 1288530755}
   noteClips:
   - {fileID: 8300000, guid: 1b4657e8de9f6c645bcd1c1503b4a185, type: 3}
   - {fileID: 8300000, guid: e96aecb59dcf84c4f8e52bdc9ff8578b, type: 3}
@@ -2398,6 +2451,7 @@ Transform:
   - {fileID: 1066324827}
   - {fileID: 1299495366}
   - {fileID: 1928543789}
+  - {fileID: 1288530756}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
