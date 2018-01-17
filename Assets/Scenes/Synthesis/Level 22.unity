@@ -3198,7 +3198,7 @@ MonoBehaviour:
   noteFailClip: {fileID: 8300000, guid: 3210714fd6b6e4ddebeddb7ef08bfce2, type: 3}
   buildingsBackground: {fileID: 8300000, guid: 61d1fc4c62a5c4eb28473edf2ece99dc, type: 3}
   cam: {fileID: 171284414}
-  zoomSpeed: 0.5
+  zoomSpeed: 0.05
 --- !u!1 &1479420308
 GameObject:
   m_ObjectHideFlags: 0
