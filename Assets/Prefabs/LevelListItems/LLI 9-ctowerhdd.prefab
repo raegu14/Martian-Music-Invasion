@@ -1,0 +1,61 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &124860
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 482904}
+  - component: {fileID: 11443728}
+  m_Layer: 0
+  m_Name: LLI 9-ctowerhdd
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &482904
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 124860}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &11443728
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 124860}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbf94af26ed786f45a84cabe09f83a9c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  LevelSceneName: Level9
+  comic: {fileID: 2800000, guid: 2cb124afdf03345cfaffb997fa3f6ff4, type: 3}
+  measure: {fileID: 2800000, guid: 28651ba36d9214ebe9cf1e231012aea4, type: 3}
+  comicPivot: {x: 0.5, y: 0.5}
+  comicPixelsPerUnit: 100
+  measurePivot: {x: 0.5, y: 0.5}
+  measurePixelsPerUnit: 100
+  clip: {fileID: 8300000, guid: b5575b39dc811fa4b92c3279a0c50f83, type: 3}
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 124860}
+  m_IsPrefabParent: 1

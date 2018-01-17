@@ -1,0 +1,42 @@
+Public Domain (No Attribution Required - http://creativecommons.org/publicdomain/zero/1.0/)
+  fighter_0.png        http://opengameart.org/content/space-ship-0
+  redmetal.png         http://opengameart.org/content/simple-svg-vector-spaceship
+
+Creative Commons BY (Attribution Required - http://creativecommons.org/licenses/by/3.0/)
+  space-ship.gif       http://opengameart.org/content/space-ship
+  spaceship.png        http://opengameart.org/content/spaceship-2d
+  ospaceship-main.png  http://opengameart.org/content/yellow-starship
+  redfighter0005.png   http://opengameart.org/content/animated-red-ship
+  redshipr.png         http://opengameart.org/content/red-cruiser-spaceship
+  alien.png            http://opengameart.org/content/alien-1
+  blueships1.png       http://opengameart.org/content/blue-fighter-spaceship
+  fighterspr1.png      http://opengameart.org/content/fighter2-spaceship
+  alienshiptex.png     http://opengameart.org/content/green-alien-spaceship
+  redship4.png         http://opengameart.org/content/set-faction6-spaceships
+  bluecargoship.png    http://opengameart.org/content/set-faction9-spaceships (bluecarrier.png, bluecruiser.png, bluedestroyer.png)
+  cargoship.png        http://opengameart.org/content/set-faction10-spaceships
+  carrier.png          http://opengameart.org/content/set-faction10-spaceships
+  cruiser.png          http://opengameart.org/content/set-faction10-spaceships
+  destroyer.png        http://opengameart.org/content/set-faction10-spaceships
+  topdownfighter.png   http://opengameart.org/content/fighter-spaceship
+  ship6cb.png          http://opengameart.org/content/spaceships-from-parts-part2artcom
+  ship7b.png           http://opengameart.org/content/spaceships-from-parts-part2artcom
+  3dship.png           http://opengameart.org/content/isometric-spaceship-sprites-3
+  3dship2.png          http://opengameart.org/content/isometric-spaceship-sprites-1
+  millonth3d.png       http://opengameart.org/content/faction7-spaceship-att5-3d
+  DurrrSpaceShip.png   http://opengameart.org/content/purple-space-ship
+  alienspaceship.png   http://opengameart.org/content/pack-4-random-spaceships (aliensprite.png, aliensprite2.png, spaceshipspr.png, spaceshipsprite.png)
+  bgbattleship.png     http://opengameart.org/content/pack-spaceships-and-building (bgspeedship.png, heavyfreighter.png, mainbase.png, medfighter.png, medfrighter.png, smallfreighterspr.png, speedship.png, spshipspr1.png, xspr5.png)
+  kit2ship1.png        http://opengameart.org/content/part2artcom-with-skorpios-2nd-kit (kit2ship1adjusted.png, kit2ship1base.png, kit2ship2.png, kitmixedship1.png, kitmixedship1adjusted.png, kitmixedship2.png, kitmixedship2adjusted.png, kitmixedship3.png, mitmixedship3adjusted.png)
+  greenship1.png       http://opengameart.org/content/set-faction4-spaceships
+  alien1.png           http://opengameart.org/content/set-faction3-spaceships
+
+   
+
+  
+  
+  
+  
+  
+
+
