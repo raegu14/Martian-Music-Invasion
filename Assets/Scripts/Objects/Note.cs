@@ -44,7 +44,8 @@ public class Note : MonoBehaviour {
 
 	public void Match() {
 		this.levelManager.DeregisterNote (this);
-		Destroy (this.gameObject);
+		this.gameObject.SetActive(false);
+        print(GameObject.Find("Measure").transform.childCount);
 	}
 
 	public void Fail() {
