@@ -7,109 +7,106 @@ EditorBuildSettings:
   m_Scenes:
   - enabled: 1
     path: Assets/Scenes/TitleScene.unity
-    guid: 00000000000000000000000000000000
+    guid: 8108336808c904bbda59598b879a7565
   - enabled: 1
     path: Assets/Scenes/Intro/IntroCutscene1.unity
-    guid: 00000000000000000000000000000000
+    guid: 4cbfa70c70253429c8373fe034fbad94
   - enabled: 1
     path: Assets/Scenes/Intro/IntroCutscene2.unity
-    guid: 00000000000000000000000000000000
+    guid: aa57e9163b3a445aca019fc4667ad915
   - enabled: 1
     path: Assets/Scenes/Intro/IntroCutscene3.unity
-    guid: 00000000000000000000000000000000
+    guid: 84c86a26027b24f1db30c254c1813741
   - enabled: 1
     path: Assets/Scenes/Intro/IntroCutscene4.unity
-    guid: 00000000000000000000000000000000
+    guid: 9d2f518bc0e464c2c8d9c4826e3c5f87
   - enabled: 1
     path: Assets/Scenes/Intro/LetsGoScene.unity
-    guid: 00000000000000000000000000000000
+    guid: 2c667eb39520a4ea497ffdd6508b86c3
   - enabled: 1
     path: Assets/Scenes/LevelSelection.unity
-    guid: 00000000000000000000000000000000
-  - enabled: 0
-    path: Assets/Scenes/LevelSelection_deprecated.unity
-    guid: 00000000000000000000000000000000
+    guid: 4a846b21f7af4ca4ba2bf89fddfce9d3
   - enabled: 1
-    path: Assets/Addressing/Addressing L1/Level 1.unity
-    guid: 00000000000000000000000000000000
+    path: Assets/Scenes/Addressing/Addressing L1/Level 1.unity
+    guid: 30ffc831726dff744aa376a76b1bf9d8
   - enabled: 1
-    path: Assets/Addressing/Addressing L2/Level 2.unity
-    guid: 00000000000000000000000000000000
+    path: Assets/Scenes/Addressing/Addressing L2/Level 2.unity
+    guid: d954e208b47751a4d8f58ea8282fa8f9
   - enabled: 1
-    path: Assets/Addressing/Addressing L3/Level 3.unity
-    guid: 00000000000000000000000000000000
+    path: Assets/Scenes/Addressing/Addressing L3/Level 3.unity
+    guid: 4c3340b4a7ad59e45ba80f1d4800fa98
   - enabled: 1
-    path: Assets/Addressing/Addressing L4/Level 4.unity
-    guid: 00000000000000000000000000000000
+    path: Assets/Scenes/Addressing/Addressing L4/Level 4.unity
+    guid: cbc186ef2e25df9478ffe2b30e949c92
   - enabled: 1
-    path: Assets/Addressing/Addressing L5/Level 5.unity
-    guid: 00000000000000000000000000000000
+    path: Assets/Scenes/Addressing/Addressing L5/Level 5.unity
+    guid: 59b2c749564a86749bee09563272e197
   - enabled: 1
-    path: Assets/Addressing/Addressing L6/Level 6.unity
-    guid: 00000000000000000000000000000000
+    path: Assets/Scenes/Addressing/Addressing L6/Level 6.unity
+    guid: d352aeaac5c60284ea24b0263fc045d3
   - enabled: 1
     path: Assets/Scenes/Synthesis/Level 7.unity
-    guid: 00000000000000000000000000000000
+    guid: 1e6151500d4cd254aaa0bfa45e3702c0
   - enabled: 1
     path: Assets/Scenes/Synthesis/Level 8.unity
-    guid: 00000000000000000000000000000000
+    guid: 02209ffdd54e4a949b64195d76e145f1
   - enabled: 1
     path: Assets/Scenes/Synthesis/Level 9.unity
-    guid: 00000000000000000000000000000000
+    guid: 06cfdd77dd4079f42bb97dd249e08199
   - enabled: 1
     path: Assets/Scenes/Synthesis/Level 10.unity
-    guid: 00000000000000000000000000000000
+    guid: c4f9ff2f7afad4e4c9ebef928e7cd3ec
   - enabled: 1
     path: Assets/Scenes/Synthesis/Level 11.unity
-    guid: 00000000000000000000000000000000
+    guid: 174f3f0984e971a4386691da3628e1fe
   - enabled: 1
     path: Assets/Scenes/Synthesis/Level 12.unity
-    guid: 00000000000000000000000000000000
+    guid: 666f971fc86c2444fbb2821048405ff0
   - enabled: 1
     path: Assets/Scenes/Synthesis/Level 13.unity
-    guid: 00000000000000000000000000000000
+    guid: 3d8864c3ffc1f564c84eaa0587e811a1
   - enabled: 1
     path: Assets/Scenes/Synthesis/Level 14.unity
-    guid: 00000000000000000000000000000000
+    guid: 6c16d8a529071d249a4ce5abf8e707fb
   - enabled: 1
     path: Assets/Scenes/Synthesis/Level 15.unity
-    guid: 00000000000000000000000000000000
+    guid: a5259b74a7a4a2e4ea1da47b1341f964
   - enabled: 1
     path: Assets/Scenes/Synthesis/Level 16.unity
-    guid: 00000000000000000000000000000000
+    guid: b853bc1c872ab704a8410f92f7691fe6
   - enabled: 1
     path: Assets/Scenes/Synthesis/Level 17.unity
-    guid: 00000000000000000000000000000000
+    guid: 0974157ad4449474eafa71b07a0bf713
   - enabled: 1
     path: Assets/Scenes/Synthesis/Level 18.unity
-    guid: 00000000000000000000000000000000
+    guid: 1b73ed7bf8e406d4d8a9c58e4740f0af
   - enabled: 1
     path: Assets/Scenes/Synthesis/Level 19.unity
-    guid: 00000000000000000000000000000000
+    guid: e5cc677854942be42863a8b3100be895
   - enabled: 1
     path: Assets/Scenes/Synthesis/Level 20.unity
-    guid: 00000000000000000000000000000000
+    guid: bd2f0ee0fcd670848b1ac6bb105eaade
   - enabled: 1
     path: Assets/Scenes/Synthesis/Level 21.unity
-    guid: 00000000000000000000000000000000
+    guid: ff051eaf48a4f1f4db0efcb9e73ccd33
   - enabled: 1
     path: Assets/Scenes/Synthesis/Level 22.unity
-    guid: 00000000000000000000000000000000
+    guid: d1dd81076aabac549913f15098efb935
   - enabled: 1
     path: Assets/Scenes/Synthesis/Level 23.unity
-    guid: 00000000000000000000000000000000
+    guid: 8ccc72df7d1770c4ca2ecee5e7d48a18
   - enabled: 1
     path: Assets/Scenes/Synthesis/Level 24.unity
-    guid: 00000000000000000000000000000000
+    guid: 1ad5991c1df377c4cab69ea05def60be
   - enabled: 1
     path: Assets/Scenes/Outro/OutroCutscene1.unity
-    guid: 00000000000000000000000000000000
+    guid: b4b94a8bff36a4f48b7d831919175f73
   - enabled: 1
     path: Assets/Scenes/Outro/OutroCutscene2.unity
-    guid: 00000000000000000000000000000000
+    guid: 8a3f6e24573a74be3b1999447053ad2c
   - enabled: 1
     path: Assets/Scenes/Outro/OutroCutscene3.unity
-    guid: 00000000000000000000000000000000
+    guid: d4085c41f62e5436da2e3442870ea30c
   - enabled: 1
     path: Assets/Scenes/Interlude.unity
-    guid: 00000000000000000000000000000000
+    guid: 865e7ef4a63df1245ad307c823b8b24a
