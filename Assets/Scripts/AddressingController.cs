@@ -240,8 +240,11 @@ public class AddressingController : MonoBehaviour {
     private void UpdateHangingVine(AddressingStep step)
     {
         Vector3 handPos = Supergirl.GetComponent<CircleCollider2D>().bounds.center;
-        Vector3 notePos = step.FirstNoteCollider.bounds.center;
-
+        Vector3 notePos = new Vector3();
+        if (step != null)
+        {
+            notePos = step.FirstNoteCollider.bounds.center;
+        }
         PlaceVineBetween(Vine, handPos + 0.5f * Vector3.back, notePos + 0.5f * Vector3.back);
 
         float deltaX = notePos.x - handPos.x;
@@ -393,7 +396,11 @@ public class AddressingController : MonoBehaviour {
     void NormalizeVineLength()
     {
         Vector2 handPos = Supergirl.GetComponent<CircleCollider2D>().bounds.center;
-        Vector2 notePos = CurrentStep.FirstNoteCollider.bounds.center;
+        Vector2 notePos = new Vector2();
+        if (CurrentStep != null)
+        {
+            notePos = CurrentStep.FirstNoteCollider.bounds.center;
+        }
 
         float vineGoal = vineLength + (notePos.y - firstNoteHeight);
         Vector2 desiredPos = notePos + vineGoal * (handPos - notePos).normalized;
@@ -427,7 +434,7 @@ public class AddressingController : MonoBehaviour {
         NormalizeVineLength();
 
 
-        if (Input.GetKeyDown(KeyCode.Q) && Input.GetKeyDown(KeyCode.A) && Input.GetKeyDown(KeyCode.Z))
+        if (Input.GetKey(KeyCode.Q) && Input.GetKey(KeyCode.A) && Input.GetKey(KeyCode.Z))
         {
             print("pressed");
             Destroy(CurrentStepObject);

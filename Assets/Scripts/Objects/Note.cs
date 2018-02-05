@@ -80,7 +80,6 @@ public class Note : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	
 	}
 
 	protected void OnMouseDown() {

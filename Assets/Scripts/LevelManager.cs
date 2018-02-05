@@ -19,7 +19,7 @@ public class LevelManager : MonoBehaviour {
     public GameObject superDogTutorial;
     public GameObject emptyStaff;
     public GameObject firstNote;
-    public GameObject glow;
+    public GameObject[] glow;
 
     private int tutorialBoxesRemaining;
 	private GameObject[] lifeObjects;
@@ -248,7 +248,10 @@ public class LevelManager : MonoBehaviour {
 		this.backgroundAudioSource.volume = 1f;
 		this.backgroundAudioSource.Play ();
 
-        glow.GetComponent<Glow>().StartGlow();
+        for (int i = 0; i < glow.Length; i++)
+        {
+            glow[i].GetComponent<Glow>().StartGlow();
+        }
 
 		yield return new WaitForSeconds (clip.length + 0.2f);
 
@@ -603,7 +606,12 @@ public class LevelManager : MonoBehaviour {
         this.DisableSuperDogTutorial();
         this.DisableEmptyStaff();
         this.DisableFirstNote();
-        
+        zoomSpeed = 0.1f;
+        GameObject tmp = new GameObject();
+        tmp.AddComponent<Zoom>();
+        tmp.GetComponent<Zoom>().pos = new Vector3(0, 0, -10);
+        tmp.GetComponent<Zoom>().size = 4.25f;
+        StartCoroutine(Zoom(tmp));
     }
 
     public IEnumerator StartLevel()
@@ -668,7 +676,7 @@ public class LevelManager : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-		if (Input.GetKeyDown (KeyCode.Q) && Input.GetKeyDown(KeyCode.A) && Input.GetKeyDown(KeyCode.Z)) {
+		if (Input.GetKey (KeyCode.Q) && Input.GetKey(KeyCode.A) && Input.GetKey(KeyCode.Z)) {
 			this.CompleteLevel();
 		}
 
