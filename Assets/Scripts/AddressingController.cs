@@ -24,6 +24,8 @@ public class AddressingController : MonoBehaviour {
     public GameObject SuperdogDialogue;
     public Button SuperdogButton;
 
+    private SuperdogController superdogController;
+
     public GameObject LevelCompleteObject;
     public GameObject GameOver;
     public GameObject GrayCirclePrefab;
@@ -426,6 +428,8 @@ public class AddressingController : MonoBehaviour {
         sgVelocity = Vector3.zero;
 
         print(Superdog);
+
+        superdogController = Superdog.GetComponent<SuperdogController>();
 	}
 
     protected void Update()
@@ -535,12 +539,12 @@ public class AddressingController : MonoBehaviour {
         ThrowingVine.SetActive(false);
     }
 
-    private IEnumerator FlySuperdog(float duration)
+    /* private IEnumerator FlySuperdog(float duration)
     {
         yield return Transition.Resize(Superdog.transform, Vector3.one, duration / 4);
         yield return Transition.StandingWave(Superdog.transform, Vector3.up, 0.7f, 1, duration / 2);
         yield return Transition.Resize(Superdog.transform, new Vector3(-1f, 1f, 1f), duration / 4);
-    }
+    } */
 
     private IEnumerator LoseLife()
     {
@@ -663,7 +667,7 @@ public class AddressingController : MonoBehaviour {
         {
             StartCoroutine(TransitionBackgrounds());
             StartCoroutine(Transition.Translate(CurrentStepObject.transform, CurrentStepObject.transform.position - finalOffset, flytime));
-            StartCoroutine(FlySuperdog(flytime));
+            StartCoroutine(superdogController.FlySuperdog(flytime));
         } else
         {
             StartCoroutine(Transition.Translate(CurrentStepObject.transform, Vector3.Scale(CurrentStepObject.transform.position, new Vector3(0f, 1f, 1f)), flytime));
@@ -695,7 +699,7 @@ public class AddressingController : MonoBehaviour {
         }
     }
 
-    private IEnumerator FlySuperdogAway(float duration)
+    /* private IEnumerator FlySuperdogAway(float duration)
     {
         CircleCollider2D leftCirc = null, rightCirc = null;
         #region Get colliders
@@ -753,7 +757,7 @@ public class AddressingController : MonoBehaviour {
         } while (elapsed <= duration);
 
         Destroy(Superdog);
-    }
+    } */
 
     private IEnumerator FadeInLevelComplete(float duration)
     {
@@ -770,7 +774,7 @@ public class AddressingController : MonoBehaviour {
     {
         print("entered");
         StartCoroutine(FadeInLevelComplete(flytime * 1.4f));
-        yield return FlySuperdogAway(flytime);
+        yield return superdogController.FlySuperdogAway(flytime);
 
         GameObject measureObject = CurrentStepObject.GetComponentInChildren<SpriteRenderer>().gameObject;
         StartCoroutine(Transition.Translate(measureObject.transform, 6f *  Vector3.back, 0.6f));
