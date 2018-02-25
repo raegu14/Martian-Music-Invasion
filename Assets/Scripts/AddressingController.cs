@@ -36,6 +36,8 @@ public class AddressingController : MonoBehaviour {
     public GameObject ThrowingVine;
     public BoxCollider2D StaffCollider;
 
+    private VineController vineController;
+
     public int LivesCount;
     public GameObject[] Lives;
 
@@ -423,18 +425,19 @@ public class AddressingController : MonoBehaviour {
         stepsCompleted = 0;
         StartCoroutine(ConfigureFirstStep());
 
-        InitializeVineLength();
+        superdogController = Superdog.GetComponent<SuperdogController>();
+        vineController = Vine.GetComponent<VineController>();
+
+        vineController.InitializeVineLength(CurrentStep);
         StartCoroutine(InitializeSuperdog());
         sgVelocity = Vector3.zero;
 
         print(Superdog);
-
-        superdogController = Superdog.GetComponent<SuperdogController>();
 	}
 
     protected void Update()
     {
-        UpdateHangingVine(CurrentStep);
+        vineController.UpdateHangingVine(CurrentStep);
         NormalizeVineLength();
 
 
@@ -473,6 +476,22 @@ public class AddressingController : MonoBehaviour {
             return;
         }
         Logger.Instance.LogAction("Incorrect Circle", stepsCompleted.ToString(), circ.name);
+
+        // Debating on where to put this code //
+        --LivesCount;
+        TransitioningBackgrounds = true;
+
+        if (LivesCount == 0)
+        {
+            SuperdogDialogue.SetActive(false);
+            GameOver.SetActive(true);
+        }
+        else
+        {
+            TransitioningBackgrounds = false;
+        }
+        //                                    //
+
         StartCoroutine(VineFakeout(circ));
 
     }
@@ -564,29 +583,16 @@ public class AddressingController : MonoBehaviour {
 
     private IEnumerator VineFakeout(GrayCircle circ)
     {
-        --LivesCount;
-
-        TransitioningBackgrounds = true;
         yield return Transition.Rotate(SupergirlArm.transform, swaptime / 2, 0f, 160f);
 
         SupergirlVineCurled.SetActive(false);
-        yield return ThrowVine(SupergirlVineCurled.transform.position, circ.transform.position, swaptime / 2);
+        yield return vineController.ThrowVine(ThrowingVine, SupergirlVineCurled.transform.position, circ.transform.position, swaptime / 2);
 
         StartCoroutine(Zap(circ));
-        yield return RetractVine(SupergirlVineCurled.transform.position, circ.transform.position, swaptime / 5);
+        yield return vineController.RetractVine(ThrowingVine, SupergirlVineCurled.transform.position, circ.transform.position, swaptime / 5);
 
         SupergirlVineCurled.SetActive(true);
         yield return Transition.Rotate(SupergirlArm.transform, swaptime / 2, 160f, 0f);
-
-        if (LivesCount == 0)
-        {
-            SuperdogDialogue.SetActive(false);
-            GameOver.SetActive(true);
-        }
-        else
-        {
-            TransitioningBackgrounds = false;
-        }
     }
 
     private IEnumerator LoadNextStep(GrayCircle circ)
@@ -653,7 +659,7 @@ public class AddressingController : MonoBehaviour {
 
         // Stage 1.5: Throw vine
         SupergirlVineCurled.SetActive(false);
-        yield return ThrowVine(SupergirlVineCurled.transform.position, circ.transform.position, swaptime / 2);
+        yield return vineController.ThrowVine(ThrowingVine, SupergirlVineCurled.transform.position, circ.transform.position, swaptime / 2);
         Audio.PlayNote(CurrentStep.Notes[CurrentStep.CorrectIndex]);
 
         Destroy(circ.gameObject);
