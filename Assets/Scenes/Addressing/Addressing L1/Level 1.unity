@@ -258,6 +258,10 @@ MonoBehaviour:
 Transform:
   m_PrefabParentObject: {fileID: 454950, guid: 6765f9eebf72df24a9512a78ba04641a, type: 2}
   m_PrefabInternal: {fileID: 1031376636}
+--- !u!1 &863380012 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 118918, guid: 6765f9eebf72df24a9512a78ba04641a, type: 2}
+  m_PrefabInternal: {fileID: 1031376636}
 --- !u!1 &916423436 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 102216, guid: 6765f9eebf72df24a9512a78ba04641a, type: 2}
@@ -446,7 +450,7 @@ Prefab:
       objectReference: {fileID: 188144, guid: 53bc9d84abf51454088aea6af2d19758, type: 2}
     - target: {fileID: 444970, guid: 6765f9eebf72df24a9512a78ba04641a, type: 2}
       propertyPath: m_RootOrder
-      value: 9
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 444914, guid: 6765f9eebf72df24a9512a78ba04641a, type: 2}
       propertyPath: m_RootOrder
@@ -459,6 +463,34 @@ Prefab:
     - target: {fileID: 8276044, guid: 6765f9eebf72df24a9512a78ba04641a, type: 2}
       propertyPath: m_Enabled
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 414368, guid: 6765f9eebf72df24a9512a78ba04641a, type: 2}
+      propertyPath: m_RootOrder
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 413206, guid: 6765f9eebf72df24a9512a78ba04641a, type: 2}
+      propertyPath: m_RootOrder
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 461000, guid: 6765f9eebf72df24a9512a78ba04641a, type: 2}
+      propertyPath: m_RootOrder
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 430228, guid: 6765f9eebf72df24a9512a78ba04641a, type: 2}
+      propertyPath: m_RootOrder
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 440086, guid: 6765f9eebf72df24a9512a78ba04641a, type: 2}
+      propertyPath: m_RootOrder
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 492520, guid: 6765f9eebf72df24a9512a78ba04641a, type: 2}
+      propertyPath: m_RootOrder
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 458004, guid: 6765f9eebf72df24a9512a78ba04641a, type: 2}
+      propertyPath: m_RootOrder
+      value: 9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6765f9eebf72df24a9512a78ba04641a, type: 2}
@@ -540,6 +572,10 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
+--- !u!1 &1413866819 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 181960, guid: 6765f9eebf72df24a9512a78ba04641a, type: 2}
+  m_PrefabInternal: {fileID: 1031376636}
 --- !u!1 &1543967615 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 196406, guid: 6765f9eebf72df24a9512a78ba04641a, type: 2}
@@ -786,3 +822,26 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
+--- !u!1 &1934050182 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 130620, guid: 6765f9eebf72df24a9512a78ba04641a, type: 2}
+  m_PrefabInternal: {fileID: 1031376636}
+--- !u!114 &1934050185
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1934050182}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eff8274cb7164b34991b6a80fa773ca5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Supergirl: {fileID: 863380012}
+  SupergirlArm: {fileID: 1994041909}
+  SupergirlVineCurled: {fileID: 1413866819}
+  LevelController: {fileID: 916423436}
+--- !u!1 &1994041909 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 142328, guid: 6765f9eebf72df24a9512a78ba04641a, type: 2}
+  m_PrefabInternal: {fileID: 1031376636}
