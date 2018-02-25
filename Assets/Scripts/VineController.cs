@@ -55,7 +55,6 @@ public class VineController : MonoBehaviour
     }
 
     float vineLength;
-    float firstNoteHeight;
 
     public void InitializeVineLength(AddressingStep CurrentStep)
     {
@@ -64,7 +63,7 @@ public class VineController : MonoBehaviour
         vineLength = Vector3.Magnitude(handPos - notePos);
     }
 
-    void NormalizeVineLength(AddressingStep CurrentStep, float sgSpring)
+    public void NormalizeVineLength(AddressingStep CurrentStep, float sgSpring, float firstNoteHeight)
     {
         Vector2 handPos = Supergirl.GetComponent<CircleCollider2D>().bounds.center;
         Vector2 notePos = new Vector2();
