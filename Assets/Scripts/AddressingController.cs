@@ -438,7 +438,7 @@ public class AddressingController : MonoBehaviour {
     protected void Update()
     {
         vineController.UpdateHangingVine(CurrentStep);
-        NormalizeVineLength();
+        vineController.NormalizeVineLength(CurrentStep, sgSpring, firstNoteHeight);
 
 
         if (Input.GetKey(KeyCode.Q) && Input.GetKey(KeyCode.A) && Input.GetKey(KeyCode.Z))
