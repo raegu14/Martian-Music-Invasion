@@ -33,12 +33,7 @@ public class LevelManager : MonoBehaviour {
 
 	private Transform measureTransform;
     public SynthesisTutorial tutorial;
-
-    public bool isTutorialLevel {
-		get {
-			return this.levelNumber % 3 == 1;
-		}
-	}
+    private bool finishedTutorial;
 
 	private Dictionary<char, uint> numNeeded, numRemaining;
 
@@ -234,11 +229,6 @@ public class LevelManager : MonoBehaviour {
 
         this.SuperdimChildren(this.gameObject);
 
-        // @DEPRECATED
-        //DontDestroyOnLoad (this.measureTransform.gameObject);
-        //GameManager.SetMeasure (this.measureTransform.gameObject, this.measureTransform);
-        //SceneManager.LoadScene("LevelSelection");
-
         LevelSelection.LevelCompleted(this.levelNumber, this.measureTransform, this);
 	}
 
@@ -275,13 +265,15 @@ public class LevelManager : MonoBehaviour {
 		this.minions.Remove (minion);
 	}
 
+    //Opens hint
 	public void HelpRequested () {
-		Logger.Instance.LogAction ("LevelManager", "Help Requested", string.Format ("{0} Lives Remaining. Is tutorial: {1}", this.livesRemaining, this.isTutorialLevel));
-		if (!this.isTutorialLevel) {
+		Logger.Instance.LogAction ("LevelManager", "Help Requested", string.Format ("{0} Lives Remaining. Is tutorial: {1}", this.livesRemaining, this.tutorial != null));
+		if (this.tutorial == null) {
 			this.LoseLife();
 		}
 	}
 
+    //Handles life lost behavior
 	private void LoseLife() {
 		this.livesRemaining--;
 
@@ -296,6 +288,7 @@ public class LevelManager : MonoBehaviour {
 		}
 	}
 
+    //Controls animation for losing a life gameobject
 	private IEnumerator DisappearLife(GameObject life) {
 		float destTime = 2.5f;
 		float currentTime = 0f;
@@ -371,12 +364,14 @@ public class LevelManager : MonoBehaviour {
         completingLevel = false;
 
         if (this.tutorial != null)
-            StartTutorial();
+        {
+            finishedTutorial = false;
+            StartCoroutine(StartTutorial());
+        }
     }
 
+    //set up references to life indicator objects
 	private void InitLives() {
-		//Transform lives = this.transform.FindChild ("Lives");
-
 		GameObject[] lifePrefabs = this.lifePrefabs;
 
 		this.livesRemaining = this.maxLives;
@@ -388,44 +383,6 @@ public class LevelManager : MonoBehaviour {
 			life.transform.parent = this.transform;
 			life.transform.position += (i / lifePrefabs.Length) * Constants.lifeDistance * Vector3.up;
 			this.lifeObjects[i] = life;
-		}
-	}
-
-	public void DisableBackground() {
-		this.background.DisableClicks ();
-	}
-
-	public void EnableBackground() {
-		this.background.EnableClicks ();
-	}
-
-	private void DisableMinions() {
-		foreach (SpriteRenderer s in this.minions[0].transform.parent.GetComponentsInChildren<SpriteRenderer>()) {
-			s.color = Constants.semiTransparent;
-		}
-		foreach (Minion m in this.minions) {
-			m.DisableClicks();
-		}
-	}
-	
-	private void EnableMinions() {
-		foreach (Minion m in this.minions) {
-			m.gameObject.GetComponent<SpriteRenderer>().color = Color.white;
-			m.EnableClicks();
-		}
-	}
-
-	private void DisableNotes() {
-		foreach (Note n in this.notes) {
-			//n.gameObject.GetComponent<SpriteRenderer>().color = Constants.semiTransparent;
-			n.DisableClicks();
-		}
-	}
-
-	private void EnableNotes() {
-		foreach (Note n in this.notes) {
-			n.gameObject.GetComponent<SpriteRenderer>().color = Color.white;
-			n.EnableClicks();
 		}
 	}
 
@@ -450,11 +407,29 @@ public class LevelManager : MonoBehaviour {
         }
     }
 
-    private void StartTutorial()
+    private IEnumerator StartTutorial()
     {
-        this.DisableBackground();
-        this.DisableMinions();
-        this.DisableNotes();
+        //wait for references to be set
+        yield return new WaitForSeconds(0.5f);
+
+        //disable clicks on background
+        this.background.DisableClicks();
+
+        //disable clicks on minions
+        foreach (SpriteRenderer s in this.minions[0].transform.parent.GetComponentsInChildren<SpriteRenderer>())
+        {
+            s.color = Constants.semiTransparent;
+        }
+        foreach (Minion m in this.minions)
+        {
+            m.DisableClicks();
+        }
+
+        //Disable Notes
+        foreach (Note n in this.notes)
+        {
+            n.DisableClicks();
+        }
 
         //call initTutorial function on tutorial script
         tutorial.InitTutorials(minions, notes);
@@ -462,87 +437,41 @@ public class LevelManager : MonoBehaviour {
 
     private IEnumerator CloseTutorial()
     {
-        yield return tutorial.CleanUpTutorial();
-        this.EnableMinions();
-        this.EnableNotes();
-        this.EnableBackground();
-    }
-
-	private bool autoplay = false;
-
-	private void AutoMatch() {
-		//clean up tutorial
-
-        if (this.hero.minionsCarrying.Count != 0)
+        print("closing tutorial");
+        if (tutorial != null)
         {
-            return;
+            yield return tutorial.CleanUpTutorial();
         }
 
-		List<Note> notes = new List<Note>();
-		foreach (Note n in this.notes) {
-			if (!this.notesAutoclicked.Contains(n))
-				notes.Add(n);
-		}
-		if (notes.Count == 0)
-			return;
-		int i = Random.Range (0, notes.Count);
-		Note note = notes[i];
+        //Enable clicks on background
+        this.background.EnableClicks();
+        
+        //Enable clicks on minions
+        foreach (Minion m in this.minions)
+        {
+            m.gameObject.GetComponent<SpriteRenderer>().color = Color.white;
+            m.EnableClicks();
+        }
 
-		List<Minion> toPickUp = new List<Minion> ();
-	
-		foreach (char letter in note.letters) {	
-			List<Minion> minions = new List<Minion>();
-			foreach (Minion m in this.minions) {
-				if (!this.minionsAutoclicked.Contains(m) 
-				    && !toPickUp.Contains(m)
-				    && (m.letter == letter))
-					minions.Add(m);
-			}
-			if (minions.Count == 0)
-				return;
-			
-			i = Random.Range (0, minions.Count);
-			Minion minion = minions[i];
-			toPickUp.Add(minion);
-		}
-
-		foreach (Minion m in toPickUp) {
-			this.hero.PickUpMinion(m, false);
-			this.minionsAutoclicked.Add(m);
-		}
-
-		this.notesAutoclicked.Add(note);
-		this.hero.TurnInNote(note);
-	}
+        //Enable clicks on notes
+        foreach (Note n in this.notes)
+        {
+            n.gameObject.GetComponent<SpriteRenderer>().color = Color.white;
+            n.EnableClicks();
+        }
+    }
 
 	// Update is called once per frame
 	void Update () {
-        if(tutorial.IsFinishedTutorial())
+        if(tutorial != null && tutorial.IsFinishedTutorial() && !finishedTutorial)
         {
-            CloseTutorial();
+            print("finishing tutorial");
+            finishedTutorial = true;
+            StartCoroutine(CloseTutorial());
         }
 
 		if (Input.GetKey (KeyCode.Q) && Input.GetKey(KeyCode.A) && Input.GetKey(KeyCode.Z) && !completingLevel) {
 			this.CompleteLevel();
 		}
-
-		if (Input.GetKeyDown (KeyCode.Return)) {
-			//this.hero.Caffeinate(5f);
-			//this.autoplay = true;
-		}
-
-		if (Input.GetKeyDown (KeyCode.A)) {
-			//this.autoplay = !this.autoplay;
-		} 
-
-		if (Input.GetKeyDown (KeyCode.C)) {
-			//this.hero.Caffeinate();
-		}
-
-		if (this.autoplay || Input.GetKeyDown (KeyCode.M)) {
-			//this.AutoMatch();
-		}
-
-        //this.autoplay = this.autoplay || LevelSelection.IsAutoplaying();
 	}
 }

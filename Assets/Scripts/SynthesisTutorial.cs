@@ -99,7 +99,6 @@ public class SynthesisTutorial : MonoBehaviour {
         Button completeButton = box.GetComponentInChildren<Button>();
         if (completeButton != null)
         {
-            // TODO
             completeButton.onClick.AddListener(this.CloseTutorialBox);
         }
 
@@ -200,7 +199,7 @@ public class SynthesisTutorial : MonoBehaviour {
     void Start () {
         cam = GameObject.FindGameObjectWithTag("MainCamera");
 
-        this.tutorialLevelIndicator.GetComponent<SpriteRenderer>().enabled = false;
+        this.tutorialLevelIndicator.GetComponent<SpriteRenderer>().enabled = true;
 
         finished = false;
     }

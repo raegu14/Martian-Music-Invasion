@@ -147,6 +147,7 @@ public class Minion : MonoBehaviour {
 
 	protected void OnMouseDown()
 	{
+        print(this.clicksEnabled);
 		if (!this.clicksEnabled)
 			return;
 
