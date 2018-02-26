@@ -19,6 +19,9 @@ public class LevelManager : MonoBehaviour {
     public GameObject superDogTutorial;
     public GameObject emptyStaff;
     public GameObject firstNote;
+    public GameObject[] glow;
+
+    private bool completingLevel;
 
     private int tutorialBoxesRemaining;
 	private GameObject[] lifeObjects;
@@ -74,7 +77,7 @@ public class LevelManager : MonoBehaviour {
 	public AudioClip buildingsBackground;
 
     [Header("Camera")]
-    public GameObject cam;
+    private GameObject cam;
     public float zoomSpeed;
     private bool zooming;
     private Vector3 targetPos;
@@ -165,6 +168,7 @@ public class LevelManager : MonoBehaviour {
 	}
 
 	public void CompleteLevel() {
+        completingLevel = true;
 		if (this.livesRemaining <= 0) {
 			// nice try...
 			return;
@@ -198,7 +202,21 @@ public class LevelManager : MonoBehaviour {
 		this.SetChildrenColor (obj, new Color32 (0xFF, 0xFF, 0xFF, 0xFF));
 	}
 	
+    private void CleanUpNotes()
+    {
+        GameObject measure = GameObject.Find("Measure");
+        for (int i = 0; i < measure.transform.childCount; i++)
+        {
+            if(measure.transform.GetChild(i).name.Contains("Note"))
+            {
+                measure.transform.GetChild(i).gameObject.SetActive(false);
+            }
+        }
+    }
+
 	private IEnumerator CompleteLevelAsync() {
+        this.CleanUpTutorial();
+        this.CleanUpNotes();
 		GameManager.currentLevel = (int)(this.levelNumber + 1);
 
 		// Move the measure to the center of the screen
@@ -206,7 +224,7 @@ public class LevelManager : MonoBehaviour {
 		float currentTime = 0f;
 
 		Vector3 measureStart = this.measureTransform.position;
-		Vector3 measureEnd = new Vector3 (0, 0, -9);
+		Vector3 measureEnd = new Vector3 (0, 0, -8);
 
 		Vector3 measureScaleStart = this.measureTransform.localScale;
 		Vector3 measureScaleEnd = measureScaleStart * 1.5f;
@@ -232,6 +250,11 @@ public class LevelManager : MonoBehaviour {
 		this.backgroundAudioSource.clip = clip;
 		this.backgroundAudioSource.volume = 1f;
 		this.backgroundAudioSource.Play ();
+
+        for (int i = 0; i < glow.Length; i++)
+        {
+            glow[i].GetComponent<Glow>().StartGlow();
+        }
 
 		yield return new WaitForSeconds (clip.length + 0.2f);
 
@@ -373,7 +396,11 @@ public class LevelManager : MonoBehaviour {
 		this.backgroundAudioSource.clip = backgroundClip;
 		this.backgroundAudioSource.Play ();
 
+        cam = GameObject.FindGameObjectWithTag("MainCamera");
+
 		this.InitTutorials ();
+
+        completingLevel = false;
 	}
 
 	private void InitLives() {
@@ -571,7 +598,6 @@ public class LevelManager : MonoBehaviour {
             targetPos = z.pos;
             targetSize = z.size;
             zooming = true;
-            print(1f / zoomSpeed);
             yield return new WaitForSeconds(1f / zoomSpeed * Time.deltaTime);
             yield return new WaitForSeconds(0.5f);
             if(z.superDogTutorial)
@@ -586,7 +612,12 @@ public class LevelManager : MonoBehaviour {
         this.DisableSuperDogTutorial();
         this.DisableEmptyStaff();
         this.DisableFirstNote();
-        
+        zoomSpeed = 0.1f;
+        GameObject tmp = new GameObject();
+        tmp.AddComponent<Zoom>();
+        tmp.GetComponent<Zoom>().pos = new Vector3(0, 0, -10);
+        tmp.GetComponent<Zoom>().size = 4.25f;
+        StartCoroutine(Zoom(tmp));
     }
 
     public IEnumerator StartLevel()
@@ -651,7 +682,7 @@ public class LevelManager : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-		if (Input.GetKeyDown (KeyCode.Q) && Input.GetKeyDown(KeyCode.A) && Input.GetKeyDown(KeyCode.Z)) {
+		if (Input.GetKey (KeyCode.Q) && Input.GetKey(KeyCode.A) && Input.GetKey(KeyCode.Z) && !completingLevel) {
 			this.CompleteLevel();
 		}
 
