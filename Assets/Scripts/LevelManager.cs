@@ -10,27 +10,13 @@ public class LevelManager : MonoBehaviour {
 	public uint levelNumber;
 	public uint maxLives = 3;
 
-    public bool UseTutorials = true;
-
 	public GameObject[] lifePrefabs;
 	public GameObject allLivesLostPrefab;
-	public GameObject[] tutorialPrefabs;
-	public GameObject tutorialLevelIndicator;
-    public GameObject superDogTutorial;
-    public GameObject emptyStaff;
-    public GameObject firstNote;
     public GameObject[] glow;
 
     private bool completingLevel;
 
-    private int tutorialBoxesRemaining;
 	private GameObject[] lifeObjects;
-
-	public bool showingTutorials {
-		get {
-			return tutorialBoxesRemaining > 0;
-		}
-	}
 
 	private uint livesRemaining;
 
@@ -45,13 +31,10 @@ public class LevelManager : MonoBehaviour {
 	private Hero hero;
 	private BackgroundClick background;
 
-	
-	private Minion tutorialMinion;
-	private Note tutorialNote;
-
 	private Transform measureTransform;
-	
-	public bool isTutorialLevel {
+    public SynthesisTutorial tutorial;
+
+    public bool isTutorialLevel {
 		get {
 			return this.levelNumber % 3 == 1;
 		}
@@ -76,15 +59,6 @@ public class LevelManager : MonoBehaviour {
 	// Background music clip
 	public AudioClip buildingsBackground;
 
-    [Header("Camera")]
-    private GameObject cam;
-    public float zoomSpeed;
-    private bool zooming;
-    private Vector3 targetPos;
-    private float targetSize;
-    private Vector3 prevPos;
-    private float prevSize;
-    private float t;
 
 	private static class Constants
 	{
@@ -215,7 +189,7 @@ public class LevelManager : MonoBehaviour {
     }
 
 	private IEnumerator CompleteLevelAsync() {
-        this.CleanUpTutorial();
+        yield return CloseTutorial();
         this.CleanUpNotes();
 		GameManager.currentLevel = (int)(this.levelNumber + 1);
 
@@ -370,8 +344,6 @@ public class LevelManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		if (!this.isTutorialLevel)
-			this.tutorialLevelIndicator.GetComponent<SpriteRenderer> ().enabled = false;
 
 		this.hero = Hero.singleton;
 		this.background = BackgroundClick.singleton;
@@ -396,12 +368,11 @@ public class LevelManager : MonoBehaviour {
 		this.backgroundAudioSource.clip = backgroundClip;
 		this.backgroundAudioSource.Play ();
 
-        cam = GameObject.FindGameObjectWithTag("MainCamera");
-
-		this.InitTutorials ();
-
         completingLevel = false;
-	}
+
+        if (this.tutorial != null)
+            StartTutorial();
+    }
 
 	private void InitLives() {
 		//Transform lives = this.transform.FindChild ("Lives");
@@ -419,20 +390,6 @@ public class LevelManager : MonoBehaviour {
 			this.lifeObjects[i] = life;
 		}
 	}
-	
-	private void InitTutorials() {
-        if (!this.UseTutorials)
-        {
-            return;
-        }
-		this.tutorialBoxesRemaining = this.tutorialPrefabs.Length;
-		if (this.showingTutorials) {
-			StartCoroutine( this.OpenFirstTutorialBox());
-		}
-	}
-
-	private GameObject currentTutorialBox;
-	private TutorialBox currentTutorialBoxScript;
 
 	public void DisableBackground() {
 		this.background.DisableClicks ();
@@ -472,85 +429,6 @@ public class LevelManager : MonoBehaviour {
 		}
 	}
 
-    private void EnableSuperDogTutorial()
-    {
-        if (superDogTutorial != null)
-        {
-            superDogTutorial.SetActive(true);
-        }
-    }
-
-    private void DisableSuperDogTutorial()
-    {
-        if (superDogTutorial != null)
-        {
-            superDogTutorial.SetActive(false);
-        }
-    }
-
-    private void DisableEmptyStaff()
-    {
-        if(emptyStaff != null)
-        {
-            emptyStaff.SetActive(false);
-        }
-    }
-
-    private void DisableFirstNote()
-    {
-        if(firstNote != null)
-        {
-            firstNote.SetActive(false);
-        }
-    }
-
-	private IEnumerator OpenFirstTutorialBox() {
-		yield return new WaitForSeconds (0.1f);
-		this.DisableBackground();
-		this.DisableMinions();
-		this.DisableNotes();
-		StartCoroutine(this.OpenNextTutorialBox ());
-	}
-
-	private IEnumerator OpenNextTutorialBox() {
-		yield return new WaitForSeconds (0.1f);
-		int prefabIx = this.tutorialPrefabs.Length - this.tutorialBoxesRemaining;
-        if (prefabIx != tutorialPrefabs.Length - 1)
-        {
-            yield return Zoom(this.tutorialPrefabs[prefabIx]);
-        }
-
-        GameObject box = Instantiate<GameObject>(this.tutorialPrefabs[prefabIx]);
-
-        Button completeButton = box.GetComponentInChildren<Button> ();
-		if (completeButton != null) {
-			// TODO
-			completeButton.onClick.AddListener(this.CloseTutorialBox);
-		}
-
-		TutorialBox tbox = box.GetComponent<TutorialBox> ();
-        this.tutorialNote = null;
-		this.tutorialMinion = null;
-		if (tbox != null) {
-			tbox.Open(this.minions, this.notes);
-			this.tutorialMinion = tbox.minion;
-			this.tutorialNote = tbox.note;
-        }
-
-		this.currentTutorialBox = box;
-		this.currentTutorialBoxScript = tbox;
-	}
-
-	public void NoteClickedInTutorial(Note n) {
-		if (n == this.tutorialNote)
-			this.CloseTutorialBox ();
-	}
-
-	public void MinionClickedInTutorial(Minion m) {
-		if (m == this.tutorialMinion)
-			this.CloseTutorialBox ();
-	}
-
     public void MinionPickedUp(Minion baseMinion, HashSet<Minion> sanityCheck=null)
     {
         if (sanityCheck == null)
@@ -572,58 +450,19 @@ public class LevelManager : MonoBehaviour {
         }
     }
 
-    public void CloseTutorialBox() {
-		TutorialBox tbox = this.currentTutorialBoxScript;
-		if (tbox != null) {
-			tbox.Close();
-		}
-
-		Destroy (this.currentTutorialBox);
-		this.tutorialBoxesRemaining--;
-		if (this.showingTutorials)
-			StartCoroutine (this.OpenNextTutorialBox ());
-		else {
-            StartCoroutine(StartLevel());
-		}
-	}
-
-    public IEnumerator Zoom(GameObject tPrefab)
+    private void StartTutorial()
     {
-        Zoom z = tPrefab.GetComponent<Zoom>();
-        if (z != null)
-        {
-            t = 0;
-            prevPos = transform.position;
-            prevSize = cam.GetComponent<Camera>().orthographicSize;
-            targetPos = z.pos;
-            targetSize = z.size;
-            zooming = true;
-            yield return new WaitForSeconds(1f / zoomSpeed * Time.deltaTime);
-            yield return new WaitForSeconds(0.5f);
-            if(z.superDogTutorial)
-            {
-                EnableSuperDogTutorial();
-            }
-        }
+        this.DisableBackground();
+        this.DisableMinions();
+        this.DisableNotes();
+
+        //call initTutorial function on tutorial script
+        tutorial.InitTutorials(minions, notes);
     }
 
-    public void CleanUpTutorial()
+    private IEnumerator CloseTutorial()
     {
-        this.DisableSuperDogTutorial();
-        this.DisableEmptyStaff();
-        this.DisableFirstNote();
-        zoomSpeed = 0.1f;
-        GameObject tmp = new GameObject();
-        tmp.AddComponent<Zoom>();
-        tmp.GetComponent<Zoom>().pos = new Vector3(0, 0, -10);
-        tmp.GetComponent<Zoom>().size = 4.25f;
-        StartCoroutine(Zoom(tmp));
-    }
-
-    public IEnumerator StartLevel()
-    {
-        CleanUpTutorial();
-        yield return Zoom(this.tutorialPrefabs[tutorialPrefabs.Length - 1]);
+        yield return tutorial.CleanUpTutorial();
         this.EnableMinions();
         this.EnableNotes();
         this.EnableBackground();
@@ -632,11 +471,7 @@ public class LevelManager : MonoBehaviour {
 	private bool autoplay = false;
 
 	private void AutoMatch() {
-		if (this.showingTutorials) {
-            if (this.currentTutorialBox != null)
-			    this.CloseTutorialBox ();
-			return;
-		}
+		//clean up tutorial
 
         if (this.hero.minionsCarrying.Count != 0)
         {
@@ -682,21 +517,14 @@ public class LevelManager : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
+        if(tutorial.IsFinishedTutorial())
+        {
+            CloseTutorial();
+        }
+
 		if (Input.GetKey (KeyCode.Q) && Input.GetKey(KeyCode.A) && Input.GetKey(KeyCode.Z) && !completingLevel) {
 			this.CompleteLevel();
 		}
-
-        if(zooming)
-        {
-            t += zoomSpeed;
-            cam.transform.position = Vector3.Lerp(prevPos, targetPos, t);
-            cam.GetComponent<Camera>().orthographicSize = Mathf.Lerp(prevSize, targetSize, t);
-
-            if(t >= 1)
-            {
-                zooming = false;
-            }
-        }
 
 		if (Input.GetKeyDown (KeyCode.Return)) {
 			//this.hero.Caffeinate(5f);

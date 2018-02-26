@@ -5672,6 +5672,7 @@ GameObject:
   - component: {fileID: 1774827232}
   - component: {fileID: 1774827231}
   - component: {fileID: 1774827230}
+  - component: {fileID: 1774827233}
   m_Layer: 0
   m_Name: LevelManager 7
   m_TagString: Untagged
@@ -5774,12 +5775,67 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelNumber: 7
   maxLives: 3
-  UseTutorials: 1
   lifePrefabs:
   - {fileID: 123450, guid: a2be43634176ace4f95b4cc833577e54, type: 2}
   - {fileID: 150370, guid: 5f847d635420b044cbf59d53b86b0172, type: 2}
   - {fileID: 158468, guid: 2675dde60bbd47b45a3fd18e5ed105ce, type: 2}
   allLivesLostPrefab: {fileID: 159236, guid: 8d5577fd9fa82944b83cc2bc81dfb51a, type: 2}
+  glow:
+  - {fileID: 1982994432}
+  tutorial: {fileID: 1774827233}
+  noteClips:
+  - {fileID: 8300000, guid: 1b4657e8de9f6c645bcd1c1503b4a185, type: 3}
+  - {fileID: 8300000, guid: e96aecb59dcf84c4f8e52bdc9ff8578b, type: 3}
+  - {fileID: 8300000, guid: a57de6af41c412543a7316bf37af5b19, type: 3}
+  - {fileID: 8300000, guid: 11d08c3d01cf9a248a139234f2a8436c, type: 3}
+  - {fileID: 8300000, guid: 43648bb9e14ee4241baa9d85e14e8294, type: 3}
+  - {fileID: 8300000, guid: a6c841191c6e8894e901f8a1fa971af9, type: 3}
+  - {fileID: 8300000, guid: efdc102c2fae1a14592cffccbbf9b4ec, type: 3}
+  - {fileID: 8300000, guid: bc916550e66de824f8dd38c1a484789e, type: 3}
+  - {fileID: 8300000, guid: 5e9132aac33bb6f4095dd6e51ad96d60, type: 3}
+  - {fileID: 8300000, guid: 53214bd80987de2439d65cd091959867, type: 3}
+  - {fileID: 8300000, guid: 88985d95b8c29844081c43bb751c4dc4, type: 3}
+  - {fileID: 8300000, guid: 848492fe5754d714da14531935edbbeb, type: 3}
+  - {fileID: 8300000, guid: 98e9dbdfea5873f4d8038bf717beb88e, type: 3}
+  - {fileID: 8300000, guid: 67c813c668ff03a4c94c037f7b29b4f1, type: 3}
+  - {fileID: 8300000, guid: 9124a31d139adce41945b4b407c26d98, type: 3}
+  - {fileID: 8300000, guid: 76f2876e469d9df4790bae5afc941682, type: 3}
+  - {fileID: 8300000, guid: 7328e715a7b2af94d9361719f6554a1f, type: 3}
+  - {fileID: 8300000, guid: dece2500dba83e7438fd2db90262cfeb, type: 3}
+  measureClip: {fileID: 8300000, guid: 3bc4cfdba7646c148b3bc1b8e7dd654d, type: 3}
+  noteFailClip: {fileID: 8300000, guid: 3210714fd6b6e4ddebeddb7ef08bfce2, type: 3}
+  buildingsBackground: {fileID: 8300000, guid: 8c65efa75a651401e896437c24c19fde, type: 3}
+--- !u!4 &1774827232
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 427316, guid: 6c947a2aa20becd49a94e6203666aea2, type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1774827229}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 747307172}
+  - {fileID: 1524701425}
+  - {fileID: 1465544227}
+  - {fileID: 1066324827}
+  - {fileID: 1299495366}
+  - {fileID: 1928543789}
+  - {fileID: 1982994433}
+  m_Father: {fileID: 0}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1774827233
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1774827229}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 736f0b53c6870844bb9ab287009bdbd1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   tutorialPrefabs:
   - {fileID: 1864467501850728, guid: a113b6c2d677c234a98642eb3431c45d, type: 2}
   - {fileID: 1055276493226868, guid: 37a48beb6f5961541bc8ff0ea76c9ca3, type: 2}
@@ -5809,52 +5865,7 @@ MonoBehaviour:
   superDogTutorial: {fileID: 1928543787}
   emptyStaff: {fileID: 819639716}
   firstNote: {fileID: 2001629901}
-  glow:
-  - {fileID: 1982994432}
-  noteClips:
-  - {fileID: 8300000, guid: 1b4657e8de9f6c645bcd1c1503b4a185, type: 3}
-  - {fileID: 8300000, guid: e96aecb59dcf84c4f8e52bdc9ff8578b, type: 3}
-  - {fileID: 8300000, guid: a57de6af41c412543a7316bf37af5b19, type: 3}
-  - {fileID: 8300000, guid: 11d08c3d01cf9a248a139234f2a8436c, type: 3}
-  - {fileID: 8300000, guid: 43648bb9e14ee4241baa9d85e14e8294, type: 3}
-  - {fileID: 8300000, guid: a6c841191c6e8894e901f8a1fa971af9, type: 3}
-  - {fileID: 8300000, guid: efdc102c2fae1a14592cffccbbf9b4ec, type: 3}
-  - {fileID: 8300000, guid: bc916550e66de824f8dd38c1a484789e, type: 3}
-  - {fileID: 8300000, guid: 5e9132aac33bb6f4095dd6e51ad96d60, type: 3}
-  - {fileID: 8300000, guid: 53214bd80987de2439d65cd091959867, type: 3}
-  - {fileID: 8300000, guid: 88985d95b8c29844081c43bb751c4dc4, type: 3}
-  - {fileID: 8300000, guid: 848492fe5754d714da14531935edbbeb, type: 3}
-  - {fileID: 8300000, guid: 98e9dbdfea5873f4d8038bf717beb88e, type: 3}
-  - {fileID: 8300000, guid: 67c813c668ff03a4c94c037f7b29b4f1, type: 3}
-  - {fileID: 8300000, guid: 9124a31d139adce41945b4b407c26d98, type: 3}
-  - {fileID: 8300000, guid: 76f2876e469d9df4790bae5afc941682, type: 3}
-  - {fileID: 8300000, guid: 7328e715a7b2af94d9361719f6554a1f, type: 3}
-  - {fileID: 8300000, guid: dece2500dba83e7438fd2db90262cfeb, type: 3}
-  measureClip: {fileID: 8300000, guid: 3bc4cfdba7646c148b3bc1b8e7dd654d, type: 3}
-  noteFailClip: {fileID: 8300000, guid: 3210714fd6b6e4ddebeddb7ef08bfce2, type: 3}
-  buildingsBackground: {fileID: 8300000, guid: 8c65efa75a651401e896437c24c19fde, type: 3}
-  cam: {fileID: 171284414}
-  zoomSpeed: 0.05
---- !u!4 &1774827232
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 427316, guid: 6c947a2aa20becd49a94e6203666aea2, type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1774827229}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -10}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 747307172}
-  - {fileID: 1524701425}
-  - {fileID: 1465544227}
-  - {fileID: 1066324827}
-  - {fileID: 1299495366}
-  - {fileID: 1928543789}
-  - {fileID: 1982994433}
-  m_Father: {fileID: 0}
-  m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  zoomSpeed: 0.5
 --- !u!1 &1828564019
 GameObject:
   m_ObjectHideFlags: 0

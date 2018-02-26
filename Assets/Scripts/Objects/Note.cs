@@ -86,8 +86,8 @@ public class Note : MonoBehaviour {
 		if (!this.clicksEnabled)
 			return;
 
-		if (this.levelManager.showingTutorials)
-			this.levelManager.NoteClickedInTutorial (this);
+        if (LevelManager.singleton.tutorial != null)
+            LevelManager.singleton.tutorial.NoteClickedInTutorial(this);
 
 		this.hero.TurnInNote (this);
 	}
