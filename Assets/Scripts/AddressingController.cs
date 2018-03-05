@@ -285,9 +285,9 @@ public class AddressingController : MonoBehaviour {
     {
         if (TutorialIndex == TutorialMessages.Length)
         {
-            SuperdogButton.gameObject.SetActive(false);
-            StartCoroutine(Transition.TransitionBrightness(gameObject, Superdog, tutorialFadeTime, Dark, Bright));
-            yield return Transition.FadeOut(SuperdogText.gameObject, tutorialFadeTime);
+            SuperdogButton.gameObject.SetActive(false); //keep
+            StartCoroutine(Transition.TransitionBrightness(gameObject, Superdog, tutorialFadeTime, Dark, Bright)); //keep
+            yield return Transition.FadeOut(SuperdogText.gameObject, tutorialFadeTime); //keep
             if (CurrentStep.TutorialObject == null)
             {
                 SuperdogText.text = "Swing to the " + CurrentStep.Notes[CurrentStep.CorrectIndex] + "!";
@@ -328,6 +328,9 @@ public class AddressingController : MonoBehaviour {
             SuperdogButton.gameObject.SetActive(false);
             yield return Transition.FadeOut(SuperdogText.gameObject, tutorialFadeTime);
             SuperdogText.text = TutorialMessages[TutorialIndex++];
+
+            // This block dictates when the staff will be brightened/darkened
+            // PRESERVE FUNCTIONALITY
             if (TutorialIndex == 3)
             {
                 StartCoroutine(Transition.TransitionBrightness(CurrentStepObject, null, tutorialFadeTime, Dark, Bright));
@@ -335,6 +338,7 @@ public class AddressingController : MonoBehaviour {
             {
                 StartCoroutine(Transition.TransitionBrightness(CurrentStepObject, null, tutorialFadeTime, Bright, Dark));
             }
+
             yield return Transition.FadeIn(SuperdogText.gameObject, tutorialFadeTime);
             yield return new WaitForSeconds(tutorialFadeTime);
             if (TutorialIndex == TutorialMessages.Length)
@@ -462,6 +466,8 @@ public class AddressingController : MonoBehaviour {
         yield return null;
     }
 
+
+    // Revise this function and move to vine controller
     private IEnumerator VineFakeout(GrayCircle circ)
     {
         yield return Transition.Rotate(SupergirlArm.transform, swaptime / 2, 0f, 160f);
