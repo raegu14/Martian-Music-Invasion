@@ -268,6 +268,7 @@ GameObject:
   - component: {fileID: 839118984}
   - component: {fileID: 839118985}
   - component: {fileID: 839118986}
+  - component: {fileID: 839118987}
   m_Layer: 0
   m_Name: DialogueBox
   m_TagString: Untagged
@@ -322,7 +323,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 6e8214d801eb82246a6e950242f9abcd, type: 3}
+  m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -330,7 +331,7 @@ SpriteRenderer:
   m_Size: {x: 8.17, y: 6.56}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
 --- !u!114 &839118986
 MonoBehaviour:
@@ -360,6 +361,18 @@ MonoBehaviour:
   - {fileID: 21300000, guid: a9efaf3dc846a5242808f15d70049fef, type: 3}
   - {fileID: 21300000, guid: 4789425b97007ac4a886206389dd2865, type: 3}
   - {fileID: 21300000, guid: dc4a0ca61e28b3c4192fe90f525ef42d, type: 3}
+--- !u!114 &839118987
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 839118983}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87d1addceb76beb4fa0d014823bf816b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dialogueSprites: []
 --- !u!1 &863380012 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 118918, guid: 6765f9eebf72df24a9512a78ba04641a, type: 2}
