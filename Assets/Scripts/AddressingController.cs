@@ -307,8 +307,11 @@ public class AddressingController : MonoBehaviour {
             }
             TransitioningBackgrounds = false;
             ShowLives();
-        } else if (TutorialIndex == 0)
+        }
+
+        else if (TutorialIndex == 0) //first step of tutorial
         {
+            Debug.Log("ass");
             TransitioningBackgrounds = true;
             HideLives();
 
@@ -319,7 +322,7 @@ public class AddressingController : MonoBehaviour {
             }
 
             SuperdogDialogue.SetActive(true);
-            dialogueController.setDialogueBox(TutorialIndex);
+            dialogueController.setDialogueBox(TutorialIndex++);
 
             SuperdogButton.gameObject.SetActive(true);
             //SuperdogText.text = TutorialMessages[TutorialIndex++];
@@ -330,17 +333,20 @@ public class AddressingController : MonoBehaviour {
             {
                 TutorialNextButtonPressed();
             }
-        } else {
+        }
+
+        else { //other tutorial steps
             SuperdogButton.gameObject.SetActive(false);
-            yield return Transition.FadeOut(SuperdogText.gameObject, tutorialFadeTime);
-            SuperdogText.text = TutorialMessages[TutorialIndex++];
+            // yield return Transition.FadeOut(SuperdogText.gameObject, tutorialFadeTime);
+            dialogueController.setDialogueBox(TutorialIndex++);
 
             // This block dictates when the staff will be brightened/darkened
             // PRESERVE FUNCTIONALITY
             if (TutorialIndex == 3)
             {
                 StartCoroutine(Transition.TransitionBrightness(CurrentStepObject, null, tutorialFadeTime, Dark, Bright));
-            } else if (TutorialIndex == 5)
+            }
+            else if (TutorialIndex == 5)
             {
                 StartCoroutine(Transition.TransitionBrightness(CurrentStepObject, null, tutorialFadeTime, Bright, Dark));
             }
