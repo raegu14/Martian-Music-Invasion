@@ -20,7 +20,6 @@ public class AddressingController : MonoBehaviour {
     public bool IsFirstLevel = true;
 
     public GameObject Superdog;
-    public Text SuperdogText;
     public GameObject SuperdogDialogue;
     public Button SuperdogButton;
 
@@ -211,7 +210,7 @@ public class AddressingController : MonoBehaviour {
         return circles;
     }
 
-    private IEnumerator ConfigureFirstStep()
+    private void ConfigureFirstStep()
     {
         CurrentStepObject = Instantiate(LevelSteps[0]);
         CurrentStep = CurrentStepObject.GetComponent<AddressingStep>();
@@ -233,8 +232,6 @@ public class AddressingController : MonoBehaviour {
         //{
         //    SuperdogText.text = "Swing to the " + CurrentStep.Notes[CurrentStep.CorrectIndex] + "!";
         //}
-
-        yield return Transition.FadeIn(SuperdogText.gameObject, tutorialFadeTime, false);
 
         if (!IsFirstLevel && LevelSelection.IsAutoplaying())
         {
@@ -281,7 +278,7 @@ public class AddressingController : MonoBehaviour {
 
             SuperdogButton.gameObject.SetActive(false); //keep
             StartCoroutine(Transition.TransitionBrightness(gameObject, Superdog, tutorialFadeTime, Dark, Bright)); //keep
-            yield return Transition.FadeOut(SuperdogText.gameObject, tutorialFadeTime); //keep
+            //yield return Transition.FadeOut(SuperdogText.gameObject, tutorialFadeTime); //keep
             //if (CurrentStep.TutorialObject == null)
             //{
             //    SuperdogText.text = "Swing to the " + CurrentStep.Notes[CurrentStep.CorrectIndex] + "!";
@@ -290,7 +287,7 @@ public class AddressingController : MonoBehaviour {
             //    SuperdogText.text = CurrentStep.TutorialSuperdogText;
             //}
             dialogueController.setDialogueBox(TutorialIndex++);
-            yield return Transition.FadeIn(SuperdogText.gameObject, tutorialFadeTime, false);
+
             if (LevelSelection.IsAutoplaying())
             {
                 CorrectCircleClicked(CorrectCircle);
@@ -346,7 +343,6 @@ public class AddressingController : MonoBehaviour {
                 StartCoroutine(Transition.TransitionBrightness(CurrentStepObject, null, tutorialFadeTime, Bright, Dark));
             }
 
-            yield return Transition.FadeIn(SuperdogText.gameObject, tutorialFadeTime);
             yield return new WaitForSeconds(tutorialFadeTime);
             if (TutorialIndex == dialogueController.tutorialLength)
             {
@@ -378,7 +374,7 @@ public class AddressingController : MonoBehaviour {
         BackgroundDelta = (Backgrounds[BackgroundRight].transform.position -
                            Backgrounds[BackgroundLeft].transform.position);
         stepsCompleted = 0;
-        StartCoroutine(ConfigureFirstStep());
+        ConfigureFirstStep();
 
         superdogController = Superdog.GetComponent<SuperdogController>();
         vineController = Vine.GetComponent<VineController>();
@@ -533,16 +529,7 @@ public class AddressingController : MonoBehaviour {
         SuperdogDialogue.SetActive(false);
         if (!isLastLevel)
         {
-            if (((levelNumber == 3) || (levelNumber == 4)) || 
-                ((levelNumber == 5 || levelNumber == 6) && (Random.value < 0.5f)))
-            {
-                SuperdogText.text = "Swing to the note " + 
-                    GetDifferential(OldStep.Notes[OldStep.CorrectIndex], NextStep.Notes[NextStep.CorrectIndex]) + 
-                    " the note you're hanging from!";
-            } else
-            {
-                SuperdogText.text = "Swing to the " + NextStep.Notes[NextStep.CorrectIndex] + "!";
-            }
+            dialogueController.setDialogueBox(TutorialIndex++);
         }
 
         // Stage 1: "Swap"
