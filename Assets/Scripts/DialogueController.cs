@@ -5,6 +5,7 @@ using UnityEngine;
 public class DialogueController : MonoBehaviour {
 
     public Sprite[] dialogueSprites;
+    public int tutorialLength;
 
     private SpriteRenderer sr;
 
@@ -12,6 +13,7 @@ public class DialogueController : MonoBehaviour {
 	void Start ()
     {
         sr = gameObject.GetComponent<SpriteRenderer>();
+        tutorialLength = 8; // this is a magic number but bear with me
 	}
 
     // Update is called once per frame

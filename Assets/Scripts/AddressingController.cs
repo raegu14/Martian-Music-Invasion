@@ -244,15 +244,6 @@ public class AddressingController : MonoBehaviour {
 
     float firstNoteHeight;
 
-    private string[] TutorialMessages =
-    {
-        "The Martians have stolen your cape!",
-        "Swing through the jungle to find it.",
-        "You can swing on notes on the staff above.",
-        "Some of the notes are traps.",
-        "Follow my hints to swing only on safe notes!"
-    };
-
     public bool InTutorial = false;
     public int TutorialIndex = 0;
 
@@ -284,18 +275,21 @@ public class AddressingController : MonoBehaviour {
 
     private IEnumerator Tutorial()
     {
-        if (TutorialIndex == TutorialMessages.Length) // ONCE TUTORIAL MESSAGES ARE FINISHED
+        if (TutorialIndex == dialogueController.tutorialLength) // ONCE TUTORIAL MESSAGES ARE FINISHED
         {
+            Debug.Log("tut msges finished");
+
             SuperdogButton.gameObject.SetActive(false); //keep
             StartCoroutine(Transition.TransitionBrightness(gameObject, Superdog, tutorialFadeTime, Dark, Bright)); //keep
             yield return Transition.FadeOut(SuperdogText.gameObject, tutorialFadeTime); //keep
-            if (CurrentStep.TutorialObject == null)
-            {
-                SuperdogText.text = "Swing to the " + CurrentStep.Notes[CurrentStep.CorrectIndex] + "!";
-            } else
-            {
-                SuperdogText.text = CurrentStep.TutorialSuperdogText;
-            }
+            //if (CurrentStep.TutorialObject == null)
+            //{
+            //    SuperdogText.text = "Swing to the " + CurrentStep.Notes[CurrentStep.CorrectIndex] + "!";
+            //} else
+            //{
+            //    SuperdogText.text = CurrentStep.TutorialSuperdogText;
+            //}
+            dialogueController.setDialogueBox(TutorialIndex++);
             yield return Transition.FadeIn(SuperdogText.gameObject, tutorialFadeTime, false);
             if (LevelSelection.IsAutoplaying())
             {
@@ -311,7 +305,7 @@ public class AddressingController : MonoBehaviour {
 
         else if (TutorialIndex == 0) //first step of tutorial
         {
-            Debug.Log("ass");
+            Debug.Log("tut msges beginning");
             TransitioningBackgrounds = true;
             HideLives();
 
@@ -336,6 +330,7 @@ public class AddressingController : MonoBehaviour {
         }
 
         else { //other tutorial steps
+            Debug.Log("some other tut step");
             SuperdogButton.gameObject.SetActive(false);
             // yield return Transition.FadeOut(SuperdogText.gameObject, tutorialFadeTime);
             dialogueController.setDialogueBox(TutorialIndex++);
@@ -346,14 +341,14 @@ public class AddressingController : MonoBehaviour {
             {
                 StartCoroutine(Transition.TransitionBrightness(CurrentStepObject, null, tutorialFadeTime, Dark, Bright));
             }
-            else if (TutorialIndex == 5)
+            else if (TutorialIndex == 8)
             {
                 StartCoroutine(Transition.TransitionBrightness(CurrentStepObject, null, tutorialFadeTime, Bright, Dark));
             }
 
             yield return Transition.FadeIn(SuperdogText.gameObject, tutorialFadeTime);
             yield return new WaitForSeconds(tutorialFadeTime);
-            if (TutorialIndex == TutorialMessages.Length)
+            if (TutorialIndex == dialogueController.tutorialLength)
             {
                 SuperdogButton.GetComponentInChildren<Text>().text = "Let's go!";
             }
