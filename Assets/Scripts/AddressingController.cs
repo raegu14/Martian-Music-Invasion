@@ -25,6 +25,7 @@ public class AddressingController : MonoBehaviour {
     public Button SuperdogButton;
 
     private SuperdogController superdogController;
+    private DialogueController dialogueController;
 
     public GameObject LevelCompleteObject;
     public GameObject GameOver;
@@ -221,17 +222,17 @@ public class AddressingController : MonoBehaviour {
 
         firstNoteHeight = CurrentStep.FirstNoteCollider.bounds.center.y;
 
-        if (((levelNumber == 3) || (levelNumber == 4)) ||
-              ((levelNumber == 5 || levelNumber == 6) && (Random.value < 0.5f)))
-        {
-            SuperdogText.text = "Swing to the note " +
-                GetDifferential(CurrentStep.StartNote, CurrentStep.Notes[CurrentStep.CorrectIndex]) +
-                " the note you're hanging from!";
-        }
-        else
-        {
-            SuperdogText.text = "Swing to the " + CurrentStep.Notes[CurrentStep.CorrectIndex] + "!";
-        }
+        //if (((levelNumber == 3) || (levelNumber == 4)) ||
+        //      ((levelNumber == 5 || levelNumber == 6) && (Random.value < 0.5f)))
+        //{
+        //    SuperdogText.text = "Swing to the note " +
+        //        GetDifferential(CurrentStep.StartNote, CurrentStep.Notes[CurrentStep.CorrectIndex]) +
+        //        " the note you're hanging from!";
+        //}
+        //else
+        //{
+        //    SuperdogText.text = "Swing to the " + CurrentStep.Notes[CurrentStep.CorrectIndex] + "!";
+        //}
 
         yield return Transition.FadeIn(SuperdogText.gameObject, tutorialFadeTime, false);
 
@@ -283,7 +284,7 @@ public class AddressingController : MonoBehaviour {
 
     private IEnumerator Tutorial()
     {
-        if (TutorialIndex == TutorialMessages.Length)
+        if (TutorialIndex == TutorialMessages.Length) // ONCE TUTORIAL MESSAGES ARE FINISHED
         {
             SuperdogButton.gameObject.SetActive(false); //keep
             StartCoroutine(Transition.TransitionBrightness(gameObject, Superdog, tutorialFadeTime, Dark, Bright)); //keep
@@ -310,13 +311,18 @@ public class AddressingController : MonoBehaviour {
         {
             TransitioningBackgrounds = true;
             HideLives();
+
+            // TutorialObject is the arrows on the staff. This block hides it (since step 1 will have it and we don't want it shown while he's talkin)
             if (CurrentStep.TutorialObject != null)
             {
                 CurrentStep.TutorialObject.SetActive(false);
             }
+
             SuperdogDialogue.SetActive(true);
+            dialogueController.setDialogueBox(TutorialIndex);
+
             SuperdogButton.gameObject.SetActive(true);
-            SuperdogText.text = TutorialMessages[TutorialIndex++];
+            //SuperdogText.text = TutorialMessages[TutorialIndex++];
             InTutorial = true;
             StartCoroutine(Transition.FadeIn(SuperdogDialogue, tutorialFadeTime, false));
             yield return Transition.TransitionBrightness(gameObject, Superdog, tutorialFadeTime, Bright, Dark);
@@ -375,6 +381,7 @@ public class AddressingController : MonoBehaviour {
 
         superdogController = Superdog.GetComponent<SuperdogController>();
         vineController = Vine.GetComponent<VineController>();
+        dialogueController = SuperdogDialogue.GetComponent<DialogueController>();
 
         vineController.InitializeVineLength(CurrentStep);
         StartCoroutine(InitializeSuperdog());
