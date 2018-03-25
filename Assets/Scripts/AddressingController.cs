@@ -286,7 +286,7 @@ public class AddressingController : MonoBehaviour {
             //{
             //    SuperdogText.text = CurrentStep.TutorialSuperdogText;
             //}
-            dialogueController.setDialogueBox(TutorialIndex++);
+            dialogueController.updateDialogue(TutorialIndex++);
 
             if (LevelSelection.IsAutoplaying())
             {
@@ -313,7 +313,7 @@ public class AddressingController : MonoBehaviour {
             }
 
             SuperdogDialogue.SetActive(true);
-            dialogueController.setDialogueBox(TutorialIndex++);
+            dialogueController.updateDialogue(TutorialIndex++);
 
             SuperdogButton.gameObject.SetActive(true);
             //SuperdogText.text = TutorialMessages[TutorialIndex++];
@@ -330,7 +330,7 @@ public class AddressingController : MonoBehaviour {
             Debug.Log("some other tut step");
             SuperdogButton.gameObject.SetActive(false);
             // yield return Transition.FadeOut(SuperdogText.gameObject, tutorialFadeTime);
-            dialogueController.setDialogueBox(TutorialIndex++);
+            dialogueController.updateDialogue(TutorialIndex++);
 
             // This block dictates when the staff will be brightened/darkened
             // PRESERVE FUNCTIONALITY
@@ -529,7 +529,7 @@ public class AddressingController : MonoBehaviour {
         SuperdogDialogue.SetActive(false);
         if (!isLastLevel)
         {
-            dialogueController.setDialogueBox(TutorialIndex++);
+            dialogueController.updateDialogue(TutorialIndex++);
         }
 
         // Stage 1: "Swap"
