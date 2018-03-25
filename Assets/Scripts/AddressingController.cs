@@ -527,10 +527,6 @@ public class AddressingController : MonoBehaviour {
         OldStepObject.transform.position += Vector3.forward * 0.2f;
 
         SuperdogDialogue.SetActive(false);
-        if (!isLastLevel)
-        {
-            dialogueController.updateDialogue(TutorialIndex++);
-        }
 
         // Stage 1: "Swap"
         StartCoroutine(Transition.FadeOut(IncorrectCircles, swaptime, Transition.FinishType.Destroy));
@@ -572,6 +568,7 @@ public class AddressingController : MonoBehaviour {
         if (!isLastLevel)
         {
             SuperdogDialogue.SetActive(true);
+            dialogueController.updateDialogue(TutorialIndex++);
         }
 
         Destroy(OldStepObject);
