@@ -7,39 +7,24 @@ public class SuperdogController : MonoBehaviour {
     public GameObject lineHelp;
     public GameObject spaceHelp;
 
-	// Use this for initialization
-	void Start () {
+    public GameObject LevelController;
 
-	}
+    private AddressingController addressingController;
+
+    // Use this for initialization
+    void Start () {
+        addressingController = LevelController.GetComponent<AddressingController>();
+    }
 	
 	// Update is called once per frame
 	void Update () {
 		
 	}
 
-    public void ShowHelp()
-    {
-        if (true) {
-            lineHelp.SetActive(true);
-        }
-        /* else if (Space) {
-            spaceHelp.SetActive(true);
-        }*/
-        else {
-            Debug.Log("Neither line nor space");
-        }
-    }
-
-    public void HideHelp()
-    {
-        lineHelp.SetActive(false);
-        spaceHelp.SetActive(false);
-    }
-
     protected void OnMouseDown()
     {
         Debug.Log("clicked on superdog");
-        ShowHelp();
+        addressingController.ShowHelp();
     }
 
     public IEnumerator FlySuperdog(float duration)

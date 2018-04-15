@@ -15,7 +15,7 @@ public class AddressingController : MonoBehaviour {
     public float swaptime = 1.2f;
     public float flytime = 1.2f;
 
-    public float tutorialFadeTime =10f;
+    public float tutorialFadeTime = 10f;
 
     public bool IsFirstLevel = true;
 
@@ -66,6 +66,9 @@ public class AddressingController : MonoBehaviour {
 
     private Vector3 sgVelocity;
 
+    public GameObject hintObject;
+    private HintController hintController;
+
     public void Restart()
     {
         Logger.Instance.LogAction("AddressingController", "Restart", "");
@@ -74,19 +77,19 @@ public class AddressingController : MonoBehaviour {
 
     private static float GetYByAddress(string address)
     { switch (address) {
-        case "1st Line": return  0f / 8f;
-        case "1st Space": return 1f / 8f;
-        case "2nd Line": return  2f / 8f;
-        case "2nd Space": return 3f / 8f;
-        case "3rd Line": return  4f / 8f;
-        case "3rd Space": return 5f / 8f;
-        case "4th Line":  return 6f / 8f;
-        case "4th Space": return 7f / 8f;
-        case "5th Line": return  8f / 8f;
-        default:
-            Debug.Log("Invalid address: " + address);
-            return -0.5f;
-    } }
+            case "1st Line": return 0f / 8f;
+            case "1st Space": return 1f / 8f;
+            case "2nd Line": return 2f / 8f;
+            case "2nd Space": return 3f / 8f;
+            case "3rd Line": return 4f / 8f;
+            case "3rd Space": return 5f / 8f;
+            case "4th Line": return 6f / 8f;
+            case "4th Space": return 7f / 8f;
+            case "5th Line": return 8f / 8f;
+            default:
+                Debug.Log("Invalid address: " + address);
+                return -0.5f;
+        } }
 
     private static int GetNByAddress(string address)
     {
@@ -169,7 +172,7 @@ public class AddressingController : MonoBehaviour {
         var fncb = obj.GetComponent<AddressingStep>().FirstNoteCollider.bounds;
         fncb.center += posDelta;
         obj.transform.position += posDelta;
-         
+
         //sr.gameObject.transform.position = bounds.center;
     }
 
@@ -360,10 +363,10 @@ public class AddressingController : MonoBehaviour {
 
     private IEnumerator InitializeSuperdog()
     {
-            yield return Tutorial();
+        yield return Tutorial();
     }
 
-	protected void Start () {
+    protected void Start() {
         LivesCount = Lives.Length;
         BackgroundDelta = (Backgrounds[BackgroundRight].transform.position -
                            Backgrounds[BackgroundLeft].transform.position);
@@ -373,11 +376,12 @@ public class AddressingController : MonoBehaviour {
         superdogController = Superdog.GetComponent<SuperdogController>();
         vineController = Vine.GetComponent<VineController>();
         dialogueController = SuperdogDialogue.GetComponent<DialogueController>();
+        hintController = hintObject.GetComponent<HintController>();
 
         vineController.InitializeVineLength(CurrentStep);
         StartCoroutine(InitializeSuperdog());
         sgVelocity = Vector3.zero;
-	}
+    }
 
     protected void Update()
     {
@@ -480,6 +484,8 @@ public class AddressingController : MonoBehaviour {
 
     private IEnumerator LoadNextStep(GrayCircle circ)
     {
+        hintController.HideHint();
+
         bool isLastLevel;
         GameObject[] nextIncorrect;
         AddressingStep OldStep = CurrentStep;
@@ -524,7 +530,7 @@ public class AddressingController : MonoBehaviour {
         StartCoroutine(Transition.FadeOut(IncorrectCircles, swaptime, Transition.FinishType.Destroy));
         StartCoroutine(Transition.FadeOut(circ.gameObject, swaptime));
         if (NextStep.TutorialAlpha != null) { NextStep.TutorialAlpha.SetActive(false); }
-        StartCoroutine(Transition.FadeIn(NewStepObject, swaptime, exclude:NextStep.TutorialAlpha));
+        StartCoroutine(Transition.FadeIn(NewStepObject, swaptime, exclude: NextStep.TutorialAlpha));
         yield return Transition.Rotate(SupergirlArm.transform, swaptime / 2, 0f, 160f);
 
         // Stage 1.5: Throw vine
@@ -594,7 +600,7 @@ public class AddressingController : MonoBehaviour {
         yield return superdogController.FlySuperdogAway(flytime);
 
         GameObject measureObject = CurrentStepObject.GetComponentInChildren<SpriteRenderer>().gameObject;
-        StartCoroutine(Transition.Translate(measureObject.transform, 6f *  Vector3.back, 0.6f));
+        StartCoroutine(Transition.Translate(measureObject.transform, 6f * Vector3.back, 0.6f));
         yield return Transition.TransitionBrightness(gameObject, measureObject, 0.6f, Bright, Dark);
 
         yield return Audio.PlayMeasure();
@@ -617,5 +623,10 @@ public class AddressingController : MonoBehaviour {
         SwapBackgrounds();
         Backgrounds[BackgroundRight].transform.position += 2 * BackgroundDelta;
         TransitioningBackgrounds = false;
+    }
+
+    public void ShowHelp()
+    {
+        hintController.ShowHint(CurrentStep);
     }
 }
