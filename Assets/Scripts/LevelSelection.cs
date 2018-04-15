@@ -33,18 +33,20 @@ public class LevelSelection : MonoBehaviour {
     public float MeasureMoveTime = 0.8f;
     public float MeasureShrinkTime = 1.6f;
 
+//    public float TilePaddingX = 0.0f;
+//    public float TileMarginX = 0.1f;
     public float TilePaddingY = 0.0f;
     public float TileMarginY = 0.1f;
     public float ComicPaddingX = 0.0f;
-    public float ComicMarginX = 0.0f;
+//    public float ComicMarginX = 0.0f;
     public float ComicPaddingY = 0.0f;
     public float MeasurePaddingX = 0.0f;
-    public float MeasureMarginX = 0.0f;
+//    public float MeasureMarginX = 0.0f;
     public float MeasurePaddingY = 0.0f;
     public float OverallMarginX = 0.2f;
 
-    public uint TutorialLevelPeriod = 3;
-    public uint BonusLevelPeriod = 3;
+   // public uint TutorialLevelPeriod = 3;
+   // public uint BonusLevelPeriod = 3;
     public uint LevelsPerLine = 6;
     public float LevelListLoadDelay = 0.03f;
 
@@ -59,22 +61,8 @@ public class LevelSelection : MonoBehaviour {
     public GameObject PlayButtonCanvas;
     public GameObject PlayButton;
     public GameObject LoadingButton;
-    public Scrollbar ScrollBar;
 
     public EventSystem SavedEventSystem;
-
-    Vector3 ScrollBarInitial;
-
-    public void ScrollBarValueUpdated(int value)
-    {
-        this.transform.position = ScrollBar.value * Vector3.up * (TotalHeight() - ScreenHeight);
-        ScrollBar.transform.position = ScrollBarInitial;
-    }
-
-    public void UpdateScrollbarValue()
-    {
-        ScrollBar.value = (this.transform.position.y) / (TotalHeight() - ScreenHeight);
-    }
 
     public GameObject HeaderPrefab;
 
@@ -129,7 +117,6 @@ public class LevelSelection : MonoBehaviour {
 	void Start () {
         if (Instance == null)
         {
-            ScrollBarInitial = ScrollBar.transform.position;
             Instance = this;
 
             DontDestroyOnLoad(this);
@@ -248,12 +235,12 @@ public class LevelSelection : MonoBehaviour {
 
         if (!LevelHeightsMemoized.TryGetValue(row, out height))
         {
-            height = MeasureHeight(row);                                // Measure height
-            height += LevelWidth * (1.0f - 2 * Instance.ComicPaddingX); // Comic height
-            height += LevelWidth * 2 * (Instance.ComicPaddingY);        // Space above and below comic
-            height += LevelWidth * 2 * (Instance.MeasurePaddingY);      // Space above and below measure
+            height = MeasureHeight(row);                                 // Measure height
+            height += LevelWidth * (1.0f - 2 * Instance.ComicPaddingX);  // Comic height
+            height += LevelWidth * 2 * (Instance.ComicPaddingY);         // Space above and below comic
+            height += LevelWidth * 2 * (Instance.MeasurePaddingY);       // Space above and below measure
             height += LevelWidth * Instance.TilePaddingY;                // Space between comic and measure
-            height += LevelWidth * 2 * (Instance.TileMarginY);          // Space above measure and below comic 
+            height += LevelWidth * 2 * (Instance.TileMarginY);           // Space above measure and below comic 
             LevelHeightsMemoized.Add(row, height);
         }
         return height;
@@ -272,6 +259,7 @@ public class LevelSelection : MonoBehaviour {
     }
 
     private static Dictionary<uint, float> LevelCenterYMemoized;
+
     private static float LevelCenterY(uint row)
     {
         uint i;
@@ -310,7 +298,8 @@ public class LevelSelection : MonoBehaviour {
 
     private static Vector3 LLICenterPosition(uint row, uint col)
     {
-        return new Vector3(LevelCenterX(col), LevelCenterY(row), Instance.TileZ);
+        return new Vector3(LevelCenterX(col), 0, Instance.TileZ);
+        //return new Vector3(LevelCenterX(col), LevelCenterY(row), Instance.TileZ);
     }
 
     private static Vector3 LLICenterPosition(uint level)
@@ -618,7 +607,7 @@ public class LevelSelection : MonoBehaviour {
 
         Transform transform = Instance.transform;
         Vector3 startPosition = transform.position;
-        Vector3 destPosition = Vector3.up * TotalHeight();
+        Vector3 destPosition = Vector3.up * TotalHeight() * 5;
 
         string scenename;
         if (LevelsCompleted == 6)
@@ -637,14 +626,11 @@ public class LevelSelection : MonoBehaviour {
             t = t * t * t * (t * (6f * t - 15f) + 10f);
 
             transform.position = Vector3.Lerp(startPosition, destPosition, t);
-            Instance.UpdateScrollbarValue();
 
             yield return new WaitForEndOfFrame();
         }
         transform.position = destPosition;
-        Instance.UpdateScrollbarValue();
 
-        Instance.ScrollBar.gameObject.SetActive(false);
         Instance.transform.position = destPosition;
 
         RemoveEventSystem();
@@ -768,13 +754,11 @@ public class LevelSelection : MonoBehaviour {
             }
 
             transform.position = Vector3.Lerp(startPosition, dest, t);
-            Instance.UpdateScrollbarValue();
 
             yield return new WaitForEndOfFrame();
             elapsed += Time.deltaTime;
         }
         transform.position = dest;
-        Instance.UpdateScrollbarValue();
         yield return null;
     }
 
@@ -782,7 +766,6 @@ public class LevelSelection : MonoBehaviour {
      **/
     private static IEnumerator DropLevelSelectionGrid(Transform measure, AddressingController lma, LevelManager lm)
     {
-        Instance.ScrollBar.gameObject.SetActive(true);
         yield return CenterTile(LevelsCompleted, Instance.LevelSelectionGridDropTime);
         if (lm != null)
         {
@@ -1055,42 +1038,7 @@ public class LevelSelection : MonoBehaviour {
         }
 
     }
-    /*
-    public static string Url()
-    {
-        string result = Application.absoluteURL;
-
-        if (result.Length < 4)
-        {
-            return "http://127.0.0.1:8000";
-        }
-
-        //removing "/MyGame.unity3D" 
-        for (int i = result.Length - 1; i >= 0; --i)
-        {
-            if (result[i] == '/')
-            {
-                return result.Remove(i);
-            }
-        }
-
-        return "";
-    }
-    */
-    //private string LOGGING_SERVICE_URL = Url() + "/log";
 
     void Update () {
-	    /*if (!stuff)
-        {
-            stuff = true;
-            Debug.Log(Url() + "/log");
-        }*/
-
-        float scroll = Input.GetAxis("Mouse ScrollWheel");
-        if (scroll != 0 && ScrollBar.gameObject.activeInHierarchy)
-        {
-            ScrollBar.value = Mathf.Min(1f, Mathf.Max(0f, ScrollBar.value - scroll));
-            ScrollBarValueUpdated(-1);
-        }
     }
 }
