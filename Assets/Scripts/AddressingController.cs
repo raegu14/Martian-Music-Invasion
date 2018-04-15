@@ -363,9 +363,6 @@ public class AddressingController : MonoBehaviour {
             yield return Tutorial();
         } else
         {
-            SuperdogButton.gameObject.SetActive(false);
-            SuperdogDialogue.SetActive(true);
-            yield return Transition.FadeIn(SuperdogDialogue, 0.4f, false);
         }
     }
 
