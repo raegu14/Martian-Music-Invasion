@@ -5,24 +5,28 @@ using UnityEngine.UI;
 
 public class SynthesisTutorial : MonoBehaviour {
 
+    /* public tutorial objects */
     public GameObject[] tutorialPrefabs;
     public GameObject tutorialLevelIndicator;
     public GameObject superDogTutorial;
     public GameObject emptyStaff;
     public GameObject firstNote;
 
-    private int tutorialBoxesRemaining;
-
+    /* Lists for interactable objects */
     private Minion tutorialMinion;
     private Note tutorialNote;
     private List<Minion> minions;
     private List<Note> notes;
 
+    /* track current tutorial position */
     private GameObject currentTutorialBox;
     private TutorialBox currentTutorialBoxScript;
 
+    /* track tutorial status */
     private bool finished;
+    private int tutorialBoxesRemaining;
 
+    /* Zooming components */
     [Header("Camera")]
     private GameObject cam;
     public float zoomSpeed;
@@ -39,17 +43,6 @@ public class SynthesisTutorial : MonoBehaviour {
         get
         {
             return tutorialBoxesRemaining > 0;
-        }
-    }
-
-    public void InitTutorials(List<Minion> minionList, List<Note> noteList)
-    {
-        this.tutorialBoxesRemaining = this.tutorialPrefabs.Length;
-        minions = minionList;
-        notes = noteList;
-        if (this.showingTutorials)
-        {
-            StartCoroutine(this.OpenTutorialBox());
         }
     }
 
@@ -85,6 +78,19 @@ public class SynthesisTutorial : MonoBehaviour {
         }
     }
 
+    /* Initialize Tutorial */
+    public void InitTutorials(List<Minion> minionList, List<Note> noteList)
+    {
+        this.tutorialBoxesRemaining = this.tutorialPrefabs.Length;
+        minions = minionList;
+        notes = noteList;
+        if (this.showingTutorials)
+        {
+            StartCoroutine(this.OpenTutorialBox());
+        }
+    }
+
+    /* Opens the next tutorial box and sets up tutorial phase */
     private IEnumerator OpenTutorialBox()
     {
         yield return new WaitForSeconds(0.1f);
@@ -116,6 +122,7 @@ public class SynthesisTutorial : MonoBehaviour {
         this.currentTutorialBoxScript = tbox;
     }
 
+    /* Handles interactivity for this tutorial box */
     public void NoteClickedInTutorial(Note n)
     {
         if (n == this.tutorialNote)
@@ -128,6 +135,7 @@ public class SynthesisTutorial : MonoBehaviour {
             this.CloseTutorialBox();
     }
 
+    /* Finishes this tutorial box and calls the new tutorial box */
     public void CloseTutorialBox()
     {
         TutorialBox tbox = this.currentTutorialBoxScript;
@@ -170,6 +178,7 @@ public class SynthesisTutorial : MonoBehaviour {
         }
     }
 
+    /* Initiates zoom and waits until zoom is completed */
     public IEnumerator Zoom(GameObject tPrefab)
     {
         Zoom z = tPrefab.GetComponent<Zoom>();
@@ -195,7 +204,7 @@ public class SynthesisTutorial : MonoBehaviour {
         return finished;
     }
 
-    // Use this for initialization
+    /* Set initial parameters */
     void Start () {
         cam = GameObject.FindGameObjectWithTag("MainCamera");
 
@@ -204,7 +213,7 @@ public class SynthesisTutorial : MonoBehaviour {
         finished = false;
     }
 
-    // Update is called once per frame
+    /* Handles zooming if activated */
     void Update () {
 
         if (zooming)
