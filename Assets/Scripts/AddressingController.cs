@@ -272,6 +272,8 @@ public class AddressingController : MonoBehaviour {
 
     private IEnumerator Tutorial()
     {
+        Debug.Log("tut index" + TutorialIndex);
+        Debug.Log("tut length" + dialogueController.tutorialLength);
         if (TutorialIndex == dialogueController.tutorialLength) // ONCE TUTORIAL MESSAGES ARE FINISHED
         {
             Debug.Log("tut msges finished");
@@ -358,12 +360,7 @@ public class AddressingController : MonoBehaviour {
 
     private IEnumerator InitializeSuperdog()
     {
-        if (IsFirstLevel)
-        {
             yield return Tutorial();
-        } else
-        {
-        }
     }
 
 	protected void Start () {
@@ -380,8 +377,6 @@ public class AddressingController : MonoBehaviour {
         vineController.InitializeVineLength(CurrentStep);
         StartCoroutine(InitializeSuperdog());
         sgVelocity = Vector3.zero;
-
-        print(Superdog);
 	}
 
     protected void Update()

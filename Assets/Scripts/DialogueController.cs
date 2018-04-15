@@ -18,7 +18,6 @@ public class DialogueController : MonoBehaviour {
     {
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
         audioSource = gameObject.GetComponent<AudioSource>();
-        tutorialLength = 8; // this is a magic number but bear with me
 	}
 
     // Update is called once per frame
