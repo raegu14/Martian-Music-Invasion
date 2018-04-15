@@ -147,11 +147,12 @@ public class Minion : MonoBehaviour {
 
 	protected void OnMouseDown()
 	{
+        print(this.clicksEnabled);
 		if (!this.clicksEnabled)
 			return;
 
-		if (LevelManager.singleton.showingTutorials)
-			LevelManager.singleton.MinionClickedInTutorial (this);
+		if (LevelManager.singleton.tutorial != null)
+			LevelManager.singleton.tutorial.MinionClickedInTutorial (this);
 
 		this.hero.PickUpMinion (this);
 	}

@@ -1414,6 +1414,7 @@ GameObject:
   - component: {fileID: 2110598996}
   - component: {fileID: 574252781}
   - component: {fileID: 574252780}
+  - component: {fileID: 574252782}
   m_Layer: 0
   m_Name: LevelManager 2
   m_TagString: Untagged
@@ -1516,12 +1517,47 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelNumber: 13
   maxLives: 3
-  UseTutorials: 1
   lifePrefabs:
   - {fileID: 123450, guid: a2be43634176ace4f95b4cc833577e54, type: 2}
   - {fileID: 150370, guid: 5f847d635420b044cbf59d53b86b0172, type: 2}
   - {fileID: 158468, guid: 2675dde60bbd47b45a3fd18e5ed105ce, type: 2}
   allLivesLostPrefab: {fileID: 159236, guid: 8d5577fd9fa82944b83cc2bc81dfb51a, type: 2}
+  glow:
+  - {fileID: 341702730}
+  tutorial: {fileID: 574252782}
+  noteClips:
+  - {fileID: 8300000, guid: 1b4657e8de9f6c645bcd1c1503b4a185, type: 3}
+  - {fileID: 8300000, guid: e96aecb59dcf84c4f8e52bdc9ff8578b, type: 3}
+  - {fileID: 8300000, guid: a57de6af41c412543a7316bf37af5b19, type: 3}
+  - {fileID: 8300000, guid: 11d08c3d01cf9a248a139234f2a8436c, type: 3}
+  - {fileID: 8300000, guid: 43648bb9e14ee4241baa9d85e14e8294, type: 3}
+  - {fileID: 8300000, guid: a6c841191c6e8894e901f8a1fa971af9, type: 3}
+  - {fileID: 8300000, guid: efdc102c2fae1a14592cffccbbf9b4ec, type: 3}
+  - {fileID: 8300000, guid: bc916550e66de824f8dd38c1a484789e, type: 3}
+  - {fileID: 8300000, guid: 5e9132aac33bb6f4095dd6e51ad96d60, type: 3}
+  - {fileID: 8300000, guid: 53214bd80987de2439d65cd091959867, type: 3}
+  - {fileID: 8300000, guid: 88985d95b8c29844081c43bb751c4dc4, type: 3}
+  - {fileID: 8300000, guid: 848492fe5754d714da14531935edbbeb, type: 3}
+  - {fileID: 8300000, guid: 98e9dbdfea5873f4d8038bf717beb88e, type: 3}
+  - {fileID: 8300000, guid: 67c813c668ff03a4c94c037f7b29b4f1, type: 3}
+  - {fileID: 8300000, guid: 9124a31d139adce41945b4b407c26d98, type: 3}
+  - {fileID: 8300000, guid: 76f2876e469d9df4790bae5afc941682, type: 3}
+  - {fileID: 8300000, guid: 7328e715a7b2af94d9361719f6554a1f, type: 3}
+  - {fileID: 8300000, guid: dece2500dba83e7438fd2db90262cfeb, type: 3}
+  measureClip: {fileID: 8300000, guid: 57b2595ab9cb38c4d95c4aa3f170e87f, type: 3}
+  noteFailClip: {fileID: 8300000, guid: 3210714fd6b6e4ddebeddb7ef08bfce2, type: 3}
+  buildingsBackground: {fileID: 8300000, guid: 76344ffa1c0df6040b89c300fc3978a6, type: 3}
+--- !u!114 &574252782
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 574252779}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 736f0b53c6870844bb9ab287009bdbd1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   tutorialPrefabs:
   - {fileID: 1017968180606552, guid: 64886b2fcd64ce44fb9ad5a1d0ce0bf4, type: 2}
   - {fileID: 1373153842518542, guid: 7127d345ca144744a94648defaba82e4, type: 2}
@@ -1546,31 +1582,6 @@ MonoBehaviour:
   superDogTutorial: {fileID: 747843194}
   emptyStaff: {fileID: 919896046}
   firstNote: {fileID: 0}
-  glow:
-  - {fileID: 341702730}
-  noteClips:
-  - {fileID: 8300000, guid: 1b4657e8de9f6c645bcd1c1503b4a185, type: 3}
-  - {fileID: 8300000, guid: e96aecb59dcf84c4f8e52bdc9ff8578b, type: 3}
-  - {fileID: 8300000, guid: a57de6af41c412543a7316bf37af5b19, type: 3}
-  - {fileID: 8300000, guid: 11d08c3d01cf9a248a139234f2a8436c, type: 3}
-  - {fileID: 8300000, guid: 43648bb9e14ee4241baa9d85e14e8294, type: 3}
-  - {fileID: 8300000, guid: a6c841191c6e8894e901f8a1fa971af9, type: 3}
-  - {fileID: 8300000, guid: efdc102c2fae1a14592cffccbbf9b4ec, type: 3}
-  - {fileID: 8300000, guid: bc916550e66de824f8dd38c1a484789e, type: 3}
-  - {fileID: 8300000, guid: 5e9132aac33bb6f4095dd6e51ad96d60, type: 3}
-  - {fileID: 8300000, guid: 53214bd80987de2439d65cd091959867, type: 3}
-  - {fileID: 8300000, guid: 88985d95b8c29844081c43bb751c4dc4, type: 3}
-  - {fileID: 8300000, guid: 848492fe5754d714da14531935edbbeb, type: 3}
-  - {fileID: 8300000, guid: 98e9dbdfea5873f4d8038bf717beb88e, type: 3}
-  - {fileID: 8300000, guid: 67c813c668ff03a4c94c037f7b29b4f1, type: 3}
-  - {fileID: 8300000, guid: 9124a31d139adce41945b4b407c26d98, type: 3}
-  - {fileID: 8300000, guid: 76f2876e469d9df4790bae5afc941682, type: 3}
-  - {fileID: 8300000, guid: 7328e715a7b2af94d9361719f6554a1f, type: 3}
-  - {fileID: 8300000, guid: dece2500dba83e7438fd2db90262cfeb, type: 3}
-  measureClip: {fileID: 8300000, guid: 57b2595ab9cb38c4d95c4aa3f170e87f, type: 3}
-  noteFailClip: {fileID: 8300000, guid: 3210714fd6b6e4ddebeddb7ef08bfce2, type: 3}
-  buildingsBackground: {fileID: 8300000, guid: 76344ffa1c0df6040b89c300fc3978a6, type: 3}
-  cam: {fileID: 171284414}
   zoomSpeed: 0.05
 --- !u!1 &591828441
 GameObject:
@@ -1743,7 +1754,7 @@ SpriteRenderer:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 804103237}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
