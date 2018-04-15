@@ -4295,43 +4295,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialogueSprites:
-  - {fileID: 21300000, guid: 6e8214d801eb82246a6e950242f9abcd, type: 3}
-  - {fileID: 21300000, guid: 95fc6ade4eb92654a84fc2fc684c442f, type: 3}
-  - {fileID: 21300000, guid: 9a4646da021615a4aa9ea6c4492dc91b, type: 3}
-  - {fileID: 21300000, guid: 72ac3591f8efffd4296add9f94189fce, type: 3}
-  - {fileID: 21300000, guid: bc29818ce14c8d5489ee0c38bf487227, type: 3}
-  - {fileID: 21300000, guid: 82ab7cbddaba43f459fd08120ad5b857, type: 3}
-  - {fileID: 21300000, guid: 798f6ed79ef78c640887a48e264ebb81, type: 3}
-  - {fileID: 21300000, guid: 07132cb4101745b42ad2ef1c4cfcb1a1, type: 3}
-  - {fileID: 21300000, guid: 987a9264b112201498f39b0c80d39f0f, type: 3}
-  - {fileID: 21300000, guid: d770af47f7f143743852b08f5bdfe2c5, type: 3}
-  - {fileID: 21300000, guid: eb56306aba42cad40a15734adbd79771, type: 3}
-  - {fileID: 21300000, guid: d0b356c2e26e1e6478bcc9d5269f86c6, type: 3}
-  - {fileID: 21300000, guid: 9b2835741d6de784582086807b088cca, type: 3}
-  - {fileID: 21300000, guid: a9efaf3dc846a5242808f15d70049fef, type: 3}
-  - {fileID: 21300000, guid: 4789425b97007ac4a886206389dd2865, type: 3}
-  - {fileID: 21300000, guid: dc4a0ca61e28b3c4192fe90f525ef42d, type: 3}
+  - {fileID: 21300000, guid: 78b0afeae70b0f64cb923946375896fe, type: 3}
+  - {fileID: 21300000, guid: 1e7614309b8e0064f83695f5fa70f0d1, type: 3}
+  - {fileID: 21300000, guid: c1e2033644dbc994a8974170bc31fd56, type: 3}
+  - {fileID: 21300000, guid: fd04eec0c85954f408075022cda4c9d9, type: 3}
+  - {fileID: 21300000, guid: 799d8aed2e9d98b40939cba415e87ad1, type: 3}
   dialogueClips:
-  - {fileID: 8300000, guid: 658ba992ee2ad7a43a4da852cc860520, type: 3}
-  - {fileID: 8300000, guid: 6819f265b9b9cbc42b87bdfe47828c2b, type: 3}
-  - {fileID: 8300000, guid: c0beb4721df349c45a6832834e541d6c, type: 3}
-  - {fileID: 8300000, guid: cf8a69b208c7ba64bb49ddc27e49aaad, type: 3}
-  - {fileID: 8300000, guid: 1cbf396075036b74ead2bd78e20a7d6f, type: 3}
-  - {fileID: 8300000, guid: 7e4de3721fe11b842b94fcbc27d97793, type: 3}
-  - {fileID: 8300000, guid: a627c1cdec8a41e4b82922e1fbbe6b73, type: 3}
-  - {fileID: 8300000, guid: c98e9cbc2870d64429398f87e931d6b4, type: 3}
-  - {fileID: 8300000, guid: 0a1ab09e5283948438c3af8d4f90dee2, type: 3}
-  - {fileID: 8300000, guid: 7321a227c328d0243bb802bcb1e30369, type: 3}
-  - {fileID: 8300000, guid: ca10f8cf45cf3ed48a86c3634f0e5bf7, type: 3}
-  - {fileID: 8300000, guid: abd469b459de8214eb0ab1dbe96b087b, type: 3}
-  - {fileID: 8300000, guid: 39c535a7f5e84fd4aa767f1a11f8b2d1, type: 3}
-  - {fileID: 8300000, guid: 26c3c8027c40dd64688a161812592321, type: 3}
-  - {fileID: 8300000, guid: b1ec6568f40702c41a379253e33906ea, type: 3}
-  - {fileID: 8300000, guid: 446eaba233688a14ea6437717300858e, type: 3}
-  - {fileID: 8300000, guid: 446eaba233688a14ea6437717300858e, type: 3}
-  - {fileID: 8300000, guid: 446eaba233688a14ea6437717300858e, type: 3}
-  - {fileID: 8300000, guid: 446eaba233688a14ea6437717300858e, type: 3}
-  - {fileID: 8300000, guid: 446eaba233688a14ea6437717300858e, type: 3}
+  - {fileID: 8300000, guid: fae48d88e84fe8d489ba854146523df8, type: 3}
+  - {fileID: 8300000, guid: 3ffd1163bff71994b8214b86d16dd0ae, type: 3}
+  - {fileID: 8300000, guid: ee52a9e84d86aae429ae120707ca5ecb, type: 3}
+  - {fileID: 8300000, guid: 60cdcf164b4042040bc34e22c74715e1, type: 3}
+  - {fileID: 8300000, guid: 29539051be30fbe4b9df8527b3e15a78, type: 3}
   tutorialLength: 0
 --- !u!212 &399184199
 SpriteRenderer:
@@ -8797,16 +8771,16 @@ MonoBehaviour:
   flytime: 1.2
   tutorialFadeTime: 0.2
   IsFirstLevel: 0
-  Superdog: {fileID: 0}
-  SuperdogDialogue: {fileID: 0}
-  SuperdogButton: {fileID: 0}
+  Superdog: {fileID: 1971323878}
+  SuperdogDialogue: {fileID: 399184195}
+  SuperdogButton: {fileID: 118144590}
   LevelCompleteObject: {fileID: 1499410490}
   GameOver: {fileID: 509671902}
   GrayCirclePrefab: {fileID: 116320, guid: 3ada03e77b473e54db43ff0df4655944, type: 2}
   Supergirl: {fileID: 154314081}
   SupergirlArm: {fileID: 458320479}
   SupergirlVineCurled: {fileID: 811456915}
-  Vine: {fileID: 0}
+  Vine: {fileID: 1620979621}
   ThrowingVine: {fileID: 1709110761}
   StaffCollider: {fileID: 1236273487}
   LivesCount: 3
