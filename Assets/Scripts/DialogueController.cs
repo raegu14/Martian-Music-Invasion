@@ -34,6 +34,7 @@ public class DialogueController : MonoBehaviour {
 
     public void setDialogueBox(int boxNum)
     {
+        Debug.Log(dialogueSprites[boxNum]);
         spriteRenderer.sprite = dialogueSprites[boxNum];
     }
 
