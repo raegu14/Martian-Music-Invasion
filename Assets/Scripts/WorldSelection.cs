@@ -12,7 +12,9 @@ public class WorldSelection : MonoBehaviour {
 
 
     [Header("Levels")]
-    public World[] worlds;
+    public GameObject[] worlds;
+    public Sprite[] worldSprites;
+    public Sprite lockedWorldSprite;
 
     private int worldsUnlocked;
 
@@ -24,13 +26,18 @@ public class WorldSelection : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        
+
     }
 
     public void UnlockWorld()
     {
-        worldsUnlocked++;
-        selectionImage.sprite = worldImages[worldsUnlocked];
+        if (worldsUnlocked < worlds.Length)
+        {
+            worldsUnlocked++;
+            selectionImage.sprite = worldImages[worldsUnlocked];
+            worlds[worldsUnlocked].GetComponent<Image>().sprite = worldSprites[worldsUnlocked];
+            worlds[worldsUnlocked].GetComponent<Button>().onClick.AddListener(delegate { LoadWorld(worldsUnlocked); });
+        }
     }
 
     public void LoadWorld(int i)
