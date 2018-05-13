@@ -69,6 +69,8 @@ public class AddressingController : MonoBehaviour {
     public GameObject hintObject;
     private HintController hintController;
 
+    private bool HintDisplayed = false;
+
     public void Restart()
     {
         Logger.Instance.LogAction("AddressingController", "Restart", "");
@@ -281,6 +283,8 @@ public class AddressingController : MonoBehaviour {
         {
             Debug.Log("tut msges finished");
 
+            InTutorial = false;
+
             SuperdogButton.gameObject.SetActive(false); //keep
             StartCoroutine(Transition.TransitionBrightness(gameObject, Superdog, tutorialFadeTime, Dark, Bright)); //keep
             //yield return Transition.FadeOut(SuperdogText.gameObject, tutorialFadeTime); //keep
@@ -485,6 +489,7 @@ public class AddressingController : MonoBehaviour {
     private IEnumerator LoadNextStep(GrayCircle circ)
     {
         hintController.HideHint();
+        HintDisplayed = false;
 
         bool isLastLevel;
         GameObject[] nextIncorrect;
@@ -627,6 +632,23 @@ public class AddressingController : MonoBehaviour {
 
     public void ShowHelp()
     {
-        hintController.ShowHint(CurrentStep);
+        if (!InTutorial && !HintDisplayed && CurrentStep.TutorialObject == null) {
+            hintController.ShowHint(CurrentStep);
+
+            --LivesCount;
+            if (LivesCount == 0)
+            {
+                SuperdogDialogue.SetActive(false);
+                GameOver.SetActive(true);
+            }
+            else
+            {
+                TransitioningBackgrounds = false;
+            }
+            //                                    //
+
+            StartCoroutine(LoseLife());
+            HintDisplayed = true;
+        }
     }
 }
