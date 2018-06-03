@@ -430,7 +430,6 @@ public class AddressingController : MonoBehaviour {
         Logger.Instance.LogAction("Incorrect Circle", stepsCompleted.ToString(), circ.name);
 
         // Debating on where to put this code //
-        --LivesCount;
         TransitioningBackgrounds = true;
 
         if (LivesCount == 0)
@@ -456,9 +455,15 @@ public class AddressingController : MonoBehaviour {
 
     private IEnumerator LoseLife()
     {
-        GameObject losing = Lives[LivesCount];
+        GameObject losing = Lives[LivesCount - 1];
+        --LivesCount;
         StartCoroutine(Transition.Resize(losing.transform, losing.transform.localScale * 2, 2.4f));
         yield return Transition.FadeOut(losing, 2.4f, Transition.FinishType.Destroy);
+        if (LivesCount == 0)
+        {
+            SuperdogDialogue.SetActive(false);
+            GameOver.SetActive(true);
+        }
     }
 
     private IEnumerator Zap(GrayCircle circ)
@@ -635,7 +640,6 @@ public class AddressingController : MonoBehaviour {
         if (!InTutorial && !HintDisplayed && CurrentStep.TutorialObject == null) {
             hintController.ShowHint(CurrentStep);
 
-            --LivesCount;
             if (LivesCount == 0)
             {
                 SuperdogDialogue.SetActive(false);
@@ -647,7 +651,10 @@ public class AddressingController : MonoBehaviour {
             }
             //                                    //
 
-            StartCoroutine(LoseLife());
+            if (levelNumber != 1 && levelNumber != 2)
+            {
+                StartCoroutine(LoseLife());
+            }
             HintDisplayed = true;
         }
     }
