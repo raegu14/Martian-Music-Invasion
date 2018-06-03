@@ -457,13 +457,14 @@ public class AddressingController : MonoBehaviour {
     {
         GameObject losing = Lives[LivesCount - 1];
         --LivesCount;
-        StartCoroutine(Transition.Resize(losing.transform, losing.transform.localScale * 2, 2.4f));
-        yield return Transition.FadeOut(losing, 2.4f, Transition.FinishType.Destroy);
         if (LivesCount == 0)
         {
             SuperdogDialogue.SetActive(false);
             GameOver.SetActive(true);
         }
+        StartCoroutine(Transition.Resize(losing.transform, losing.transform.localScale * 2, 2.4f));
+        yield return Transition.FadeOut(losing, 2.4f, Transition.FinishType.Destroy);
+
     }
 
     private IEnumerator Zap(GrayCircle circ)
