@@ -122,3 +122,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Worlds/Sky.unity
     guid: c1d6a32b826489947944c8f2ff6598ac
+  - enabled: 1
+    path: Assets/Scenes/Worlds/Space.unity
+    guid: b117749952c079d41b661fa7162cb47b

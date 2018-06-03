@@ -45,8 +45,9 @@ public class LevelSelection : MonoBehaviour {
     public float MeasurePaddingY = 0.0f;
     public float OverallMarginX = 0.2f;
 
-   // public uint TutorialLevelPeriod = 3;
-   // public uint BonusLevelPeriod = 3;
+    // public uint TutorialLevelPeriod = 3;
+    // public uint BonusLevelPeriod = 3;
+
     public uint LevelsPerLine = 6;
     public float LevelListLoadDelay = 0.03f;
 
@@ -81,6 +82,8 @@ public class LevelSelection : MonoBehaviour {
     }
 
     public static LevelSelection Instance = null;
+
+    private WorldSelection ws;
 
     private static bool LevelHasStarted = false;
 
@@ -598,6 +601,7 @@ public class LevelSelection : MonoBehaviour {
         Logger.Instance.LogAction("LevelSelection", "Play Level Button Pressed", (LevelsCompleted + 1).ToString());
         LevelHasStarted = true;
         HidePlayButton();
+        GameObject.Find("WorldCanvas").GetComponent<ForwardWorldSelection>().levelBackground.SetActive(false);
         StartCoroutine(OpenNextLevel());
     }
     
@@ -680,8 +684,10 @@ public class LevelSelection : MonoBehaviour {
         }
     }
 
-    public static void LevelCompleted(uint levelNum, Transform measure, LevelManager lm)
+    public static void LevelCompleted(uint levelNum, Transform measure)
     {
+        levelNum = (levelNum - 1) % (uint) Instance.LevelList.Length + 1;
+
         Logger.Instance.LogAction("LevelSelection", "Level Completed", (LevelsCompleted + 1).ToString());
 
         LevelHasStarted = false;
@@ -696,39 +702,17 @@ public class LevelSelection : MonoBehaviour {
         {
             UpdateHeader(levelNum + 1);
         }
+        else
+        {
+            //GameObject.Find("World Selection Manager").GetComponent<WorldSelection>().UnlockWorld();
+        }
 
         if (needsNewAudio)
         {
             Instance.StartCoroutine(LoadNewAudio(levelNum - 1));
         }
         
-        Instance.StartCoroutine(DropLevelSelectionGrid(measure, null, lm));
-        Instance.StartCoroutine(ReplaceMeasure(measure, isBonusLevel));
-    }
-
-    public static void AddressingLevelCompleted(uint levelNum, Transform measure, AddressingController lm)
-    {
-        //measure.parent = Instance.gameObject.transform;
-        //measure.position = new Vector3(measure.position.x, measure.position.y, -6f);
-
-        HttpWriter.Flush();
-        Logger.Instance.LogAction("LevelSelection", "Level Completed", (LevelsCompleted + 1).ToString());
-
-        LevelHasStarted = false;
-        bool needsNewAudio = MeasureIsLocked(levelNum - 1);
-        bool isBonusLevel = (levelNum % 3) == 0 || Instance.DebugBonus;
-
-        LevelsCompleted = levelNum;
-
-        UpdateHeader(levelNum);
-        UpdateHeader(levelNum + 1);
-
-        if (needsNewAudio)
-        {
-            Instance.StartCoroutine(LoadNewAudio(levelNum - 1));
-        }
-
-        Instance.StartCoroutine(DropLevelSelectionGrid(measure, lm, null));
+        Instance.StartCoroutine(DropLevelSelectionGrid(measure));
         Instance.StartCoroutine(ReplaceMeasure(measure, isBonusLevel));
     }
 
@@ -764,17 +748,11 @@ public class LevelSelection : MonoBehaviour {
 
     /** Drop the level selection grid into place above a level scene has been completed. 
      **/
-    private static IEnumerator DropLevelSelectionGrid(Transform measure, AddressingController lma, LevelManager lm)
+    private static IEnumerator DropLevelSelectionGrid(Transform measure)
     {
         yield return CenterTile(LevelsCompleted, Instance.LevelSelectionGridDropTime);
-        if (lm != null)
-        {
-            lm.ClearBackground();
-        } else if (lma != null)
-        {
-            lma.ClearBackground();
-        }
 
+        GameObject.Find("WorldCanvas").GetComponent<ForwardWorldSelection>().levelBackground.SetActive(true);
         RestoreEventSystem();
 
         Logger.Instance.LogAction("LevelSelection", "Level Selection Screen Showing", (LevelsCompleted + 1).ToString());
@@ -1032,9 +1010,10 @@ public class LevelSelection : MonoBehaviour {
         {
             // Application.LoadLevel("OutroCutscene1");
             HttpWriter.Flush();
-            Logger.Instance.LogAction("Transitioning to Outro", "", "");
-            SceneManager.LoadScene("OutroCutscene1");
+            Logger.Instance.LogAction("Transitioning to next scene", "", "");
+            SceneManager.LoadScene(GameObject.Find("WorldCanvas").GetComponent<ForwardWorldSelection>().nextWorld);
             Destroy(Instance.gameObject);
+            Destroy(GameObject.Find("WorldCanvas"));
         }
 
     }
