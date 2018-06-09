@@ -14,7 +14,7 @@ public class DialogueController : MonoBehaviour {
     private bool canPlayAudio = false;
 
 	// Use this for initialization
-	void Start ()
+	void Awake ()
     {
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
         audioSource = gameObject.GetComponent<AudioSource>();
