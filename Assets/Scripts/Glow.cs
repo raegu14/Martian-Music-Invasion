@@ -31,7 +31,7 @@ public class Glow : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         glow = transform.GetChild(0).gameObject;
-        SimulateParticles(10);
+        SimulateParticles(10, true);
         glow.SetActive(false);
         glowing = false;
         measure = GameObject.Find("Measure");
@@ -64,7 +64,7 @@ public class Glow : MonoBehaviour {
                     Vector3 tmpShape = info[iter].bounds * 15;
                     tmpShape.y /= 5;
                     shapeMod.scale = tmpShape;
-                    SimulateParticles(1);
+                    SimulateParticles(0, false);
                 }
                 else
                 {
@@ -126,16 +126,19 @@ public class Glow : MonoBehaviour {
         Vector3 tmpShape = info[iter].bounds * 15;
         tmpShape.y /= 5;
         shapeMod.scale = tmpShape;
-        SimulateParticles(10);
+        SimulateParticles(10, true);
         glowing = true;
         timer = Time.time;
     }
 
-    void SimulateParticles(float seconds)
+    void SimulateParticles(float seconds, bool emit)
     {
+        glow.GetComponent<ParticleSystem>().Clear();
         glow.GetComponent<ParticleSystem>().Simulate(seconds, true, true);
-        glow.GetComponent<ParticleSystem>().Emit(5);
-
+        if (emit)
+        {
+            glow.GetComponent<ParticleSystem>().Emit(10);
+        }
         glow.GetComponent<ParticleSystem>().Play();
     }
 }

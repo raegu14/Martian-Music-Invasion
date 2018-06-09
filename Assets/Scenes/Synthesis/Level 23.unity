@@ -477,7 +477,7 @@ SpriteRenderer:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 273129707}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
@@ -5660,20 +5660,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelNumber: 23
   maxLives: 3
-  UseTutorials: 1
   lifePrefabs:
   - {fileID: 123450, guid: a2be43634176ace4f95b4cc833577e54, type: 2}
   - {fileID: 150370, guid: 5f847d635420b044cbf59d53b86b0172, type: 2}
   - {fileID: 158468, guid: 2675dde60bbd47b45a3fd18e5ed105ce, type: 2}
   allLivesLostPrefab: {fileID: 159236, guid: 8d5577fd9fa82944b83cc2bc81dfb51a, type: 2}
-  tutorialPrefabs: []
-  tutorialLevelIndicator: {fileID: 273129707}
-  superDogTutorial: {fileID: 0}
-  emptyStaff: {fileID: 0}
-  firstNote: {fileID: 0}
   glow:
   - {fileID: 1914843717}
   - {fileID: 505677207}
+  tutorial: {fileID: 0}
   noteClips:
   - {fileID: 8300000, guid: 1b4657e8de9f6c645bcd1c1503b4a185, type: 3}
   - {fileID: 8300000, guid: e96aecb59dcf84c4f8e52bdc9ff8578b, type: 3}
@@ -5696,8 +5691,6 @@ MonoBehaviour:
   measureClip: {fileID: 8300000, guid: e12a209dd6cc4254d9d3201b0b9f2878, type: 3}
   noteFailClip: {fileID: 8300000, guid: 3210714fd6b6e4ddebeddb7ef08bfce2, type: 3}
   buildingsBackground: {fileID: 8300000, guid: 61d1fc4c62a5c4eb28473edf2ece99dc, type: 3}
-  cam: {fileID: 0}
-  zoomSpeed: 0
 --- !u!1 &1673540093
 GameObject:
   m_ObjectHideFlags: 0

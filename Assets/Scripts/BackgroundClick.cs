@@ -48,4 +48,9 @@ public class BackgroundClick : MonoBehaviour
 	public void EnableClicks() {
 		this.clicksEnabled = true;
 	}
+
+    private void Update()
+    {
+        print(clicksEnabled);
+    }
 }
