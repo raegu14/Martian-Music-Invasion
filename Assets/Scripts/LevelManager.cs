@@ -229,7 +229,7 @@ public class LevelManager : MonoBehaviour {
 
         this.SuperdimChildren(this.gameObject);
 
-        LevelSelection.LevelCompleted(this.levelNumber, this.measureTransform, this);
+        LevelSelection.LevelCompleted(this.levelNumber, this.measureTransform);
 	}
 
 	public void RegisterNote(Note note) {
