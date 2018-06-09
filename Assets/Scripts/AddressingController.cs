@@ -15,14 +15,16 @@ public class AddressingController : MonoBehaviour {
     public float swaptime = 1.2f;
     public float flytime = 1.2f;
 
-    public float tutorialFadeTime =10f;
+    public float tutorialFadeTime = 10f;
 
     public bool IsFirstLevel = true;
 
     public GameObject Superdog;
-    public Text SuperdogText;
     public GameObject SuperdogDialogue;
     public Button SuperdogButton;
+
+    private SuperdogController superdogController;
+    private DialogueController dialogueController;
 
     public GameObject LevelCompleteObject;
     public GameObject GameOver;
@@ -33,6 +35,8 @@ public class AddressingController : MonoBehaviour {
     public GameObject Vine;
     public GameObject ThrowingVine;
     public BoxCollider2D StaffCollider;
+
+    private VineController vineController;
 
     public int LivesCount;
     public GameObject[] Lives;
@@ -62,6 +66,11 @@ public class AddressingController : MonoBehaviour {
 
     private Vector3 sgVelocity;
 
+    public GameObject hintObject;
+    private HintController hintController;
+
+    private bool HintDisplayed = false;
+
     public void Restart()
     {
         Logger.Instance.LogAction("AddressingController", "Restart", "");
@@ -70,19 +79,19 @@ public class AddressingController : MonoBehaviour {
 
     private static float GetYByAddress(string address)
     { switch (address) {
-        case "1st Line": return  0f / 8f;
-        case "1st Space": return 1f / 8f;
-        case "2nd Line": return  2f / 8f;
-        case "2nd Space": return 3f / 8f;
-        case "3rd Line": return  4f / 8f;
-        case "3rd Space": return 5f / 8f;
-        case "4th Line":  return 6f / 8f;
-        case "4th Space": return 7f / 8f;
-        case "5th Line": return  8f / 8f;
-        default:
-            Debug.Log("Invalid address: " + address);
-            return -0.5f;
-    } }
+            case "1st Line": return 0f / 8f;
+            case "1st Space": return 1f / 8f;
+            case "2nd Line": return 2f / 8f;
+            case "2nd Space": return 3f / 8f;
+            case "3rd Line": return 4f / 8f;
+            case "3rd Space": return 5f / 8f;
+            case "4th Line": return 6f / 8f;
+            case "4th Space": return 7f / 8f;
+            case "5th Line": return 8f / 8f;
+            default:
+                Debug.Log("Invalid address: " + address);
+                return -0.5f;
+        } }
 
     private static int GetNByAddress(string address)
     {
@@ -165,7 +174,7 @@ public class AddressingController : MonoBehaviour {
         var fncb = obj.GetComponent<AddressingStep>().FirstNoteCollider.bounds;
         fncb.center += posDelta;
         obj.transform.position += posDelta;
-         
+
         //sr.gameObject.transform.position = bounds.center;
     }
 
@@ -206,7 +215,7 @@ public class AddressingController : MonoBehaviour {
         return circles;
     }
 
-    private IEnumerator ConfigureFirstStep()
+    private void ConfigureFirstStep()
     {
         CurrentStepObject = Instantiate(LevelSteps[0]);
         CurrentStep = CurrentStepObject.GetComponent<AddressingStep>();
@@ -217,19 +226,17 @@ public class AddressingController : MonoBehaviour {
 
         firstNoteHeight = CurrentStep.FirstNoteCollider.bounds.center.y;
 
-        if (((levelNumber == 3) || (levelNumber == 4)) ||
-              ((levelNumber == 5 || levelNumber == 6) && (Random.value < 0.5f)))
-        {
-            SuperdogText.text = "Swing to the note " +
-                GetDifferential(CurrentStep.StartNote, CurrentStep.Notes[CurrentStep.CorrectIndex]) +
-                " the note you're hanging from!";
-        }
-        else
-        {
-            SuperdogText.text = "Swing to the " + CurrentStep.Notes[CurrentStep.CorrectIndex] + "!";
-        }
-
-        yield return Transition.FadeIn(SuperdogText.gameObject, tutorialFadeTime, false);
+        //if (((levelNumber == 3) || (levelNumber == 4)) ||
+        //      ((levelNumber == 5 || levelNumber == 6) && (Random.value < 0.5f)))
+        //{
+        //    SuperdogText.text = "Swing to the note " +
+        //        GetDifferential(CurrentStep.StartNote, CurrentStep.Notes[CurrentStep.CorrectIndex]) +
+        //        " the note you're hanging from!";
+        //}
+        //else
+        //{
+        //    SuperdogText.text = "Swing to the " + CurrentStep.Notes[CurrentStep.CorrectIndex] + "!";
+        //}
 
         if (!IsFirstLevel && LevelSelection.IsAutoplaying())
         {
@@ -237,51 +244,7 @@ public class AddressingController : MonoBehaviour {
         }
     }
 
-    private void UpdateHangingVine(AddressingStep step)
-    {
-        Vector3 handPos = Supergirl.GetComponent<CircleCollider2D>().bounds.center;
-        Vector3 notePos = new Vector3();
-        if (step != null)
-        {
-            notePos = step.FirstNoteCollider.bounds.center;
-        }
-        PlaceVineBetween(Vine, handPos + 0.5f * Vector3.back, notePos + 0.5f * Vector3.back);
-
-        float deltaX = notePos.x - handPos.x;
-        float deltaY = notePos.y - handPos.y;
-
-        float mag2 = Vector2.SqrMagnitude(notePos - handPos);
-        sgVelocity += sgGrav * (new Vector3(deltaX * deltaY, -deltaX * deltaX) / mag2);
-
-        Vector3 direction = Vector3.Normalize(new Vector3(-deltaY, deltaX, 0f));
-        sgVelocity = direction * Vector3.Dot(direction, sgVelocity);
-
-        sgVelocity *= sgFriction;
-
-        Supergirl.transform.position += sgVelocity;
-        handPos = Supergirl.GetComponent<CircleCollider2D>().bounds.center;
-        Vector3 delta = notePos + Mathf.Sqrt(mag2) * (handPos - notePos).normalized - handPos;
-        Supergirl.transform.position += delta;
-    }
-
-    float vineLength;
     float firstNoteHeight;
-
-    void InitializeVineLength()
-    {
-        Vector2 handPos = Supergirl.GetComponent<CircleCollider2D>().bounds.center;
-        Vector2 notePos = CurrentStep.FirstNoteCollider.bounds.center;
-        vineLength = Vector3.Magnitude(handPos - notePos);
-    }
-
-    private string[] TutorialMessages =
-    {
-        "The Martians have stolen your cape!",
-        "Swing through the jungle to find it.",
-        "You can swing on notes on the staff above.",
-        "Some of the notes are traps.",
-        "Follow my hints to swing only on safe notes!"
-    };
 
     public bool InTutorial = false;
     public int TutorialIndex = 0;
@@ -314,19 +277,26 @@ public class AddressingController : MonoBehaviour {
 
     private IEnumerator Tutorial()
     {
-        if (TutorialIndex == TutorialMessages.Length)
+        Debug.Log("tut index" + TutorialIndex);
+        Debug.Log("tut length" + dialogueController.tutorialLength);
+        if (TutorialIndex == dialogueController.tutorialLength) // ONCE TUTORIAL MESSAGES ARE FINISHED
         {
-            SuperdogButton.gameObject.SetActive(false);
-            StartCoroutine(Transition.TransitionBrightness(gameObject, Superdog, tutorialFadeTime, Dark, Bright));
-            yield return Transition.FadeOut(SuperdogText.gameObject, tutorialFadeTime);
-            if (CurrentStep.TutorialObject == null)
-            {
-                SuperdogText.text = "Swing to the " + CurrentStep.Notes[CurrentStep.CorrectIndex] + "!";
-            } else
-            {
-                SuperdogText.text = CurrentStep.TutorialSuperdogText;
-            }
-            yield return Transition.FadeIn(SuperdogText.gameObject, tutorialFadeTime, false);
+            Debug.Log("tut msges finished");
+
+            InTutorial = false;
+
+            SuperdogButton.gameObject.SetActive(false); //keep
+            StartCoroutine(Transition.TransitionBrightness(gameObject, Superdog, tutorialFadeTime, Dark, Bright)); //keep
+            //yield return Transition.FadeOut(SuperdogText.gameObject, tutorialFadeTime); //keep
+            //if (CurrentStep.TutorialObject == null)
+            //{
+            //    SuperdogText.text = "Swing to the " + CurrentStep.Notes[CurrentStep.CorrectIndex] + "!";
+            //} else
+            //{
+            //    SuperdogText.text = CurrentStep.TutorialSuperdogText;
+            //}
+            dialogueController.updateDialogue(TutorialIndex++);
+
             if (LevelSelection.IsAutoplaying())
             {
                 CorrectCircleClicked(CorrectCircle);
@@ -337,17 +307,25 @@ public class AddressingController : MonoBehaviour {
             }
             TransitioningBackgrounds = false;
             ShowLives();
-        } else if (TutorialIndex == 0)
+        }
+
+        else if (TutorialIndex == 0) //first step of tutorial
         {
+            Debug.Log("tut msges beginning");
             TransitioningBackgrounds = true;
             HideLives();
+
+            // TutorialObject is the arrows on the staff. This block hides it (since step 1 will have it and we don't want it shown while he's talkin)
             if (CurrentStep.TutorialObject != null)
             {
                 CurrentStep.TutorialObject.SetActive(false);
             }
+
             SuperdogDialogue.SetActive(true);
+            dialogueController.updateDialogue(TutorialIndex++);
+
             SuperdogButton.gameObject.SetActive(true);
-            SuperdogText.text = TutorialMessages[TutorialIndex++];
+            //SuperdogText.text = TutorialMessages[TutorialIndex++];
             InTutorial = true;
             StartCoroutine(Transition.FadeIn(SuperdogDialogue, tutorialFadeTime, false));
             yield return Transition.TransitionBrightness(gameObject, Superdog, tutorialFadeTime, Bright, Dark);
@@ -355,20 +333,27 @@ public class AddressingController : MonoBehaviour {
             {
                 TutorialNextButtonPressed();
             }
-        } else {
+        }
+
+        else { //other tutorial steps
+            Debug.Log("some other tut step");
             SuperdogButton.gameObject.SetActive(false);
-            yield return Transition.FadeOut(SuperdogText.gameObject, tutorialFadeTime);
-            SuperdogText.text = TutorialMessages[TutorialIndex++];
+            // yield return Transition.FadeOut(SuperdogText.gameObject, tutorialFadeTime);
+            dialogueController.updateDialogue(TutorialIndex++);
+
+            // This block dictates when the staff will be brightened/darkened
+            // PRESERVE FUNCTIONALITY
             if (TutorialIndex == 3)
             {
                 StartCoroutine(Transition.TransitionBrightness(CurrentStepObject, null, tutorialFadeTime, Dark, Bright));
-            } else if (TutorialIndex == 5)
+            }
+            else if (TutorialIndex == 8)
             {
                 StartCoroutine(Transition.TransitionBrightness(CurrentStepObject, null, tutorialFadeTime, Bright, Dark));
             }
-            yield return Transition.FadeIn(SuperdogText.gameObject, tutorialFadeTime);
+
             yield return new WaitForSeconds(tutorialFadeTime);
-            if (TutorialIndex == TutorialMessages.Length)
+            if (TutorialIndex == dialogueController.tutorialLength)
             {
                 SuperdogButton.GetComponentInChildren<Text>().text = "Let's go!";
             }
@@ -382,56 +367,30 @@ public class AddressingController : MonoBehaviour {
 
     private IEnumerator InitializeSuperdog()
     {
-        if (IsFirstLevel)
-        {
-            yield return Tutorial();
-        } else
-        {
-            SuperdogButton.gameObject.SetActive(false);
-            SuperdogDialogue.SetActive(true);
-            yield return Transition.FadeIn(SuperdogDialogue, 0.4f, false);
-        }
+        yield return Tutorial();
     }
 
-    void NormalizeVineLength()
-    {
-        Vector2 handPos = Supergirl.GetComponent<CircleCollider2D>().bounds.center;
-        Vector2 notePos = new Vector2();
-        if (CurrentStep != null)
-        {
-            notePos = CurrentStep.FirstNoteCollider.bounds.center;
-        }
-
-        float vineGoal = vineLength + (notePos.y - firstNoteHeight);
-        Vector2 desiredPos = notePos + vineGoal * (handPos - notePos).normalized;
-        Vector3 delta = desiredPos - handPos;
-
-        if (delta.magnitude > sgSpring)
-        {
-            delta *= (sgSpring / delta.magnitude);
-        }
-
-        Supergirl.transform.position += delta;
-    }
-
-	protected void Start () {
+    protected void Start() {
         LivesCount = Lives.Length;
         BackgroundDelta = (Backgrounds[BackgroundRight].transform.position -
                            Backgrounds[BackgroundLeft].transform.position);
         stepsCompleted = 0;
-        StartCoroutine(ConfigureFirstStep());
+        ConfigureFirstStep();
 
-        InitializeVineLength();
+        superdogController = Superdog.GetComponent<SuperdogController>();
+        vineController = Vine.GetComponent<VineController>();
+        dialogueController = SuperdogDialogue.GetComponent<DialogueController>();
+        hintController = hintObject.GetComponent<HintController>();
+
+        vineController.InitializeVineLength(CurrentStep);
         StartCoroutine(InitializeSuperdog());
         sgVelocity = Vector3.zero;
-
-        print(Superdog);
-	}
+    }
 
     protected void Update()
     {
-        UpdateHangingVine(CurrentStep);
-        NormalizeVineLength();
+        vineController.UpdateHangingVine(CurrentStep);
+        vineController.NormalizeVineLength(CurrentStep, sgSpring, firstNoteHeight);
 
 
         if (Input.GetKey(KeyCode.Q) && Input.GetKey(KeyCode.A) && Input.GetKey(KeyCode.Z))
@@ -469,6 +428,21 @@ public class AddressingController : MonoBehaviour {
             return;
         }
         Logger.Instance.LogAction("Incorrect Circle", stepsCompleted.ToString(), circ.name);
+
+        // Debating on where to put this code //
+        TransitioningBackgrounds = true;
+
+        if (LivesCount == 0)
+        {
+            SuperdogDialogue.SetActive(false);
+            GameOver.SetActive(true);
+        }
+        else
+        {
+            TransitioningBackgrounds = false;
+        }
+        //                                    //
+
         StartCoroutine(VineFakeout(circ));
 
     }
@@ -479,74 +453,18 @@ public class AddressingController : MonoBehaviour {
         yield return null;
     }
 
-    private void PlaceVineBetween(GameObject vine, Vector3 start, Vector3 end)
-    {
-        Transform vt = vine.transform;
-        SpriteRenderer vsr = vine.GetComponent<SpriteRenderer>();
-
-        vt.rotation = Quaternion.identity;
-
-        float curWidth = vsr.bounds.size.x;
-        float desiredWidth = Vector2.Distance(start, end);
-
-        float deltaX = end.x - start.x;
-        float deltaY = end.y - start.y;
-
-        vt.localScale = new Vector3(vt.localScale.x * (desiredWidth / curWidth), vt.localScale.y, 1f);
-        vt.position = 0.5f * (start + end);
-        vt.position += 0.5f * Vector3.back;
-        float rotation = Mathf.Rad2Deg * Mathf.Atan2(deltaY, deltaX);
-        vt.Rotate(Vector3.forward, rotation);
-    }
-
-    private IEnumerator ThrowVine(Vector3 start, Vector3 dest, float duration)
-    {
-        float elapsed = 0f;
-        Vector3 position;
-        do
-        {
-            position = Vector3.Lerp(start, dest, Transition.SmoothLerp(elapsed / duration));
-            if (position != start)
-            {
-                ThrowingVine.SetActive(true);
-                PlaceVineBetween(ThrowingVine, start + 0.5f * Vector3.back, position + 0.5f * Vector3.back);
-            }
-            yield return new WaitForEndOfFrame();
-            elapsed += Time.deltaTime;
-        } while (elapsed <= duration);
-        ThrowingVine.SetActive(false);
-    }
-
-    private IEnumerator RetractVine(Vector3 start, Vector3 dest, float duration)
-    {
-        float elapsed = 0f;
-        Vector3 position;
-        do
-        {
-            position = Vector3.Lerp(dest, start, Transition.SmoothLerp(elapsed / duration));
-            if (position != start)
-            {
-                ThrowingVine.SetActive(true);
-                PlaceVineBetween(ThrowingVine, start + 0.5f * Vector3.back, position + 0.5f * Vector3.back);
-            }
-            yield return new WaitForEndOfFrame();
-            elapsed += Time.deltaTime;
-        } while (elapsed <= duration);
-        ThrowingVine.SetActive(false);
-    }
-
-    private IEnumerator FlySuperdog(float duration)
-    {
-        yield return Transition.Resize(Superdog.transform, Vector3.one, duration / 4);
-        yield return Transition.StandingWave(Superdog.transform, Vector3.up, 0.7f, 1, duration / 2);
-        yield return Transition.Resize(Superdog.transform, new Vector3(-1f, 1f, 1f), duration / 4);
-    }
-
     private IEnumerator LoseLife()
     {
-        GameObject losing = Lives[LivesCount];
+        GameObject losing = Lives[LivesCount - 1];
+        --LivesCount;
+        if (LivesCount == 0)
+        {
+            SuperdogDialogue.SetActive(false);
+            GameOver.SetActive(true);
+        }
         StartCoroutine(Transition.Resize(losing.transform, losing.transform.localScale * 2, 2.4f));
         yield return Transition.FadeOut(losing, 2.4f, Transition.FinishType.Destroy);
+
     }
 
     private IEnumerator Zap(GrayCircle circ)
@@ -558,35 +476,27 @@ public class AddressingController : MonoBehaviour {
         yield return null;
     }
 
+
+    // Revise this function and move to vine controller
     private IEnumerator VineFakeout(GrayCircle circ)
     {
-        --LivesCount;
-
-        TransitioningBackgrounds = true;
         yield return Transition.Rotate(SupergirlArm.transform, swaptime / 2, 0f, 160f);
 
         SupergirlVineCurled.SetActive(false);
-        yield return ThrowVine(SupergirlVineCurled.transform.position, circ.transform.position, swaptime / 2);
+        yield return vineController.ThrowVine(ThrowingVine, SupergirlVineCurled.transform.position, circ.transform.position, swaptime / 2);
 
         StartCoroutine(Zap(circ));
-        yield return RetractVine(SupergirlVineCurled.transform.position, circ.transform.position, swaptime / 5);
+        yield return vineController.RetractVine(ThrowingVine, SupergirlVineCurled.transform.position, circ.transform.position, swaptime / 5);
 
         SupergirlVineCurled.SetActive(true);
         yield return Transition.Rotate(SupergirlArm.transform, swaptime / 2, 160f, 0f);
-
-        if (LivesCount == 0)
-        {
-            SuperdogDialogue.SetActive(false);
-            GameOver.SetActive(true);
-        }
-        else
-        {
-            TransitioningBackgrounds = false;
-        }
     }
 
     private IEnumerator LoadNextStep(GrayCircle circ)
     {
+        hintController.HideHint();
+        HintDisplayed = false;
+
         bool isLastLevel;
         GameObject[] nextIncorrect;
         AddressingStep OldStep = CurrentStep;
@@ -626,30 +536,17 @@ public class AddressingController : MonoBehaviour {
         OldStepObject.transform.position += Vector3.forward * 0.2f;
 
         SuperdogDialogue.SetActive(false);
-        if (!isLastLevel)
-        {
-            if (((levelNumber == 3) || (levelNumber == 4)) || 
-                ((levelNumber == 5 || levelNumber == 6) && (Random.value < 0.5f)))
-            {
-                SuperdogText.text = "Swing to the note " + 
-                    GetDifferential(OldStep.Notes[OldStep.CorrectIndex], NextStep.Notes[NextStep.CorrectIndex]) + 
-                    " the note you're hanging from!";
-            } else
-            {
-                SuperdogText.text = "Swing to the " + NextStep.Notes[NextStep.CorrectIndex] + "!";
-            }
-        }
 
         // Stage 1: "Swap"
         StartCoroutine(Transition.FadeOut(IncorrectCircles, swaptime, Transition.FinishType.Destroy));
         StartCoroutine(Transition.FadeOut(circ.gameObject, swaptime));
         if (NextStep.TutorialAlpha != null) { NextStep.TutorialAlpha.SetActive(false); }
-        StartCoroutine(Transition.FadeIn(NewStepObject, swaptime, exclude:NextStep.TutorialAlpha));
+        StartCoroutine(Transition.FadeIn(NewStepObject, swaptime, exclude: NextStep.TutorialAlpha));
         yield return Transition.Rotate(SupergirlArm.transform, swaptime / 2, 0f, 160f);
 
         // Stage 1.5: Throw vine
         SupergirlVineCurled.SetActive(false);
-        yield return ThrowVine(SupergirlVineCurled.transform.position, circ.transform.position, swaptime / 2);
+        yield return vineController.ThrowVine(ThrowingVine, SupergirlVineCurled.transform.position, circ.transform.position, swaptime / 2);
         Audio.PlayNote(CurrentStep.Notes[CurrentStep.CorrectIndex]);
 
         Destroy(circ.gameObject);
@@ -663,7 +560,7 @@ public class AddressingController : MonoBehaviour {
         {
             StartCoroutine(TransitionBackgrounds());
             StartCoroutine(Transition.Translate(CurrentStepObject.transform, CurrentStepObject.transform.position - finalOffset, flytime));
-            StartCoroutine(FlySuperdog(flytime));
+            StartCoroutine(superdogController.FlySuperdog(flytime));
         } else
         {
             StartCoroutine(Transition.Translate(CurrentStepObject.transform, Vector3.Scale(CurrentStepObject.transform.position, new Vector3(0f, 1f, 1f)), flytime));
@@ -680,6 +577,7 @@ public class AddressingController : MonoBehaviour {
         if (!isLastLevel)
         {
             SuperdogDialogue.SetActive(true);
+            dialogueController.updateDialogue(TutorialIndex++);
         }
 
         Destroy(OldStepObject);
@@ -693,66 +591,6 @@ public class AddressingController : MonoBehaviour {
         {
             CorrectCircleClicked(CorrectCircle);
         }
-    }
-
-    private IEnumerator FlySuperdogAway(float duration)
-    {
-        CircleCollider2D leftCirc = null, rightCirc = null;
-        #region Get colliders
-        foreach (CircleCollider2D col in Superdog.GetComponentsInChildren<CircleCollider2D>())
-        {
-            if (leftCirc == null)
-            {
-                leftCirc = col;
-            } else
-            {
-                if (col.bounds.center.x < leftCirc.bounds.center.x)
-                {
-                    rightCirc = leftCirc;
-                    leftCirc = col;
-                } else
-                {
-                    rightCirc = col;
-                }
-            }
-        }
-        #endregion
-
-        Vector3 start = Superdog.transform.position;
-        Vector3 left = leftCirc.bounds.center;
-        Vector3 right = rightCirc.bounds.center;
-
-        Vector3 startSize = Superdog.transform.localScale;
-        Vector3 midSize = new Vector3(0f, 1.3f * startSize.y, 1f);
-        Vector3 finalSize = new Vector3(-1.3f * 1.3f * startSize.x, 1.3f * 1.3f * startSize.y, 1f);
-
-        float elapsed = 0f;
-        float p;
-
-        Transform t = Superdog.transform;
-        Vector3 startScale = t.localScale;
-
-        do
-        {
-            p = elapsed / duration;
-            t.position = Vector3.Lerp(start, left, Transition.SmoothLerp(p));
-            t.localScale = Vector3.Lerp(startSize, midSize, p * p);
-            yield return new WaitForEndOfFrame();
-            elapsed += Time.deltaTime;
-        } while (elapsed <= duration);
-
-        elapsed = 0f;
-
-        do
-        {
-            p = elapsed / duration;
-            t.position = Vector3.Lerp(left, right, Transition.SmoothLerp(p));
-            t.localScale = Vector3.Lerp(midSize, finalSize, 1 - (1 - p) * (1 - p));
-            yield return new WaitForEndOfFrame();
-            elapsed += Time.deltaTime;
-        } while (elapsed <= duration);
-
-        Destroy(Superdog);
     }
 
     private IEnumerator FadeInLevelComplete(float duration)
@@ -770,10 +608,10 @@ public class AddressingController : MonoBehaviour {
     {
         print("entered");
         StartCoroutine(FadeInLevelComplete(flytime * 1.4f));
-        yield return FlySuperdogAway(flytime);
+        yield return superdogController.FlySuperdogAway(flytime);
 
         GameObject measureObject = CurrentStepObject.GetComponentInChildren<SpriteRenderer>().gameObject;
-        StartCoroutine(Transition.Translate(measureObject.transform, 6f *  Vector3.back, 0.6f));
+        StartCoroutine(Transition.Translate(measureObject.transform, 6f * Vector3.back, 0.6f));
         yield return Transition.TransitionBrightness(gameObject, measureObject, 0.6f, Bright, Dark);
 
         yield return Audio.PlayMeasure();
@@ -796,5 +634,29 @@ public class AddressingController : MonoBehaviour {
         SwapBackgrounds();
         Backgrounds[BackgroundRight].transform.position += 2 * BackgroundDelta;
         TransitioningBackgrounds = false;
+    }
+
+    public void ShowHelp()
+    {
+        if (!InTutorial && !HintDisplayed && CurrentStep.TutorialObject == null) {
+            hintController.ShowHint(CurrentStep);
+
+            if (LivesCount == 0)
+            {
+                SuperdogDialogue.SetActive(false);
+                GameOver.SetActive(true);
+            }
+            else
+            {
+                TransitioningBackgrounds = false;
+            }
+            //                                    //
+
+            if (levelNumber != 1 && levelNumber != 2)
+            {
+                StartCoroutine(LoseLife());
+            }
+            HintDisplayed = true;
+        }
     }
 }
