@@ -71,6 +71,8 @@ public class AddressingController : MonoBehaviour {
 
     private bool HintDisplayed = false;
 
+    private bool CompletingLevel;
+
     public void Restart()
     {
         Logger.Instance.LogAction("AddressingController", "Restart", "");
@@ -393,8 +395,9 @@ public class AddressingController : MonoBehaviour {
         vineController.NormalizeVineLength(CurrentStep, sgSpring, firstNoteHeight);
 
 
-        if (Input.GetKey(KeyCode.Q) && Input.GetKey(KeyCode.A) && Input.GetKey(KeyCode.Z))
+        if (Input.GetKey(KeyCode.Q) && Input.GetKey(KeyCode.A) && Input.GetKey(KeyCode.Z) &&!CompletingLevel)
         {
+            CompletingLevel = true;
             print("pressed");
             Destroy(CurrentStepObject);
             CurrentStepObject = Instantiate(LevelSteps[LevelSteps.Length - 1]);
@@ -615,7 +618,7 @@ public class AddressingController : MonoBehaviour {
         yield return Transition.TransitionBrightness(gameObject, measureObject, 0.6f, Bright, Dark);
 
         yield return Audio.PlayMeasure();
-        LevelSelection.AddressingLevelCompleted(this.levelNumber, measureObject.transform, this);
+        LevelSelection.LevelCompleted(this.levelNumber, measureObject.transform);
     }
 
     public void ClearBackground()

@@ -24,7 +24,7 @@ EditorBuildSettings:
     path: Assets/Scenes/Intro/LetsGoScene.unity
     guid: 2c667eb39520a4ea497ffdd6508b86c3
   - enabled: 1
-    path: Assets/Scenes/LevelSelection.unity
+    path: Assets/Scenes/Worlds/LevelSelection.unity
     guid: 4a846b21f7af4ca4ba2bf89fddfce9d3
   - enabled: 1
     path: Assets/Scenes/Addressing/Addressing L1/Level 1.unity
@@ -110,3 +110,18 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Interlude.unity
     guid: 865e7ef4a63df1245ad307c823b8b24a
+  - enabled: 1
+    path: Assets/Scenes/Worlds/Jungle.unity
+    guid: 6b7dc983c5469ef49abf3615ddeab047
+  - enabled: 1
+    path: Assets/Scenes/Worlds/WorldSelection.unity
+    guid: 7f7f4946d9ead4947a99fabd635ce13c
+  - enabled: 1
+    path: Assets/Scenes/Worlds/City.unity
+    guid: 9b245981b7a72294ea6db33c433874f2
+  - enabled: 1
+    path: Assets/Scenes/Worlds/Sky.unity
+    guid: c1d6a32b826489947944c8f2ff6598ac
+  - enabled: 1
+    path: Assets/Scenes/Worlds/Space.unity
+    guid: b117749952c079d41b661fa7162cb47b
