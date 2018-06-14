@@ -5494,7 +5494,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4941031133971762, guid: fed1e9ade17f8874bbb1c5ee4ff85b80, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 0.9327433
+      value: 1.25
       objectReference: {fileID: 0}
     - target: {fileID: 4941031133971762, guid: fed1e9ade17f8874bbb1c5ee4ff85b80, type: 2}
       propertyPath: m_LocalPosition.z
@@ -5527,6 +5527,10 @@ Prefab:
     - target: {fileID: 1899012442114796, guid: fed1e9ade17f8874bbb1c5ee4ff85b80, type: 2}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4941031133971762, guid: fed1e9ade17f8874bbb1c5ee4ff85b80, type: 2}
+      propertyPath: m_LocalScale.y
+      value: 0.76
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: fed1e9ade17f8874bbb1c5ee4ff85b80, type: 2}
@@ -12122,6 +12126,7 @@ GameObject:
   - component: {fileID: 1971323882}
   - component: {fileID: 1971323881}
   - component: {fileID: 1971323880}
+  - component: {fileID: 1971323884}
   m_Layer: 0
   m_Name: superdog
   m_TagString: Untagged
@@ -12235,6 +12240,21 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
+--- !u!58 &1971323884
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1971323878}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 1.2659575
 --- !u!1 &2010127290
 GameObject:
   m_ObjectHideFlags: 0
