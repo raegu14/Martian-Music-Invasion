@@ -1,0 +1,81 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &191734
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 491036}
+  - component: {fileID: 11454126}
+  m_Layer: 0
+  m_Name: Bonus2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &491036
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 191734}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &11454126
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 191734}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04ecf54b4d0111c4e84a8e21988a19bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  StoryLowUncertaintyImages:
+  - {fileID: 2800000, guid: 2134cc419b7154f49bd2c3cae1ff7786, type: 3}
+  - {fileID: 2800000, guid: 6cbff1f5653c46646bb8d897430d83ee, type: 3}
+  StoryHighUncertaintyImages:
+  - {fileID: 2800000, guid: 43f664ac2e823004d81c26b1ccd6b74d, type: 3}
+  - {fileID: 2800000, guid: bbd59a9f49af89941b8d23d2480b1fbc, type: 3}
+  - {fileID: 2800000, guid: dc014b28bfc0c974c97370869cfda2c5, type: 3}
+  - {fileID: 2800000, guid: be071af32c35bfa4292bbeb7ba4ab14b, type: 3}
+  MusicLowUncertaintyImages:
+  - {fileID: 2800000, guid: 97b9c21187240854f834a886e2f65ef5, type: 3}
+  - {fileID: 2800000, guid: 1a05f02f55501d84587b02c5afa2a2b0, type: 3}
+  MusicHighUncertaintyImages:
+  - {fileID: 2800000, guid: 23d3f1ad7568505429cfa9629e13eb55, type: 3}
+  - {fileID: 2800000, guid: b01a90cc076b22448855ca7e2974d22f, type: 3}
+  - {fileID: 2800000, guid: 3441a601029f7be46a450366c9e11001, type: 3}
+  - {fileID: 2800000, guid: 71b13cac42e11924da8ff3f9a5193147, type: 3}
+  MusicLowUncertaintyAudio:
+  - {fileID: 8300000, guid: 55f13e5c2acb5594581c4ade6dfb27d9, type: 3}
+  - {fileID: 8300000, guid: c5d289aaff751cb4497773182d68a52f, type: 3}
+  MusicHighUncertaintyAudio:
+  - {fileID: 8300000, guid: 32b3e34d531219f488658fc7c2eee9aa, type: 3}
+  - {fileID: 8300000, guid: 525f04970f9a6d54d896337e3373615e, type: 3}
+  - {fileID: 8300000, guid: dc267e644cab66f4dbe8e29d89c00b59, type: 3}
+  - {fileID: 8300000, guid: c4231131e25bf4645a13ce331f6ffc8f, type: 3}
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: m_Name
+      value: Bonus 2
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 191734}
+  m_IsPrefabParent: 1
