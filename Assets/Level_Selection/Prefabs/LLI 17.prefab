@@ -40,7 +40,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbf94af26ed786f45a84cabe09f83a9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LevelSceneName: Level 17
+  LevelSceneName: Level_Play17
   comic: {fileID: 2800000, guid: 4506c7b59852745c283bff258350a80e, type: 3}
   measure: {fileID: 2800000, guid: dcaec318cc00331468f6c159f2558580, type: 3}
   comicPivot: {x: 0.5, y: 0.5}
