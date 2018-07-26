@@ -29,7 +29,7 @@ public class CutsceneAudio : MonoBehaviour {
 			ca.audioSource.clip = ca.alienMusic;
             ca.audioSource.volume = 0.25f;
 			ca.audioSource.Play ();
-		} else if (sceneName == "LevelSelection") {
+		} else if (sceneName == "Jungle") {
 			Destroy(ca.gameObject);
 		}
 	}
@@ -68,7 +68,7 @@ public class CutsceneAudio : MonoBehaviour {
                     ManualChangeScene("LetsGoScene");
                     break;
                 case "LetsGoScene":
-                    ManualChangeScene("LevelSelection");
+                    ManualChangeScene("Jungle");
                     break;
                 default:
                     //Debug.Log(SceneManager.GetActiveScene().name /* Application.loadedLevelName */);
