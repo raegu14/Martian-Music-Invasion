@@ -75,7 +75,7 @@ public class AddressingController : MonoBehaviour {
 
     public void Restart()
     {
-        Logger.Instance.LogAction("AddressingController", "Restart", "");
+        // Logger.Instance.LogAction("AddressingController", "Restart", "");
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
@@ -253,8 +253,8 @@ public class AddressingController : MonoBehaviour {
 
     public void TutorialNextButtonPressed()
     {
-        Logger.Instance.LogAction(string.Format("Address Level {0}", levelNumber),
-            "Tutorial Button Pressed", string.Format("{0}", TutorialIndex));
+        // Logger.Instance.LogAction(string.Format("Address Level {0}", levelNumber),
+        //    "Tutorial Button Pressed", string.Format("{0}", TutorialIndex));
         StartCoroutine(Tutorial());
     }
 
@@ -279,12 +279,8 @@ public class AddressingController : MonoBehaviour {
 
     private IEnumerator Tutorial()
     {
-        Debug.Log("tut index" + TutorialIndex);
-        Debug.Log("tut length" + dialogueController.tutorialLength);
         if (TutorialIndex == dialogueController.tutorialLength) // ONCE TUTORIAL MESSAGES ARE FINISHED
         {
-            Debug.Log("tut msges finished");
-
             InTutorial = false;
 
             SuperdogButton.gameObject.SetActive(false); //keep
@@ -313,7 +309,6 @@ public class AddressingController : MonoBehaviour {
 
         else if (TutorialIndex == 0) //first step of tutorial
         {
-            Debug.Log("tut msges beginning");
             TransitioningBackgrounds = true;
             HideLives();
 
@@ -338,7 +333,6 @@ public class AddressingController : MonoBehaviour {
         }
 
         else { //other tutorial steps
-            Debug.Log("some other tut step");
             SuperdogButton.gameObject.SetActive(false);
             // yield return Transition.FadeOut(SuperdogText.gameObject, tutorialFadeTime);
             dialogueController.updateDialogue(TutorialIndex++);
@@ -410,10 +404,13 @@ public class AddressingController : MonoBehaviour {
     {
         if (TransitioningBackgrounds)
         {
+            Debug.Log("Failed click");
             return;
         }
+
+        Debug.Log("Successful click " + CurrentStep.name + " and transitionbackgrounds is " + TransitioningBackgrounds);
         TransitioningBackgrounds = true;
-        Logger.Instance.LogAction("Correct Circle", stepsCompleted.ToString(), "");
+        // Logger.Instance.LogAction("Correct Circle", stepsCompleted.ToString(), "");
         if (++stepsCompleted == LevelSteps.Length)
         {
             StartCoroutine(LevelComplete(circ));
@@ -430,7 +427,7 @@ public class AddressingController : MonoBehaviour {
         {
             return;
         }
-        Logger.Instance.LogAction("Incorrect Circle", stepsCompleted.ToString(), circ.name);
+        // Logger.Instance.LogAction("Incorrect Circle", stepsCompleted.ToString(), circ.name);
 
         // Debating on where to put this code //
         TransitioningBackgrounds = true;
@@ -497,6 +494,8 @@ public class AddressingController : MonoBehaviour {
 
     private IEnumerator LoadNextStep(GrayCircle circ)
     {
+        Debug.Log("loading next step" + " and transitionbackgrounds is " + TransitioningBackgrounds);
+
         hintController.HideHint();
         HintDisplayed = false;
 
@@ -511,9 +510,12 @@ public class AddressingController : MonoBehaviour {
         NewStepObject.transform.parent = this.transform;
         TransitioningBackgrounds = true;
 
+        Debug.Log("transitioningBackgrounds set to True" + " and transitionbackgrounds is " + TransitioningBackgrounds);
+
         if (OldStep.TutorialObject != null)
         {
             Destroy(OldStep.TutorialObject);
+            Debug.Log("Destroyed OldStep.TutorialObject" + " and transitionbackgrounds is " + TransitioningBackgrounds);
         }
 
         //PlaceInBox(NewStepObject);
@@ -540,6 +542,8 @@ public class AddressingController : MonoBehaviour {
 
         SuperdogDialogue.SetActive(false);
 
+        Debug.Log("Placed new object in box, deactivated Superdog" + " and transitionbackgrounds is " + TransitioningBackgrounds);
+
         // Stage 1: "Swap"
         StartCoroutine(Transition.FadeOut(IncorrectCircles, swaptime, Transition.FinishType.Destroy));
         StartCoroutine(Transition.FadeOut(circ.gameObject, swaptime));
@@ -547,17 +551,26 @@ public class AddressingController : MonoBehaviour {
         StartCoroutine(Transition.FadeIn(NewStepObject, swaptime, exclude: NextStep.TutorialAlpha));
         yield return Transition.Rotate(SupergirlArm.transform, swaptime / 2, 0f, 160f);
 
+        Debug.Log("Finished swap" + " and transitionbackgrounds is " + TransitioningBackgrounds);
+
         // Stage 1.5: Throw vine
         SupergirlVineCurled.SetActive(false);
         yield return vineController.ThrowVine(ThrowingVine, SupergirlVineCurled.transform.position, circ.transform.position, swaptime / 2);
         Audio.PlayNote(CurrentStep.Notes[CurrentStep.CorrectIndex]);
 
-        Destroy(circ.gameObject);
+        Debug.Log("Vine thrown" + " and transitionbackgrounds is " + TransitioningBackgrounds);
+
+        if (circ != null) { Destroy(circ.gameObject); }
+        
+
+        Debug.Log("circle destroyed" + " and transitionbackgrounds is " + TransitioningBackgrounds);
 
         CurrentStep = NextStep;
         CurrentStepObject = NewStepObject;
         IncorrectCircles = nextIncorrect;
         CorrectCircle = NextCorrect;
+
+        Debug.Log("Switched all the variables" + " and transitionbackgrounds is " + TransitioningBackgrounds);
 
         if (!isLastLevel)
         {
@@ -575,15 +588,23 @@ public class AddressingController : MonoBehaviour {
 
         yield return new WaitForSeconds(flytime + 0.2f);
 
+        Debug.Log("Supergirl has flown" + " and transitionbackgrounds is " + TransitioningBackgrounds);
+
         TransitioningBackgrounds = false;
+
+        Debug.Log("transitioningBackgrounds set to False" + " and transitionbackgrounds is " + TransitioningBackgrounds);
 
         if (!isLastLevel)
         {
             SuperdogDialogue.SetActive(true);
             dialogueController.updateDialogue(TutorialIndex++);
+
+            Debug.Log("Superdog reactivated" + " and transitionbackgrounds is " + TransitioningBackgrounds);
         }
 
         Destroy(OldStepObject);
+
+        Debug.Log("Old step object destroyed" + " and transitionbackgrounds is " + TransitioningBackgrounds);
 
         if (NextStep.TutorialAlpha != null) { NextStep.TutorialAlpha.SetActive(true); }
 
@@ -593,7 +614,10 @@ public class AddressingController : MonoBehaviour {
         } else if (LevelSelection.IsAutoplaying())
         {
             CorrectCircleClicked(CorrectCircle);
+            Debug.Log("Called CorrectCircleClicked" + " and transitionbackgrounds is " + TransitioningBackgrounds);
         }
+
+        
     }
 
     private IEnumerator FadeInLevelComplete(float duration)
@@ -636,7 +660,7 @@ public class AddressingController : MonoBehaviour {
 
         SwapBackgrounds();
         Backgrounds[BackgroundRight].transform.position += 2 * BackgroundDelta;
-        TransitioningBackgrounds = false;
+        // TransitioningBackgrounds = false;
     }
 
     public void ShowHelp()
