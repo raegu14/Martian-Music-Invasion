@@ -160,6 +160,18 @@ public class SynthesisTutorial : MonoBehaviour {
         this.DisableSuperDogTutorial();
         this.DisableEmptyStaff();
         this.DisableFirstNote();
+
+        if (!finished)
+        {
+            TutorialBox tbox = this.currentTutorialBoxScript;
+            if (tbox != null)
+            {
+                tbox.Close();
+            }
+
+            Destroy(this.currentTutorialBox);
+        }
+
         zoomSpeed = 0.1f;
         GameObject tmp = new GameObject();
         tmp.AddComponent<Zoom>();

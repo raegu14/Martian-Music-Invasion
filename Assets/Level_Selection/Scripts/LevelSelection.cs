@@ -959,10 +959,12 @@ public class LevelSelection : MonoBehaviour {
         Logger.Instance.LogAction("LevelSelection",
             string.Format("Playing music from {0} to {1}", startLevel, endLevel), (LevelsCompleted + 1).ToString());
 
+        /*
         if (LevelsCompleted != Instance.LevelList.Length)
         {
             ShowPlayButton();
         }
+        */
 
         for (level = startLevel; level <= endLevel && !LevelHasStarted; level++)
         {
