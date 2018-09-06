@@ -176,7 +176,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -10
   m_Sprite: {fileID: 21300000, guid: 209abcfd749d74057a92be7883cbdd79, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -5415,7 +5415,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 352549141}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.36, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 277285565}
@@ -6129,6 +6129,11 @@ Prefab:
       propertyPath: m_Points.m_Paths.Array.data[0].Array.data[0].x
       value: 0.9847753
       objectReference: {fileID: 0}
+    - target: {fileID: 114014600160175896, guid: 2d09f94e22f92cc4db937f9bb5f98f58,
+        type: 2}
+      propertyPath: helpRenderer
+      value: 
+      objectReference: {fileID: 1489048479}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2d09f94e22f92cc4db937f9bb5f98f58, type: 2}
   m_IsPrefabParent: 0
@@ -6952,6 +6957,11 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!212 &1489048479 stripped
+SpriteRenderer:
+  m_PrefabParentObject: {fileID: 212058753039742288, guid: 2d09f94e22f92cc4db937f9bb5f98f58,
+    type: 2}
+  m_PrefabInternal: {fileID: 747307171}
 --- !u!1 &1524701423
 GameObject:
   m_ObjectHideFlags: 0
