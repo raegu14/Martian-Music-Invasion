@@ -601,6 +601,10 @@ public class LevelSelection : MonoBehaviour {
         Logger.Instance.LogAction("LevelSelection", "Play Level Button Pressed", (LevelsCompleted + 1).ToString());
         LevelHasStarted = true;
         HidePlayButton();
+        
+        TilePulse tp = Objects[LevelsCompleted].measureTile.GetComponent<TilePulse>();
+        tp.stopPulse();
+
         GameObject.Find("WorldCanvas").GetComponent<ForwardWorldSelection>().levelBackground.SetActive(false);
         StartCoroutine(OpenNextLevel());
     }
@@ -993,6 +997,8 @@ public class LevelSelection : MonoBehaviour {
             if (level == LevelsCompleted)
             {
                 ShowPlayButton();
+                TilePulse tp = Objects[LevelsCompleted].measureTile.GetComponent<TilePulse>(); 
+                tp.startPulse();
                 if (IsAutoplaying())
                 {
                     Instance.PlayNextLevel();

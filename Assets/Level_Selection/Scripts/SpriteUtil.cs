@@ -49,6 +49,9 @@ public class SpriteUtil
         obj = MakeSprite(image, size.x, size.y, name);
         obj.transform.position = position;
         obj.transform.parent = parent;
+
+        TilePulse tp = obj.AddComponent<TilePulse>() as TilePulse; 
+        
         return obj;
     }
 
