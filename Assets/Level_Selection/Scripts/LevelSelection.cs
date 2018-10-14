@@ -997,8 +997,22 @@ public class LevelSelection : MonoBehaviour {
             if (level == LevelsCompleted)
             {
                 ShowPlayButton();
-                TilePulse tp = Objects[LevelsCompleted].measureTile.GetComponent<TilePulse>(); 
-                tp.startPulse();
+                TilePulse tp = null;
+                switch (Version)
+                {
+                    case GameVersion.T.Integrated:
+                        tp = Objects[LevelsCompleted].measureTile.GetComponent<TilePulse>(); 
+                        tp.startPulse();
+                        break;
+                    case GameVersion.T.NotIntegrated:
+                        tp = Objects[LevelsCompleted].comicTile.GetComponent<TilePulse>();
+                        tp.startPulse();
+                        break;
+                    default:
+                        Debug.Log(string.Format("Invalid GameVersion: {0}", Version));
+                        break;
+                }
+
                 if (IsAutoplaying())
                 {
                     Instance.PlayNextLevel();
