@@ -30,13 +30,13 @@ public static class GBL_Interface {
 
     // Fill in these fields for GBLxAPI setup.
 	public static string lrsURL = "https://lrs.gblxapi.org/data/xAPI"; 				// endpoint
-	public static string lrsUser = "83a99b3c9dfea74569a2369ba318d0f1387cdc96";  		// key
-	public static string lrsPassword = "cd854f6aa55a7059e9623279be6e2c5176292e7d";
+	public static string lrsUser = "2585bae065285208e5c5d6cf8a4c89f125d735f4";  		// key
+	public static string lrsPassword = "c223900d06062192ce613ebb8c1b9c9e38bf7862";
 	public static string standardsConfigDefault = "data/GBLxAPI_Vocab_Default";
 	public static string standardsConfigUser = "data/GBLxAPI_Vocab_User";
-	public static string gameURI = "https://dig-itgames.com/apps/GBLXAPITEST";
-	public static string gameName = "GBLxAPI TEST";
-	public static string companyURI = "https://dig-itgames.com/";
+	public static string gameURI = "http://martianmusicinvasion.com/test";
+	public static string gameName = "Martian Music Invasion Test";
+	public static string companyURI = "http://martianmusicinvasion.com/";
 	public static string userUUID = "f1cd58aa-ad22-49e5-8567-d59d97d3b209";
 
     // ------------------------------------------------------------------------
@@ -77,6 +77,18 @@ public static class GBL_Interface {
 
 		// this time using a helper function to create context
 		Context statementContext = CreateTestContext();
+
+		GBLXAPI.Instance.QueueStatement(statementActor, statementVerb, statementObject, statementResult, statementContext);
+	}
+
+	public static void SendGameStarted(){
+
+		Agent statementActor = GBLXAPI.Instance.CreateActorStatement(GBL_Interface.userUUID, GBL_Interface.companyURI, "Test User");
+		Verb statementVerb = GBLXAPI.Instance.CreateVerbStatement("started");
+		Activity statementObject = GBLXAPI.Instance.CreateObjectActivityStatement("http://martianmusicinvasion.com/gblxapitest", "serious-game", "GBLXAPI TEST");
+
+		Context statementContext = null;
+		Result statementResult = null;
 
 		GBLXAPI.Instance.QueueStatement(statementActor, statementVerb, statementObject, statementResult, statementContext);
 	}

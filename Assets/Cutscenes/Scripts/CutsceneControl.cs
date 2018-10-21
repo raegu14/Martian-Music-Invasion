@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using DIG.GBLXAPI;
 
 public class CutsceneControl : MonoBehaviour {
 
@@ -44,6 +45,14 @@ public class CutsceneControl : MonoBehaviour {
         LevelSelection.SetVersion(version);
         Commands.AutoplayReady = true;
         Session.LoadLevel("IntroCutscene1");
+
+        // GBLXAPI STUFF
+
+        if (!GBLXAPI.Instance.IsInit()) {
+            GBLXAPI.Instance.init(GBL_Interface.lrsURL, GBL_Interface.lrsUser, GBL_Interface.lrsPassword, GBL_Interface.standardsConfigDefault, GBL_Interface.standardsConfigUser);
+        }
+        
+        GBL_Interface.SendGameStarted();
     }
 
     public void BeginNonIntegrated()
@@ -55,6 +64,14 @@ public class CutsceneControl : MonoBehaviour {
         LevelSelection.SetVersion(version);
         Commands.AutoplayReady = true;
         Session.LoadLevel("IntroCutscene1");
+
+        // GBLXAPI STUFF
+
+        if (!GBLXAPI.Instance.IsInit()) {
+            GBLXAPI.Instance.init(GBL_Interface.lrsURL, GBL_Interface.lrsUser, GBL_Interface.lrsPassword, GBL_Interface.standardsConfigDefault, GBL_Interface.standardsConfigUser);
+        }
+
+        GBL_Interface.SendGameStarted();
     }
 
     public void Begin ()
