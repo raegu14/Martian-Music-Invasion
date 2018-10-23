@@ -51,6 +51,7 @@ public class SynthesisTutorial : MonoBehaviour {
         if (superDogTutorial != null)
         {
             superDogTutorial.SetActive(true);
+            Superdog.singleton.HideSuperdog();
         }
     }
 
@@ -59,6 +60,7 @@ public class SynthesisTutorial : MonoBehaviour {
         if (superDogTutorial != null)
         {
             superDogTutorial.SetActive(false);
+            Superdog.singleton.ShowSuperdog();
         }
     }
 

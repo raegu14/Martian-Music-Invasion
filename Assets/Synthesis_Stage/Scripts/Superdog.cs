@@ -3,9 +3,20 @@ using System.Collections;
 
 public class Superdog : MonoBehaviour {
 
+	[SerializeField]
 	private SpriteRenderer helpRenderer;
 
+	private SpriteRenderer sr;
+
 	public static Superdog singleton;
+
+	public void HideSuperdog() {
+		this.sr.enabled = false;
+	}
+
+	public void ShowSuperdog() {
+		this.sr.enabled = true;
+	}
 
 	public void HideHelp() {
 		this.helpRenderer.enabled = false;
@@ -21,7 +32,8 @@ public class Superdog : MonoBehaviour {
 	}
 
 	void Start () {
-		this.helpRenderer = this.gameObject.GetComponentInChildren<SpriteRenderer> ();
+
+		this.sr = this.gameObject.GetComponent<SpriteRenderer>();
 		this.HideHelp ();
 	}
 	
