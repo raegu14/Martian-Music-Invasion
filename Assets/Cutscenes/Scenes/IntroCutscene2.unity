@@ -530,6 +530,8 @@ MonoBehaviour:
   PlayButton: {fileID: 0}
   NameInputField: {fileID: 0}
   Session: {fileID: 0}
+  Narration: {fileID: 249752020}
+  NextButton: {fileID: 1663832367}
 --- !u!114 &1663832369
 MonoBehaviour:
   m_ObjectHideFlags: 0

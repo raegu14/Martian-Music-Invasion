@@ -7,8 +7,7 @@ using UnityEngine.SceneManagement;
 
 public class CutsceneAudio : MonoBehaviour {
 
-	public AudioClip orchestralMusic;
-	public AudioClip alienMusic;
+    public AudioClip covertAffair;
 
 	public AudioSource audioSource;
 
@@ -19,14 +18,14 @@ public class CutsceneAudio : MonoBehaviour {
 		CutsceneAudio.singleton = this;
 		DontDestroyOnLoad (this);
 		this.audioSource = this.gameObject.GetComponent<AudioSource> ();
-		this.audioSource.clip = orchestralMusic;
+		this.audioSource.clip = AudioManagerUtility.CovertAffairClip == null ? covertAffair : AudioManagerUtility.CovertAffairClip;
 		this.audioSource.Play ();
 	}
 
 	public static void ChangeScene (string sceneName) {
 		CutsceneAudio ca = CutsceneAudio.singleton;
 		if (sceneName == "IntroCutscene2") {
-			ca.audioSource.clip = ca.alienMusic;
+			ca.audioSource.clip = AudioManagerUtility.AlienBattleClip;
             ca.audioSource.volume = 0.25f;
 			ca.audioSource.Play ();
 		} else if (sceneName == "Jungle") {

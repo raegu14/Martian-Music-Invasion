@@ -342,12 +342,12 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 309186451}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.10126699, y: -0.39920452, z: -5.796875}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.12732136, y: -4.7298656, z: -5.286004}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_Father: {fileID: 593835230}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &425897167
 GameObject:
@@ -559,6 +559,51 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 557001806}
+--- !u!1 &593835229
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 593835230}
+  - component: {fileID: 593835231}
+  m_Layer: 0
+  m_Name: Core
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &593835230
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 593835229}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.026054382, y: 4.330661, z: -0.51087093}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1346744177}
+  - {fileID: 1424750690}
+  - {fileID: 309186453}
+  - {fileID: 1937892735}
+  - {fileID: 997819007}
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &593835231
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 593835229}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b0990510b6b2f44aa7d158b3e609c32, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &664810915
 GameObject:
   m_ObjectHideFlags: 0
@@ -702,6 +747,54 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 882678919}
+--- !u!1 &997819006
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 997819007}
+  - component: {fileID: 997819008}
+  m_Layer: 0
+  m_Name: BGAudioManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &997819007
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 997819006}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 593835230}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &997819008
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 997819006}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 93c5cbf5b51f7144e8305d8380d4f812, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _assetFolderURL: http://martianmusicinvasion.com/game_assets/
+  _jungleFile: Jungle_Background_Audio
+  _cityFile: City_Background_Audio
+  _cloudsFile: Clouds_Background_Audio
+  _spaceFile: Space_Background_Audio
+  _alienBattleFile: AlienBattleAudio
+  _covertAffairFile: Covert Affair
+  _straussOrchestraFile: StraussOrchestra
 --- !u!1 &1041610532
 GameObject:
   m_ObjectHideFlags: 0
@@ -1236,8 +1329,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c3c23a6d6663f840abe5442bd8df706, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  orchestralMusic: {fileID: 8300000, guid: 352d8c393887fc24cb33afdd9740998b, type: 3}
-  alienMusic: {fileID: 8300000, guid: 6ef9f23e93a54e34395bb5177624e373, type: 3}
+  covertAffair: {fileID: 8300000, guid: 8f94056d00c529443876869b3eef9777, type: 3}
   audioSource: {fileID: 0}
 --- !u!4 &1346744177
 Transform:
@@ -1245,12 +1337,12 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1346744174}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.03, y: 0.02, z: 90}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.056054384, y: -4.310661, z: 90.51087}
   m_LocalScale: {x: 0.6258006, y: 0.62488514, z: 0.6456397}
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_Father: {fileID: 593835230}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1347493677
 GameObject:
@@ -1350,12 +1442,12 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1424750689}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.1314783, y: 0.1387761, z: 1.5}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -1.1054239, y: -4.1918845, z: 2.010871}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_Father: {fileID: 593835230}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1424750691
 MonoBehaviour:
@@ -1650,8 +1742,8 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 425897168}
-  m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_Father: {fileID: 593835230}
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -1835,6 +1927,8 @@ MonoBehaviour:
   PlayButton: {fileID: 1134305234}
   NameInputField: {fileID: 1178420770}
   Session: {fileID: 1424750691}
+  Narration: {fileID: 0}
+  NextButton: {fileID: 0}
 --- !u!1 &2141284199
 GameObject:
   m_ObjectHideFlags: 0
