@@ -8,6 +8,9 @@ public class CutsceneControl : MonoBehaviour {
     public InputField NameInputField;
     public SessionManager Session;
 
+    public AudioSource Narration;
+    public Button NextButton;
+
     public void OnInputChange()
     {
         if (GameVersion.ValidID(NameInputField.text))
@@ -27,9 +30,22 @@ public class CutsceneControl : MonoBehaviour {
         {
             PlayButton.enabled = false;
         }
+
+        if(NextButton && Narration)
+        {
+            NextButton.interactable = false;
+        }
     }
 
-	public void ChangeScene(string levelName) 
+    private void Update()
+    {
+        if(NextButton && !NextButton.interactable && !Narration.isPlaying)
+        {
+            NextButton.interactable = true;
+        }
+    }
+
+    public void ChangeScene(string levelName) 
 	{
 		CutsceneAudio.ChangeScene (levelName);
 		SceneManager.LoadScene(levelName);

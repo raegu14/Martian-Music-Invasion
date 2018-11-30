@@ -43,6 +43,9 @@ public class AddressingController : MonoBehaviour {
 
     public AddressAudio Audio;
 
+    [SerializeField]
+    private AudioSource _backgroundAudio;
+
     public GameObject[] LevelSteps;
 
     public GameObject BackgroundParent;
@@ -364,6 +367,13 @@ public class AddressingController : MonoBehaviour {
     private IEnumerator InitializeSuperdog()
     {
         yield return Tutorial();
+    }
+
+    protected void OnEnable()
+    {
+        _backgroundAudio.clip = AudioManagerUtility.JungleClip;
+        _backgroundAudio.loop = true;
+        _backgroundAudio.Play();
     }
 
     protected void Start() {

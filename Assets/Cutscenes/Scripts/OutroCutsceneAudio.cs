@@ -3,8 +3,6 @@ using System.Collections;
 
 public class OutroCutsceneAudio : MonoBehaviour {
 
-	public AudioClip orchestralMusic;
-
 	public AudioSource audioSource;
 	
 	public static OutroCutsceneAudio singleton;
@@ -14,7 +12,7 @@ public class OutroCutsceneAudio : MonoBehaviour {
 		OutroCutsceneAudio.singleton = this;
 		DontDestroyOnLoad (this);
 		this.audioSource = this.gameObject.GetComponent<AudioSource> ();
-		this.audioSource.clip = orchestralMusic;
+		this.audioSource.clip = AudioManagerUtility.StraussOrchestraClip;
 		this.audioSource.Play ();
 	}
 	

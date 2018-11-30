@@ -125,4 +125,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Addressing_Phase/Scenes/Level_Play4.unity
     guid: cbc186ef2e25df9478ffe2b30e949c92
-  m_configObjects: {}
+  - enabled: 1
+    path: Assets/Cutscenes/Scenes/IntroCutscene5.unity
+    guid: 9bef48285d9579d4a9cd9f28f5a4949f
