@@ -338,7 +338,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 154314081}
   m_LocalRotation: {x: 0, y: 0, z: -0.0673654, w: 0.9977284}
-  m_LocalPosition: {x: -4.305, y: -2.176, z: 0}
+  m_LocalPosition: {x: -4.305, y: -2.176, z: -5}
   m_LocalScale: {x: 0.8775736, y: 0.8775736, z: 0.8775736}
   m_Children:
   - {fileID: 458320480}
@@ -358,9 +358,9 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.87, y: 2.28}
+  m_Offset: {x: 0.65404576, y: 2.1723654}
   serializedVersion: 2
-  m_Radius: 0.036854655
+  m_Radius: 0.06468032
 --- !u!212 &154314084
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -397,7 +397,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 3cd80a53cac316e438c19db0a2a07982, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 641ce13a1e070425abb682cd089e6dc8, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -5344,7 +5344,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &458320480
 Transform:
   m_ObjectHideFlags: 0
@@ -11052,6 +11052,7 @@ MonoBehaviour:
   - {fileID: 1445368293}
   - {fileID: 637257424}
   Audio: {fileID: 947284877}
+  _backgroundAudio: {fileID: 0}
   LevelSteps:
   - {fileID: 187590, guid: 27e5eab9edde9b847ae0754ac7f2b8d9, type: 2}
   - {fileID: 154780, guid: fd4a51e4dd3dd664db34af70316c57a3, type: 2}
@@ -11711,7 +11712,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 7c526744f80553549bedb744e10bc3f0, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 41824438e3fc64230b979962c20912f5, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -11898,7 +11899,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 7c526744f80553549bedb744e10bc3f0, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 41824438e3fc64230b979962c20912f5, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
