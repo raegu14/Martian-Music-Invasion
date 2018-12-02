@@ -32,6 +32,7 @@ public class AddressingController : MonoBehaviour {
     public GameObject Supergirl;
     public GameObject SupergirlArm;
     public GameObject SupergirlVineCurled;
+    public Animator SupergirlAnimator;
     public GameObject Vine;
     public GameObject ThrowingVine;
     public BoxCollider2D StaffCollider;
@@ -490,9 +491,10 @@ public class AddressingController : MonoBehaviour {
     // Revise this function and move to vine controller
     private IEnumerator VineFakeout(GrayCircle circ)
     {
-        yield return Transition.Rotate(SupergirlArm.transform, swaptime / 2, 0f, 160f);
+        // yield return Transition.Rotate(SupergirlArm.transform, swaptime / 2, 0f, 160f);
 
         SupergirlVineCurled.SetActive(false);
+        SupergirlAnimator.SetTrigger("noteClicked"); // Trigger vine throwing animation
         yield return vineController.ThrowVine(ThrowingVine, SupergirlVineCurled.transform.position, circ.transform.position, swaptime / 2);
 
         StartCoroutine(Zap(circ));
@@ -559,12 +561,13 @@ public class AddressingController : MonoBehaviour {
         StartCoroutine(Transition.FadeOut(circ.gameObject, swaptime));
         if (NextStep.TutorialAlpha != null) { NextStep.TutorialAlpha.SetActive(false); }
         StartCoroutine(Transition.FadeIn(NewStepObject, swaptime, exclude: NextStep.TutorialAlpha));
-        yield return Transition.Rotate(SupergirlArm.transform, swaptime / 2, 0f, 160f);
+        //yield return Transition.Rotate(SupergirlArm.transform, swaptime / 2, 0f, 160f);
 
         Debug.Log("Finished swap" + " and transitionbackgrounds is " + TransitioningBackgrounds);
 
         // Stage 1.5: Throw vine
         SupergirlVineCurled.SetActive(false);
+        SupergirlAnimator.SetTrigger("noteClicked"); // Trigger vine throwing animation
         yield return vineController.ThrowVine(ThrowingVine, SupergirlVineCurled.transform.position, circ.transform.position, swaptime / 2);
         Audio.PlayNote(CurrentStep.Notes[CurrentStep.CorrectIndex]);
 
