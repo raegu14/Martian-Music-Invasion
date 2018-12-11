@@ -31,6 +31,7 @@ public class LevelManager : MonoBehaviour {
 	private Hero hero;
 	private BackgroundClick background;
 
+    public SpriteRenderer MeasureSR;
 	private Transform measureTransform;
     public SynthesisTutorial tutorial;
     private bool finishedTutorial;
@@ -194,6 +195,10 @@ public class LevelManager : MonoBehaviour {
 
 		Vector3 measureStart = this.measureTransform.position;
 		Vector3 measureEnd = new Vector3 (0, 0, -8);
+        if (MeasureSR)
+        {
+            MeasureSR.sortingOrder = 30;
+        }
 
 		Vector3 measureScaleStart = this.measureTransform.localScale;
 		Vector3 measureScaleEnd = measureScaleStart * 1.5f;
