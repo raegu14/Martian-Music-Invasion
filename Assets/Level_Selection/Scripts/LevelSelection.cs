@@ -794,7 +794,7 @@ public class LevelSelection : MonoBehaviour {
 
         GameObject newGo = SpriteUtil.AddSprite(newText, startSize, startPosition, "Temp", Instance.transform.parent);
         SpriteRenderer newSr = newGo.GetComponent<SpriteRenderer>();
-        newSr.sortingOrder = 36;
+        newSr.sortingOrder = 35;
 
         float t;
         float currentTime = 0f;
