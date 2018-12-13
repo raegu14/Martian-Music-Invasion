@@ -5773,7 +5773,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 811456915}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.377, y: -0.967, z: -0.01}
+  m_LocalPosition: {x: 1.07, y: 0.8, z: -0.01}
   m_LocalScale: {x: 1, y: 1, z: 1.0000001}
   m_Children: []
   m_Father: {fileID: 458320480}
@@ -11062,6 +11062,7 @@ MonoBehaviour:
   Supergirl: {fileID: 154314081}
   SupergirlArm: {fileID: 458320479}
   SupergirlVineCurled: {fileID: 811456915}
+  SupergirlAnimator: {fileID: 154314085}
   Vine: {fileID: 1620979621}
   ThrowingVine: {fileID: 1709110761}
   StaffCollider: {fileID: 1236273487}
