@@ -48,3 +48,9 @@ TagManager:
   - name: Game Pieces
     uniqueID: 3392617147
     locked: 0
+  - name: Speech Bubble
+    uniqueID: 3203312765
+    locked: 0
+  - name: Bonus
+    uniqueID: 428198961
+    locked: 0

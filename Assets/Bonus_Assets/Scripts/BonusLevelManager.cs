@@ -211,8 +211,11 @@ public class BonusLevelManager : MonoBehaviour {
             float midY = (yTop + yBottom) / 2;
             Vector2 size = new Vector2((1f - margin) * (xRight - xLeft), (1f - margin) * (yTop - yBottom));
             Vector3 pos = new Vector3(midX, midY, this.transform.position.z - TextureOffset);
-            ret.Add(SpriteUtil.AddSprite(t, size, pos, t.name, obj, true));  
-            
+            GameObject spriteObj = SpriteUtil.AddSprite(t, size, pos, t.name, obj, true);
+            spriteObj.GetComponent<SpriteRenderer>().sortingLayerName = "Bonus";
+            spriteObj.GetComponent<SpriteRenderer>().sortingOrder = 5;
+            ret.Add(spriteObj);
+
             if (movingRight)
             {
                 // On iterations 0 and 2, move to the right

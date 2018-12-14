@@ -35,61 +35,61 @@ public class AudioManager : MonoBehaviour {
     {
         WWW reader;
 #if UNITY_EDITOR
-        reader = new WWW(_assetFolderURL + _covertAffairFile);
+        reader = new WWW(_assetFolderURL + _covertAffairFile + _unityFileExt);
         yield return reader;
         AudioManagerUtility.CovertAffairClip = reader.GetAudioClip();
 
-        reader = new WWW(_assetFolderURL + _alienBattleFile);
+        reader = new WWW(_assetFolderURL + _alienBattleFile + _unityFileExt);
         yield return reader;
         AudioManagerUtility.AlienBattleClip = reader.GetAudioClip();
 
-        reader = new WWW(_assetFolderURL + _jungleFile);
+        reader = new WWW(_assetFolderURL + _jungleFile + _unityFileExt);
         yield return reader;
         AudioManagerUtility.JungleClip = reader.GetAudioClip();
 
-        reader = new WWW(_assetFolderURL + _cityFile);
+        reader = new WWW(_assetFolderURL + _cityFile + _unityFileExt);
         yield return reader;
         AudioManagerUtility.CityClip = reader.GetAudioClip();
 
-        reader = new WWW(_assetFolderURL + _cloudsFile);
+        reader = new WWW(_assetFolderURL + _cloudsFile + _unityFileExt);
         yield return reader;
         AudioManagerUtility.CloudsClip = reader.GetAudioClip();
 
-        reader = new WWW(_assetFolderURL + _spaceFile);
+        reader = new WWW(_assetFolderURL + _spaceFile + _unityFileExt);
         yield return reader;
         AudioManagerUtility.SpaceClip = reader.GetAudioClip();
 
-        reader = new WWW(_assetFolderURL + _straussOrchestraFile);
+        reader = new WWW(_assetFolderURL + _straussOrchestraFile + _unityFileExt);
         yield return reader;
         AudioManagerUtility.StraussOrchestraClip = reader.GetAudioClip();
 #endif
 
 #if UNITY_WEBGL
-        reader = new WWW(_assetFolderURL + _covertAffairFile);
+        reader = new WWW(_assetFolderURL + _covertAffairFile + _webFileExt);
         yield return reader;
         AudioManagerUtility.CovertAffairClip = reader.GetAudioClip();
 
-        reader = new WWW(_assetFolderURL + _alienBattleFile);
+        reader = new WWW(_assetFolderURL + _alienBattleFile + _webFileExt);
         yield return reader;
         AudioManagerUtility.AlienBattleClip = reader.GetAudioClip();
 
-        reader = new WWW(_assetFolderURL + _jungleFile);
+        reader = new WWW(_assetFolderURL + _jungleFile + _webFileExt);
         yield return reader;
         AudioManagerUtility.JungleClip = reader.GetAudioClip();
 
-        reader = new WWW(_assetFolderURL + _cityFile);
+        reader = new WWW(_assetFolderURL + _cityFile + _webFileExt);
         yield return reader;
         AudioManagerUtility.CityClip = reader.GetAudioClip();
 
-        reader = new WWW(_assetFolderURL + _cloudsFile);
+        reader = new WWW(_assetFolderURL + _cloudsFile + _webFileExt);
         yield return reader;
         AudioManagerUtility.CloudsClip = reader.GetAudioClip();
 
-        reader = new WWW(_assetFolderURL + _spaceFile);
+        reader = new WWW(_assetFolderURL + _spaceFile + _webFileExt);
         yield return reader;
         AudioManagerUtility.SpaceClip = reader.GetAudioClip();
 
-        reader = new WWW(_assetFolderURL + _straussOrchestraFile);
+        reader = new WWW(_assetFolderURL + _straussOrchestraFile + _webFileExt);
         yield return reader;
         AudioManagerUtility.StraussOrchestraClip = reader.GetAudioClip();
 #endif

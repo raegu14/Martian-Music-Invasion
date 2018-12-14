@@ -502,15 +502,19 @@ public class LevelSelection : MonoBehaviour {
 
         Objects[i].comicBg = SpriteUtil.AddSprite(Instance.ComicBackground, comicBgSize, comicBgPos,
             string.Format("Comic Background {0}", i + 1), parent);
+        Objects[i].comicBg.GetComponent<SpriteRenderer>().sortingOrder = 35;
 
         Objects[i].comicTile = SpriteUtil.AddSprite(ComicTexture(item, i), comicTileSize, comicTilePos,
             string.Format("Comic Tile {0}", i + 1), parent);
+        Objects[i].comicTile.GetComponent<SpriteRenderer>().sortingOrder = 35;
 
         Objects[i].measureBg = SpriteUtil.AddSprite(Instance.MeasureBackground, measureBgSize, measureBgPos,
             string.Format("Measure Background {0}", i + 1), parent);
+        Objects[i].measureBg.GetComponent<SpriteRenderer>().sortingOrder = 35;
 
         Objects[i].measureTile = SpriteUtil.AddSprite(MeasureTexture(item, i), measureTileSize, measureTilePos,
             string.Format("Measure Tile {0}", i + 1), parent);
+        Objects[i].measureTile.GetComponent<SpriteRenderer>().sortingOrder = 35;
 
         Objects[i].header = AddHeader(parent, i + 1, headerPos);
 
@@ -790,6 +794,7 @@ public class LevelSelection : MonoBehaviour {
 
         GameObject newGo = SpriteUtil.AddSprite(newText, startSize, startPosition, "Temp", Instance.transform.parent);
         SpriteRenderer newSr = newGo.GetComponent<SpriteRenderer>();
+        newSr.sortingOrder = 36;
 
         float t;
         float currentTime = 0f;
@@ -925,6 +930,8 @@ public class LevelSelection : MonoBehaviour {
             yield return Instance.BonusManager.BonusLevel(bonusStageIndex);
             yield return PlayMusic();
         }
+
+        newSr.sortingOrder = 35;
     }
 
     private static IEnumerator PopoutTile(uint i, float waitTime)

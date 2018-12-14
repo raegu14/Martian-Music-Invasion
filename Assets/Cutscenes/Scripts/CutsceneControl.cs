@@ -39,7 +39,7 @@ public class CutsceneControl : MonoBehaviour {
 
     private void Update()
     {
-        if(NextButton && !NextButton.interactable && !Narration.isPlaying)
+        //if(NextButton && !NextButton.interactable && !Narration.isPlaying)
         {
             NextButton.interactable = true;
         }
