@@ -794,7 +794,7 @@ public class LevelSelection : MonoBehaviour {
 
         GameObject newGo = SpriteUtil.AddSprite(newText, startSize, startPosition, "Temp", Instance.transform.parent);
         SpriteRenderer newSr = newGo.GetComponent<SpriteRenderer>();
-        newSr.sortingOrder = 35;
+        newSr.sortingOrder = 36;
 
         float t;
         float currentTime = 0f;
@@ -930,6 +930,8 @@ public class LevelSelection : MonoBehaviour {
             yield return Instance.BonusManager.BonusLevel(bonusStageIndex);
             yield return PlayMusic();
         }
+
+        newSr.sortingOrder = 35;
     }
 
     private static IEnumerator PopoutTile(uint i, float waitTime)
