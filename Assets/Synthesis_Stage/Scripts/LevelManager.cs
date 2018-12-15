@@ -55,6 +55,8 @@ public class LevelManager : MonoBehaviour {
 	// Background music clip
 	public AudioClip buildingsBackground;
 
+	public GameObject DemoPopupGO;
+
 
 	private static class Constants
 	{
@@ -234,7 +236,12 @@ public class LevelManager : MonoBehaviour {
 
         this.SuperdimChildren(this.gameObject);
 
-        LevelSelection.LevelCompleted(this.levelNumber, this.measureTransform);
+		// Conditional for demo popup
+		if (this.levelNumber == 12) {
+			this.ShowDemoPopup();
+		} else {
+			LevelSelection.LevelCompleted(this.levelNumber, this.measureTransform);
+		}
 	}
 
 	public void RegisterNote(Note note) {
@@ -478,5 +485,10 @@ public class LevelManager : MonoBehaviour {
 		if (Input.GetKey (KeyCode.Q) && Input.GetKey(KeyCode.A) && Input.GetKey(KeyCode.Z) && !completingLevel) {
 			this.CompleteLevel();
 		}
+	}
+
+	void ShowDemoPopup () {
+		Debug.Log("demo popup");
+		this.DemoPopupGO.SetActive(true);
 	}
 }

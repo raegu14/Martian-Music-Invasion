@@ -41,7 +41,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   LevelSceneName: Level_Play9
-  comic: {fileID: 2800000, guid: 52570486964604434a68339408ffcd54, type: 3}
+  comic: {fileID: 2800000, guid: b46f4a1a5617941f88ccdc6ba2a0e2b6, type: 3}
   measure: {fileID: 2800000, guid: 64edde8ebb7f4ef4f8ee720ee4db0106, type: 3}
   comicPivot: {x: 0.5, y: 0.5}
   comicPixelsPerUnit: 100

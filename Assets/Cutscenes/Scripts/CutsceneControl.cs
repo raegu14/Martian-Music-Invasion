@@ -5,6 +5,9 @@ using UnityEngine.UI;
 public class CutsceneControl : MonoBehaviour {
 
     public Button PlayButton;
+    public GameObject IntButtonGO;
+    public GameObject NonButtonGO;
+    public GameObject DemoPopup;
     public InputField NameInputField;
     public SessionManager Session;
 
@@ -88,5 +91,14 @@ public class CutsceneControl : MonoBehaviour {
         LevelSelection.SetVersion(version);
         Commands.AutoplayReady = true;
         Session.LoadLevel("IntroCutscene1");
+    }
+
+    // Function for demo release popup
+    // Hides the popup and unhides the play buttons
+    public void CloseDemoPopup ()
+    {
+        DemoPopup.SetActive(false);
+        IntButtonGO.SetActive(true);
+        NonButtonGO.SetActive(true);
     }
 }

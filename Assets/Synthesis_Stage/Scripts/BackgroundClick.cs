@@ -51,6 +51,6 @@ public class BackgroundClick : MonoBehaviour
 
     private void Update()
     {
-        print(clicksEnabled);
+        //print(clicksEnabled);
     }
 }
