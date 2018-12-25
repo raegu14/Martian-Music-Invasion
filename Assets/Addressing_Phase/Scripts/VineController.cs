@@ -35,7 +35,8 @@ public class VineController : MonoBehaviour
         {
             notePos = step.FirstNoteCollider.bounds.center;
         }
-        PlaceVineBetween(gameObject, handPos + 0.5f * Vector3.back, notePos + 0.5f * Vector3.back);
+
+        PlaceVineBetween(gameObject, handPos + 0.1f * Vector3.forward, notePos + 0.1f * Vector3.forward);
 
         float deltaX = notePos.x - handPos.x;
         float deltaY = notePos.y - handPos.y;
@@ -50,7 +51,13 @@ public class VineController : MonoBehaviour
 
         Supergirl.transform.position += sgVelocity;
         handPos = Supergirl.GetComponent<CircleCollider2D>().bounds.center;
+
+        // set z values equal to each other to avoid a change in z --> keep all z vals constant
+        // solves problem of supergirl z pos inching backward on every update() call
+        notePos.z = handPos.z; 
+        
         Vector3 delta = notePos + Mathf.Sqrt(mag2) * (handPos - notePos).normalized - handPos;
+
         Supergirl.transform.position += delta;
     }
 
