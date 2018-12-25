@@ -4088,8 +4088,8 @@ MonoBehaviour:
   MeasureShrinkTime: 1.6
   TilePaddingY: 0
   TileMarginY: 0
-  ComicPaddingX: 0
-  ComicPaddingY: 0
+  ComicPaddingX: 0.05
+  ComicPaddingY: 0.05
   MeasurePaddingX: 0
   MeasurePaddingY: 0.1
   OverallMarginX: 0.2
