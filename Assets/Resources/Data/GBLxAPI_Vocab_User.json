@@ -2,7 +2,17 @@
     "action": {},
     "activity": {},
     "domain": {},
-    "extension": {},
+    "extension": {
+        "cutsceneaudiofinished": {
+            "description": {
+                "en-US": ""
+            },
+            "id": "http://www.martianmusicinvasion.com/extensions/cutsceneaudiofinished",
+            "name": {
+                "en-US": "cutsceneaudiofinished"
+            }
+        }
+    },
     "focus": {},
     "grade": {},
     "skills": {},

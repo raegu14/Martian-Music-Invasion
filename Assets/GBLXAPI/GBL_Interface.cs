@@ -46,6 +46,27 @@ public static class GBL_Interface {
 	Here is where you will put functions to be called whenever you want to send a GBLxAPI statement.
 	 */
 	
+	public static void SendCutsceneChanged(string sceneName, bool audioFinished) {
+		Agent statementActor = GBLXAPI.Instance.CreateActorStatement(GBL_Interface.userUUID, "https://dig-itgames.com/", "Test User");
+		Verb statementVerb = GBLXAPI.Instance.CreateVerbStatement("experienced");
+		Activity statementObject = GBLXAPI.Instance.CreateObjectActivityStatement("http://www.martianmusicinvasion.com/cutscenes/" + sceneName, "page", sceneName);
+		Result statementResult = null;
+
+		List<Activity> parentList = new List<Activity>();
+		parentList.Add(GBLXAPI.Instance.CreateObjectActivityStatement("http://www.martianmusicinvasion.com/game", "serious-game", "Martian Music Invasion"));
+
+		// List<Activity> groupingList = new List<Activity>();
+		// groupingList.Add(GBLXAPI.Instance.CreateObjectActivityStatement('http://cocotreestudios.com')) ???
+
+		string audioFinishedURI = GBLXAPI.Instance.GetVocabURI("extension", "cutsceneaudiofinished");
+
+		TinCan.Extensions contextExtensions = new TinCan.Extensions();
+		contextExtensions.Add(audioFinishedURI, audioFinished.ToString());
+
+		Context statementContext = GBLXAPI.Instance.CreateContextActivityStatement(parentList, null, null, contextExtensions);
+
+		GBLXAPI.Instance.QueueStatement(statementActor, statementVerb, statementObject, statementResult, statementContext);
+	}
 	public static void SendTestStatementStarted(){
 
 		Agent statementActor = GBLXAPI.Instance.CreateActorStatement(GBL_Interface.userUUID, "https://dig-itgames.com/", "Test User");
