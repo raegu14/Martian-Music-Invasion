@@ -6,8 +6,12 @@ namespace MartianMusicInvasion.FreeExploration
 {
     public class NoteInstantiator : MonoBehaviour
     {
+        public bool interactable;
+
         public GameObject Note;
         private Note _instantiatedNote;
+
+        public Transform cloneNoteParent;
 
         public void Update()
         {
@@ -19,15 +23,18 @@ namespace MartianMusicInvasion.FreeExploration
 
         public void InstantiateNote()
         {
-            _instantiatedNote = Instantiate(Note).GetComponent<Note>();
+            _instantiatedNote = Instantiate(Note, cloneNoteParent, true).GetComponent<Note>();
             _instantiatedNote.transform.position = transform.position;
         }
 
         public void OnMouseEnter()
         {
-            if (_instantiatedNote == null)
+            if (interactable)
             {
-                InstantiateNote();
+                if (_instantiatedNote == null)
+                {
+                    InstantiateNote();
+                }
             }
         }
     }

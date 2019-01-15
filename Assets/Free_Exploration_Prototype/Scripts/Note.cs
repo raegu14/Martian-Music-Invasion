@@ -13,10 +13,17 @@ namespace MartianMusicInvasion.FreeExploration
 
         [SerializeField]
         private float _length;
+        public float Length => _length;
 
         [SerializeField]
         private NotePitch _pitch;
         public NotePitch Pitch => _pitch;
+
+        [SerializeField]
+        private Vector3 _center;
+        public Vector3 Center => _center;
+
+        public bool interactable;
 
         public bool Dragging = false;
 
@@ -56,6 +63,14 @@ namespace MartianMusicInvasion.FreeExploration
         public void SetPitch(NotePitch pitch)
         {
             _pitch = pitch;
+            if(_pitch < NotePitch.B5)
+            {
+                SwapToBottom();
+            }
+            else
+            {
+                SwapToTop();
+            }
         }
 
         //Lets player now how long this note should play for
@@ -67,7 +82,14 @@ namespace MartianMusicInvasion.FreeExploration
 
         public void OnMouseDown()
         {
-            Dragging = true;
+            if (interactable)
+            {
+                Dragging = true;
+                if (_staff)
+                {
+                    _staff.UnsetNote(this);
+                }
+            }
         }
 
         public void OnMouseUp()
@@ -118,14 +140,14 @@ namespace MartianMusicInvasion.FreeExploration
 
     public enum NotePitch
     {
-        E1 = 0,
-        F1 = 1,
-        G1 = 2,
-        A1 = 3,
-        B1 = 4,
-        C1 = 5,
-        D1 = 6,
-        E2 = 7,
-        F2 = 8,
+        E4 = 0,
+        F4 = 1,
+        G4 = 2,
+        A5 = 3,
+        B5 = 4,
+        C5 = 5,
+        D5 = 6,
+        E5 = 7,
+        F5 = 8,
     }
 }
