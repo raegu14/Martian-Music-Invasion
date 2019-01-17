@@ -24,6 +24,7 @@ public class AddressingController : MonoBehaviour {
     public Button SuperdogButton;
 
     private SuperdogController superdogController;
+    private AudioSource superdogAudioSource;
     private DialogueController dialogueController;
 
     public GameObject LevelCompleteObject;
@@ -257,6 +258,7 @@ public class AddressingController : MonoBehaviour {
 
     public void TutorialNextButtonPressed()
     {
+        GBL_Interface.SendTutorialDialogSeen(levelNumber, TutorialIndex, !superdogAudioSource.isPlaying);
         // Logger.Instance.LogAction(string.Format("Address Level {0}", levelNumber),
         //    "Tutorial Button Pressed", string.Format("{0}", TutorialIndex));
         StartCoroutine(Tutorial());
@@ -388,6 +390,8 @@ public class AddressingController : MonoBehaviour {
         vineController = Vine.GetComponent<VineController>();
         dialogueController = SuperdogDialogue.GetComponent<DialogueController>();
         hintController = hintObject.GetComponent<HintController>();
+
+        superdogAudioSource = SuperdogDialogue.GetComponent<AudioSource>();
 
         vineController.InitializeVineLength(CurrentStep);
         StartCoroutine(InitializeSuperdog());
