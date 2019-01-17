@@ -49,7 +49,7 @@ public static class GBL_Interface {
 	public static void SendTutorialDialogSeen(uint levelNumber, int tutorialIndex, bool audioFinished) {
 		Agent statementActor = GBLXAPI.Instance.CreateActorStatement(GBL_Interface.userUUID, "https://dig-itgames.com/", "Test User");
 		Verb statementVerb = GBLXAPI.Instance.CreateVerbStatement("experienced");
-		Activity statementObject = GBLXAPI.Instance.CreateObjectActivityStatement("http://www.martianmusicinvasion.com/game/level/" + levelNumber + "/tutorial/" + tutorialIndex);
+		Activity statementObject = GBLXAPI.Instance.CreateObjectActivityStatement("http://www.martianmusicinvasion.com/game/level/" + levelNumber + "/tutorial/" + tutorialIndex, "page", "Level " + levelNumber + " Tutorial Dialogue " + tutorialIndex);
 		Result statementResult = null;
 
 		List<Activity> parentList = new List<Activity>();
@@ -64,7 +64,7 @@ public static class GBL_Interface {
 		TinCan.Extensions contextExtensions = new TinCan.Extensions();
 		contextExtensions.Add(audioFinishedURI, audioFinished.ToString());
 
-		Context statementContext = GBLXAPI.Instance.CreateContextActivityStatement(parentList, null, null, contextExtensions);
+		Context statementContext = GBLXAPI.Instance.CreateContextActivityStatement(parentList, groupingList, null, contextExtensions);
 
 		GBLXAPI.Instance.QueueStatement(statementActor, statementVerb, statementObject, statementResult, statementContext);
 	}
