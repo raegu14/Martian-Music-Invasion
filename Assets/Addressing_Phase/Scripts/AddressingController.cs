@@ -450,6 +450,10 @@ public class AddressingController : MonoBehaviour {
         }
         // Logger.Instance.LogAction("Incorrect Circle", stepsCompleted.ToString(), circ.name);
 
+        // GBLXAPI
+
+        GBL_Interface.SendWrongCircleClicked(levelNumber, stepsCompleted);
+
         // Debating on where to put this code //
         TransitioningBackgrounds = true;
 
