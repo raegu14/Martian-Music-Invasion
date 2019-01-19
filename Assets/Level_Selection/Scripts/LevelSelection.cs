@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using MartianMusicInvasion.FreeExploration;
 
 public class LevelSelection : MonoBehaviour {
 
@@ -53,6 +54,10 @@ public class LevelSelection : MonoBehaviour {
 
     public LevelListItem[] LevelList;
     public BonusLevelManager BonusManager;
+
+    public Free_Exploration_Level_Manager FreeExplorationManager;
+    public List<int> FreeExplorationLevels;
+    private static List<int> _freeExplorationLevels;
 
     public Texture2D ComicBackground;
     public Texture2D MeasureBackground;
@@ -124,6 +129,12 @@ public class LevelSelection : MonoBehaviour {
 
             DontDestroyOnLoad(this);
             DontDestroyOnLoad(this.gameObject);
+
+            _freeExplorationLevels = new List<int>();
+            foreach(int i in FreeExplorationLevels)
+            {
+                _freeExplorationLevels.Add(i);
+            }
 
             LevelsCompleted = 0;
             //Version = GameVersion.T.NotIntegrated;
@@ -813,11 +824,6 @@ public class LevelSelection : MonoBehaviour {
         newSr.color = new Color(1f, 1f, 1f, 1f);
 
         Instance.StartCoroutine(ShrinkIntoPlace(level, newSr, newGo, startSize, isBonusLevel));
-
-        if (!isBonusLevel)
-        {
-            Instance.StartCoroutine(PlayMusic());
-        }
     }
 
     private static IEnumerator ShrinkIntoPlace(uint level, SpriteRenderer newSr, GameObject newGo, Vector2 startSize, bool isBonusLevel)
@@ -917,6 +923,13 @@ public class LevelSelection : MonoBehaviour {
 
         Logger.Instance.LogAction("LevelSelection", "Replaced Lock with Measure or Comic", (LevelsCompleted + 1).ToString());
 
+        Debug.Log("Free EXploration " + Instance.FreeExplorationLevels[0]);
+        //check if is free exploration prototype level and then add it
+        if(Instance.FreeExplorationLevels.Contains((int)level))
+        {
+            yield return Instance.FreeExplorationManager.PlayFreeExploration(Instance.FreeExplorationLevels[0] == (int)level);
+        }
+
         if (isBonusLevel)
         {
             uint bonusStageIndex;
@@ -924,10 +937,14 @@ public class LevelSelection : MonoBehaviour {
             {
                 bonusStageIndex = LevelsCompleted;
             }
-            else {  
+            else {
                 bonusStageIndex = ((LevelsCompleted / 3) - 1);
             }
             yield return Instance.BonusManager.BonusLevel(bonusStageIndex);
+            yield return PlayMusic();
+        }
+        else
+        {
             yield return PlayMusic();
         }
 

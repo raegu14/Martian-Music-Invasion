@@ -58,6 +58,11 @@ namespace MartianMusicInvasion.FreeExploration
             _notesOnStaff = new List<Note>();
         }
 
+        private void OnDisable()
+        {
+            ClearStaff();
+        }
+
         private int GetInsertPosition(float x)
         {
             for(int i = 0; i < _notesOnStaff.Count; i++)
@@ -106,7 +111,7 @@ namespace MartianMusicInvasion.FreeExploration
                 Destroy(note.gameObject);
             }
             _notesOnStaff.Clear();
-        }
+        }  
 
         public IEnumerator PlayNotes()
         {

@@ -54,6 +54,9 @@ TagManager:
   - name: Bonus
     uniqueID: 428198961
     locked: 0
+  - name: FreeExploration
+    uniqueID: 4102018807
+    locked: 0
   - name: Popup
     uniqueID: 1457725199
     locked: 0
