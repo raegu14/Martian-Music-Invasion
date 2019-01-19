@@ -25,7 +25,8 @@ public static class GBL_Interface {
 		Application,
 		Game,
 		Tutorial,
-		Level
+		Level,
+		TutorialDialog
 	};
 
     // Fill in these fields for GBLxAPI setup.
@@ -46,11 +47,18 @@ public static class GBL_Interface {
 	Here is where you will put functions to be called whenever you want to send a GBLxAPI statement.
 	 */
 	
+	public static void ResetTutorialDialogDurationSlot() {
+		GBLXAPI.Instance.ResetDurationSlot((int)durationSlots.TutorialDialog);
+	}
 	public static void SendTutorialDialogSeen(uint levelNumber, int tutorialIndex, bool audioFinished) {
 		Agent statementActor = GBLXAPI.Instance.CreateActorStatement(GBL_Interface.userUUID, "https://dig-itgames.com/", "Test User");
 		Verb statementVerb = GBLXAPI.Instance.CreateVerbStatement("experienced");
 		Activity statementObject = GBLXAPI.Instance.CreateObjectActivityStatement("http://www.martianmusicinvasion.com/game/level/" + levelNumber + "/tutorial/" + tutorialIndex, "page", "Level " + levelNumber + " Tutorial Dialogue " + tutorialIndex);
-		Result statementResult = null;
+
+		// Get duration and immediately reset for next tutorial dialog
+		float duration = GBLXAPI.Instance.GetDurationSlot((int)durationSlots.TutorialDialog);
+		Result statementResult = GBLXAPI.Instance.CreateResultStatement(true, true, duration);
+		GBLXAPI.Instance.ResetDurationSlot((int)durationSlots.TutorialDialog);
 
 		List<Activity> parentList = new List<Activity>();
 		parentList.Add(GBLXAPI.Instance.CreateObjectActivityStatement("http://www.martianmusicinvasion.com/game/level" + levelNumber, "level", "Level " + levelNumber));

@@ -369,6 +369,8 @@ public class AddressingController : MonoBehaviour {
 
     private IEnumerator InitializeSuperdog()
     {
+        // Reset duration slot to track time spent in tutorial dialogs
+        GBL_Interface.ResetTutorialDialogDurationSlot();
         yield return Tutorial();
     }
 
