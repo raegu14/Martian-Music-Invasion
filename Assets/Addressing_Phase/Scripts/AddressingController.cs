@@ -655,6 +655,9 @@ public class AddressingController : MonoBehaviour {
 
     private IEnumerator CompleteLevel()
     {
+        // GBLXAPI
+        GBL_Interface.SendLevelCompleted(levelNumber);
+        
         print("entered");
         StartCoroutine(FadeInLevelComplete(flytime * 1.4f));
         yield return superdogController.FlySuperdogAway(flytime);
@@ -665,6 +668,8 @@ public class AddressingController : MonoBehaviour {
 
         yield return Audio.PlayMeasure();
         LevelSelection.LevelCompleted(this.levelNumber, measureObject.transform);
+
+        
     }
 
     public void ClearBackground()
