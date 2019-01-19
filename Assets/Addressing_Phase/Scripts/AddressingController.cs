@@ -703,6 +703,9 @@ public class AddressingController : MonoBehaviour {
                 StartCoroutine(LoseLife());
             }
             HintDisplayed = true;
+
+            // GBLXAPI
+            GBL_Interface.SendHintRequested(levelNumber);
         }
     }
 }
