@@ -47,12 +47,30 @@ public static class GBL_Interface {
 	Here is where you will put functions to be called whenever you want to send a GBLxAPI statement.
 	 */
 
+	public static void SendLevelStarted(uint levelNumber) {
+		Agent statementActor = GBLXAPI.Instance.CreateActorStatement(GBL_Interface.userUUID, "https://dig-itgames.com/", "Test User");
+		Verb statementVerb = GBLXAPI.Instance.CreateVerbStatement("started");
+		Activity statementObject = GBLXAPI.Instance.CreateObjectActivityStatement("http://www.martianmusicinvasion.com/game/level/" + levelNumber, "Level " + levelNumber);
+
+		GBLXAPI.Instance.ResetDurationSlot((int)durationSlots.Level);
+
+		List<Activity> parentList = new List<Activity>();
+		parentList.Add(GBLXAPI.Instance.CreateObjectActivityStatement("http://www.martianmusicinvasion.com/game", "serious-game", "Martian Music Invasion"));
+
+		//List<Activity> groupingList = new List<Activity>();
+		//groupingList.Add(GBLXAPI.Instance.CreateObjectActivityStatement('http://cocotreestudios.com')) ???
+
+		Context statementContext = GBLXAPI.Instance.CreateContextActivityStatement(parentList);
+
+		GBLXAPI.Instance.QueueStatement(statementActor, statementVerb, statementObject, null, statementContext);
+	}
+
 	public static void SendHintRequested(uint levelNumber) {
 		Agent statementActor = GBLXAPI.Instance.CreateActorStatement(GBL_Interface.userUUID, "https://dig-itgames.com/", "Test User");
 		Verb statementVerb = GBLXAPI.Instance.CreateVerbStatement("interacted");
 		Activity statementObject = GBLXAPI.Instance.CreateObjectActivityStatement("http://www.martianmusicinvasion.com/game/level/" + levelNumber + "/hint", "Level " + levelNumber + " Hint");
 
-		// Get duration and immediately reset for next tutorial dialog
+		// Get time since level started
 		float duration = GBLXAPI.Instance.GetDurationSlot((int)durationSlots.Level);
 		Result statementResult = GBLXAPI.Instance.CreateResultStatement(true, true, duration);
 

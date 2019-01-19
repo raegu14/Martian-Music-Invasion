@@ -398,6 +398,9 @@ public class AddressingController : MonoBehaviour {
         vineController.InitializeVineLength(CurrentStep);
         StartCoroutine(InitializeSuperdog());
         sgVelocity = Vector3.zero;
+
+        //GBLXAPI
+        GBL_Interface.SendLevelStarted(levelNumber);
     }
 
     protected void Update()
