@@ -77,6 +77,7 @@ public class AddressingController : MonoBehaviour {
     private bool HintDisplayed = false;
 
     private bool CompletingLevel;
+    private int levelAttempts;
 
     public void Restart()
     {
@@ -482,8 +483,9 @@ public class AddressingController : MonoBehaviour {
         if (LivesCount == 0)
         {
             //GBLXAPI
+            levelAttempts++;
             GBL_Interface.SendLevelFailed(levelNumber);
-            
+
             SuperdogDialogue.SetActive(false);
             GameOver.SetActive(true);
         }
@@ -661,7 +663,7 @@ public class AddressingController : MonoBehaviour {
     private IEnumerator CompleteLevel()
     {
         // GBLXAPI
-        GBL_Interface.SendLevelCompleted(levelNumber);
+        GBL_Interface.SendLevelCompleted(levelNumber, levelAttempts, LivesCount);
         
         print("entered");
         StartCoroutine(FadeInLevelComplete(flytime * 1.4f));

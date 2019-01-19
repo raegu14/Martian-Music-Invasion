@@ -68,7 +68,7 @@ public static class GBL_Interface {
 
 		GBLXAPI.Instance.QueueStatement(statementActor, statementVerb, statementObject, statementResult, statementContext);
 	}
-	public static void SendLevelCompleted(uint levelNumber) {
+	public static void SendLevelCompleted(uint levelNumber, int levelAttempts, int livesLeft) {
 		Agent statementActor = GBLXAPI.Instance.CreateActorStatement(GBL_Interface.userUUID, "https://dig-itgames.com/", "Test User");
 		Verb statementVerb = GBLXAPI.Instance.CreateVerbStatement("completed");
 		Activity statementObject = GBLXAPI.Instance.CreateObjectActivityStatement("http://www.martianmusicinvasion.com/game/level/" + levelNumber, "Level " + levelNumber);
@@ -85,7 +85,15 @@ public static class GBL_Interface {
 		// context extension for # of attempts
 		// context extension for lives left
 
-		Context statementContext = GBLXAPI.Instance.CreateContextActivityStatement(parentList);
+		string attemptsURI = GBLXAPI.Instance.GetVocabURI("extension", "levelattempts");
+		string livesleftURI = GBLXAPI.Instance.GetVocabURI("extension", "livesleft");
+
+		TinCan.Extensions contextExtensions = new TinCan.Extensions();
+		// TODO find a way to track level attempts
+		// contextExtensions.Add(attemptsURI, levelAttempts.ToString());
+		contextExtensions.Add(livesleftURI, livesLeft.ToString());
+
+		Context statementContext = GBLXAPI.Instance.CreateContextActivityStatement(parentList, null, null, contextExtensions);
 
 		GBLXAPI.Instance.QueueStatement(statementActor, statementVerb, statementObject, statementResult, statementContext);
 	}
