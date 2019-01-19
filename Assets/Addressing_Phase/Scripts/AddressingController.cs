@@ -454,6 +454,8 @@ public class AddressingController : MonoBehaviour {
 
         if (LivesCount == 0)
         {
+            Debug.Log("Fail from IncorrectCircleClicked()");
+
             SuperdogDialogue.SetActive(false);
             GameOver.SetActive(true);
         }
@@ -479,6 +481,9 @@ public class AddressingController : MonoBehaviour {
         --LivesCount;
         if (LivesCount == 0)
         {
+            //GBLXAPI
+            GBL_Interface.SendLevelFailed(levelNumber);
+            
             SuperdogDialogue.SetActive(false);
             GameOver.SetActive(true);
         }
@@ -697,6 +702,7 @@ public class AddressingController : MonoBehaviour {
 
             if (LivesCount == 0)
             {
+                Debug.Log("Fail from ShowHelp()");
                 SuperdogDialogue.SetActive(false);
                 GameOver.SetActive(true);
             }

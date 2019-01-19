@@ -47,6 +47,27 @@ public static class GBL_Interface {
 	Here is where you will put functions to be called whenever you want to send a GBLxAPI statement.
 	 */
 
+	public static void SendLevelFailed(uint levelNumber) {
+		Agent statementActor = GBLXAPI.Instance.CreateActorStatement(GBL_Interface.userUUID, "https://dig-itgames.com/", "Test User");
+		Verb statementVerb = GBLXAPI.Instance.CreateVerbStatement("attempted");
+		Activity statementObject = GBLXAPI.Instance.CreateObjectActivityStatement("http://www.martianmusicinvasion.com/game/level/" + levelNumber, "Level " + levelNumber);
+
+		float duration = GBLXAPI.Instance.GetDurationSlot((int)durationSlots.Level);
+		Result statementResult = GBLXAPI.Instance.CreateResultStatement(true, false, duration);
+
+		List<Activity> parentList = new List<Activity>();
+		parentList.Add(GBLXAPI.Instance.CreateObjectActivityStatement("http://www.martianmusicinvasion.com/game", "serious-game", "Martian Music Invasion"));
+
+		//List<Activity> groupingList = new List<Activity>();
+		//groupingList.Add(GBLXAPI.Instance.CreateObjectActivityStatement('http://cocotreestudios.com')) ???
+
+		// context extension for # of attempts
+		// context extension for lives left
+
+		Context statementContext = GBLXAPI.Instance.CreateContextActivityStatement(parentList);
+
+		GBLXAPI.Instance.QueueStatement(statementActor, statementVerb, statementObject, statementResult, statementContext);
+	}
 	public static void SendLevelCompleted(uint levelNumber) {
 		Agent statementActor = GBLXAPI.Instance.CreateActorStatement(GBL_Interface.userUUID, "https://dig-itgames.com/", "Test User");
 		Verb statementVerb = GBLXAPI.Instance.CreateVerbStatement("completed");
