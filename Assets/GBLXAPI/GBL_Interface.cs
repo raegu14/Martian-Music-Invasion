@@ -50,7 +50,7 @@ public static class GBL_Interface {
 	public static void SendLevelFailed(uint levelNumber) {
 		Agent statementActor = GBLXAPI.Instance.CreateActorStatement(GBL_Interface.userUUID, "https://dig-itgames.com/", "Test User");
 		Verb statementVerb = GBLXAPI.Instance.CreateVerbStatement("attempted");
-		Activity statementObject = GBLXAPI.Instance.CreateObjectActivityStatement("http://www.martianmusicinvasion.com/game/level/" + levelNumber, "Level " + levelNumber);
+		Activity statementObject = GBLXAPI.Instance.CreateObjectActivityStatement("http://www.martianmusicinvasion.com/game/level/" + levelNumber, "level", "Level " + levelNumber);
 
 		float duration = GBLXAPI.Instance.GetDurationSlot((int)durationSlots.Level);
 		Result statementResult = GBLXAPI.Instance.CreateResultStatement(true, false, duration);
@@ -71,7 +71,7 @@ public static class GBL_Interface {
 	public static void SendLevelCompleted(uint levelNumber, int levelAttempts, int livesLeft) {
 		Agent statementActor = GBLXAPI.Instance.CreateActorStatement(GBL_Interface.userUUID, "https://dig-itgames.com/", "Test User");
 		Verb statementVerb = GBLXAPI.Instance.CreateVerbStatement("completed");
-		Activity statementObject = GBLXAPI.Instance.CreateObjectActivityStatement("http://www.martianmusicinvasion.com/game/level/" + levelNumber, "Level " + levelNumber);
+		Activity statementObject = GBLXAPI.Instance.CreateObjectActivityStatement("http://www.martianmusicinvasion.com/game/level/" + levelNumber, "level", "Level " + levelNumber);
 
 		float duration = GBLXAPI.Instance.GetDurationSlot((int)durationSlots.Level);
 		Result statementResult = GBLXAPI.Instance.CreateResultStatement(true, true, duration);
@@ -101,7 +101,7 @@ public static class GBL_Interface {
 	public static void SendLevelStarted(uint levelNumber) {
 		Agent statementActor = GBLXAPI.Instance.CreateActorStatement(GBL_Interface.userUUID, "https://dig-itgames.com/", "Test User");
 		Verb statementVerb = GBLXAPI.Instance.CreateVerbStatement("started");
-		Activity statementObject = GBLXAPI.Instance.CreateObjectActivityStatement("http://www.martianmusicinvasion.com/game/level/" + levelNumber, "Level " + levelNumber);
+		Activity statementObject = GBLXAPI.Instance.CreateObjectActivityStatement("http://www.martianmusicinvasion.com/game/level/" + levelNumber, "level", "Level " + levelNumber);
 
 		GBLXAPI.Instance.ResetDurationSlot((int)durationSlots.Level);
 
@@ -119,7 +119,7 @@ public static class GBL_Interface {
 	public static void SendHintRequested(uint levelNumber) {
 		Agent statementActor = GBLXAPI.Instance.CreateActorStatement(GBL_Interface.userUUID, "https://dig-itgames.com/", "Test User");
 		Verb statementVerb = GBLXAPI.Instance.CreateVerbStatement("interacted");
-		Activity statementObject = GBLXAPI.Instance.CreateObjectActivityStatement("http://www.martianmusicinvasion.com/game/level/" + levelNumber + "/hint", "Level " + levelNumber + " Hint");
+		Activity statementObject = GBLXAPI.Instance.CreateObjectActivityStatement("http://www.martianmusicinvasion.com/game/level/" + levelNumber + "/hint", "non-player-character", "Level " + levelNumber + " Hint");
 
 		// Get time since level started
 		float duration = GBLXAPI.Instance.GetDurationSlot((int)durationSlots.Level);
