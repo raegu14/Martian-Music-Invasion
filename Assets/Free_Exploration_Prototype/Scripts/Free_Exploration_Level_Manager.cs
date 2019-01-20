@@ -10,6 +10,10 @@ namespace MartianMusicInvasion.FreeExploration
 
         public IEnumerator PlayFreeExploration(bool first)
         {
+            Debug.Log("PlayFreeExploration");
+            // GBLxAPI
+            GBL_Interface.SendFreeExplorationStarted();
+
             _complete = false;
             gameObject.SetActive(true);
             while (!_complete)
@@ -20,6 +24,9 @@ namespace MartianMusicInvasion.FreeExploration
 
         public void FinishFreeExploration()
         {
+            // GBLxAPI
+            GBL_Interface.SendFreeExplorationFinished();
+
             gameObject.SetActive(false);
             _complete = true;
         }
