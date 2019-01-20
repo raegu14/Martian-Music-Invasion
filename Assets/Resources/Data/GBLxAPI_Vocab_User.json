@@ -1,0 +1,40 @@
+{
+    "action": {},
+    "activity": {},
+    "domain": {},
+    "extension": {
+        "cutsceneaudiofinished": {
+            "description": {
+                "en-US": ""
+            },
+            "id": "http://www.martianmusicinvasion.com/game/extensions/cutsceneaudiofinished",
+            "name": {
+                "en-US": "cutsceneaudiofinished"
+            }
+        },
+        "levelattempts": {
+            "description": {
+                "en-US": ""
+            },
+            "id": "http://www.martianmusicinvasion.com/game/extensions/levelattempts",
+            "name": {
+                "en-US": "levelattempts"
+            }
+        },
+        "livesleft": {
+            "description": {
+                "en-US": ""
+            },
+            "id": "http://www.martianmusicinvasion.com/game/extensions/cutsceneaudiofinished/livesleft",
+            "name": {
+                "en-US": "livesleft"
+            }
+        }
+    },
+    "focus": {},
+    "grade": {},
+    "skills": {},
+    "subdomain": {},
+    "topic": {},
+    "verb": {}
+}
