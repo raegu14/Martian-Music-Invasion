@@ -30,5 +30,23 @@ namespace MartianMusicInvasion.FreeExploration
             gameObject.SetActive(false);
             _complete = true;
         }
+
+        public void GBL_SendQuitAttempted() 
+        {
+            // GBLxAPI
+            GBL_Interface.SendFreeExplorationQuitAttempted();
+        }
+
+        public void GBL_SendQuitDenied() 
+        {
+            // GBLxAPI
+            GBL_Interface.SendFreeExplorationQuitDenied();
+        }
+
+        public void GBL_SendQuitConfirmed() 
+        {
+            // GBLxAPI
+            GBL_Interface.SendFreeExplorationQuitConfirmed();
+        }
     }
 }

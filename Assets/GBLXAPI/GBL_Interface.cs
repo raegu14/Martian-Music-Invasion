@@ -47,8 +47,134 @@ public static class GBL_Interface {
 	Here is where you will put functions to be called whenever you want to send a GBLxAPI statement.
 	 */
 
+	public static void SendFreeExplorationNotePlaced(string noteName, string notePos) {
+		Agent statementActor = GBLXAPI.Instance.CreateActorStatement(GBL_Interface.userUUID, "http://www.martianmusicinvasion.com/", "Test User");
+		Verb statementVerb = GBLXAPI.Instance.CreateVerbStatement("released");
+		Activity statementObject = GBLXAPI.Instance.CreateObjectActivityStatement("http://www.martianmusicinvasion.com/game/free_exploration/note/" + noteName + "/" + notePos, "item", "Free Exploration Note " + noteName + " at " + notePos);
+
+		float duration = GBLXAPI.Instance.GetDurationSlot((int)durationSlots.Level);
+		Result statementResult = GBLXAPI.Instance.CreateResultStatement(true, true, duration);
+
+		List<Activity> parentList = new List<Activity>();
+		parentList.Add(GBLXAPI.Instance.CreateObjectActivityStatement("http://www.martianmusicinvasion.com/game", "serious-game", "Martian Music Invasion"));
+
+		//List<Activity> groupingList = new List<Activity>();
+		//groupingList.Add(GBLXAPI.Instance.CreateObjectActivityStatement('http://cocotreestudios.com')) ???
+
+		Context statementContext = GBLXAPI.Instance.CreateContextActivityStatement(parentList);
+
+		GBLXAPI.Instance.QueueStatement(statementActor, statementVerb, statementObject, statementResult, statementContext);
+	}
+	public static void SendFreeExplorationNotePickedUp(string noteName, string notePos) {
+		Agent statementActor = GBLXAPI.Instance.CreateActorStatement(GBL_Interface.userUUID, "http://www.martianmusicinvasion.com/", "Test User");
+		Verb statementVerb = GBLXAPI.Instance.CreateVerbStatement("interacted");
+		Activity statementObject = GBLXAPI.Instance.CreateObjectActivityStatement("http://www.martianmusicinvasion.com/game/free_exploration/note/" + noteName + "/" + notePos, "item", "Free Exploration Note " + noteName + " at " + notePos);
+
+		float duration = GBLXAPI.Instance.GetDurationSlot((int)durationSlots.Level);
+		Result statementResult = GBLXAPI.Instance.CreateResultStatement(true, true, duration);
+
+		List<Activity> parentList = new List<Activity>();
+		parentList.Add(GBLXAPI.Instance.CreateObjectActivityStatement("http://www.martianmusicinvasion.com/game", "serious-game", "Martian Music Invasion"));
+
+		//List<Activity> groupingList = new List<Activity>();
+		//groupingList.Add(GBLXAPI.Instance.CreateObjectActivityStatement('http://cocotreestudios.com')) ???
+
+		Context statementContext = GBLXAPI.Instance.CreateContextActivityStatement(parentList);
+
+		GBLXAPI.Instance.QueueStatement(statementActor, statementVerb, statementObject, statementResult, statementContext);
+	}
+	public static void SendFreeExplorationQuitConfirmed() {
+		Agent statementActor = GBLXAPI.Instance.CreateActorStatement(GBL_Interface.userUUID, "http://www.martianmusicinvasion.com/", "Test User");
+		Verb statementVerb = GBLXAPI.Instance.CreateVerbStatement("interacted");
+		Activity statementObject = GBLXAPI.Instance.CreateObjectActivityStatement("http://www.martianmusicinvasion.com/game/free_exploration/quitconfirmbutton", "menu", "Free Exploration Quit Dialog 'Yes' Button");
+
+		float duration = GBLXAPI.Instance.GetDurationSlot((int)durationSlots.Level);
+		Result statementResult = GBLXAPI.Instance.CreateResultStatement(true, true, duration);
+
+		List<Activity> parentList = new List<Activity>();
+		parentList.Add(GBLXAPI.Instance.CreateObjectActivityStatement("http://www.martianmusicinvasion.com/game", "serious-game", "Martian Music Invasion"));
+
+		//List<Activity> groupingList = new List<Activity>();
+		//groupingList.Add(GBLXAPI.Instance.CreateObjectActivityStatement('http://cocotreestudios.com')) ???
+
+		Context statementContext = GBLXAPI.Instance.CreateContextActivityStatement(parentList);
+
+		GBLXAPI.Instance.QueueStatement(statementActor, statementVerb, statementObject, statementResult, statementContext);
+	}
+	public static void SendFreeExplorationQuitDenied() {
+		Agent statementActor = GBLXAPI.Instance.CreateActorStatement(GBL_Interface.userUUID, "http://www.martianmusicinvasion.com/", "Test User");
+		Verb statementVerb = GBLXAPI.Instance.CreateVerbStatement("interacted");
+		Activity statementObject = GBLXAPI.Instance.CreateObjectActivityStatement("http://www.martianmusicinvasion.com/game/free_exploration/quitdenybutton", "menu", "Free Exploration Quit Dialog 'No' Button");
+
+		float duration = GBLXAPI.Instance.GetDurationSlot((int)durationSlots.Level);
+		Result statementResult = GBLXAPI.Instance.CreateResultStatement(true, true, duration);
+
+		List<Activity> parentList = new List<Activity>();
+		parentList.Add(GBLXAPI.Instance.CreateObjectActivityStatement("http://www.martianmusicinvasion.com/game", "serious-game", "Martian Music Invasion"));
+
+		//List<Activity> groupingList = new List<Activity>();
+		//groupingList.Add(GBLXAPI.Instance.CreateObjectActivityStatement('http://cocotreestudios.com')) ???
+
+		Context statementContext = GBLXAPI.Instance.CreateContextActivityStatement(parentList);
+
+		GBLXAPI.Instance.QueueStatement(statementActor, statementVerb, statementObject, statementResult, statementContext);
+	}
+	public static void SendFreeExplorationQuitAttempted() {
+		Agent statementActor = GBLXAPI.Instance.CreateActorStatement(GBL_Interface.userUUID, "http://www.martianmusicinvasion.com/", "Test User");
+		Verb statementVerb = GBLXAPI.Instance.CreateVerbStatement("interacted");
+		Activity statementObject = GBLXAPI.Instance.CreateObjectActivityStatement("http://www.martianmusicinvasion.com/game/free_exploration/quitbutton", "menu", "Free Exploration Quit Button");
+
+		float duration = GBLXAPI.Instance.GetDurationSlot((int)durationSlots.Level);
+		Result statementResult = GBLXAPI.Instance.CreateResultStatement(true, true, duration);
+
+		List<Activity> parentList = new List<Activity>();
+		parentList.Add(GBLXAPI.Instance.CreateObjectActivityStatement("http://www.martianmusicinvasion.com/game", "serious-game", "Martian Music Invasion"));
+
+		//List<Activity> groupingList = new List<Activity>();
+		//groupingList.Add(GBLXAPI.Instance.CreateObjectActivityStatement('http://cocotreestudios.com')) ???
+
+		Context statementContext = GBLXAPI.Instance.CreateContextActivityStatement(parentList);
+
+		GBLXAPI.Instance.QueueStatement(statementActor, statementVerb, statementObject, statementResult, statementContext);
+	}
+	public static void SendStaffPlayed() {
+		Agent statementActor = GBLXAPI.Instance.CreateActorStatement(GBL_Interface.userUUID, "http://www.martianmusicinvasion.com/", "Test User");
+		Verb statementVerb = GBLXAPI.Instance.CreateVerbStatement("interacted");
+		Activity statementObject = GBLXAPI.Instance.CreateObjectActivityStatement("http://www.martianmusicinvasion.com/game/free_exploration/playbutton", "menu", "Free Exploration Play Button");
+
+		float duration = GBLXAPI.Instance.GetDurationSlot((int)durationSlots.Level);
+		Result statementResult = GBLXAPI.Instance.CreateResultStatement(true, true, duration);
+
+		List<Activity> parentList = new List<Activity>();
+		parentList.Add(GBLXAPI.Instance.CreateObjectActivityStatement("http://www.martianmusicinvasion.com/game", "serious-game", "Martian Music Invasion"));
+
+		//List<Activity> groupingList = new List<Activity>();
+		//groupingList.Add(GBLXAPI.Instance.CreateObjectActivityStatement('http://cocotreestudios.com')) ???
+
+		Context statementContext = GBLXAPI.Instance.CreateContextActivityStatement(parentList);
+
+		GBLXAPI.Instance.QueueStatement(statementActor, statementVerb, statementObject, statementResult, statementContext);
+	}
+	public static void SendStaffCleared() {
+		Agent statementActor = GBLXAPI.Instance.CreateActorStatement(GBL_Interface.userUUID, "http://www.martianmusicinvasion.com/", "Test User");
+		Verb statementVerb = GBLXAPI.Instance.CreateVerbStatement("interacted");
+		Activity statementObject = GBLXAPI.Instance.CreateObjectActivityStatement("http://www.martianmusicinvasion.com/game/free_exploration/clearbutton", "menu", "Free Exploration Clear Button");
+
+		float duration = GBLXAPI.Instance.GetDurationSlot((int)durationSlots.Level);
+		Result statementResult = GBLXAPI.Instance.CreateResultStatement(true, true, duration);
+
+		List<Activity> parentList = new List<Activity>();
+		parentList.Add(GBLXAPI.Instance.CreateObjectActivityStatement("http://www.martianmusicinvasion.com/game", "serious-game", "Martian Music Invasion"));
+
+		//List<Activity> groupingList = new List<Activity>();
+		//groupingList.Add(GBLXAPI.Instance.CreateObjectActivityStatement('http://cocotreestudios.com')) ???
+
+		Context statementContext = GBLXAPI.Instance.CreateContextActivityStatement(parentList);
+
+		GBLXAPI.Instance.QueueStatement(statementActor, statementVerb, statementObject, statementResult, statementContext);
+	}
 	public static void SendFreeExplorationFinished() {
-		Agent statementActor = GBLXAPI.Instance.CreateActorStatement(GBL_Interface.userUUID, "https://dig-itgames.com/", "Test User");
+		Agent statementActor = GBLXAPI.Instance.CreateActorStatement(GBL_Interface.userUUID, "http://www.martianmusicinvasion.com/", "Test User");
 		Verb statementVerb = GBLXAPI.Instance.CreateVerbStatement("completed");
 		Activity statementObject = GBLXAPI.Instance.CreateObjectActivityStatement("http://www.martianmusicinvasion.com/game/free_exploration", "level", "Free Exploration");
 
@@ -67,7 +193,7 @@ public static class GBL_Interface {
 	}
 
 	public static void SendFreeExplorationStarted() {
-		Agent statementActor = GBLXAPI.Instance.CreateActorStatement(GBL_Interface.userUUID, "https://dig-itgames.com/", "Test User");
+		Agent statementActor = GBLXAPI.Instance.CreateActorStatement(GBL_Interface.userUUID, "http://www.martianmusicinvasion.com/", "Test User");
 		Verb statementVerb = GBLXAPI.Instance.CreateVerbStatement("started");
 		Activity statementObject = GBLXAPI.Instance.CreateObjectActivityStatement("http://www.martianmusicinvasion.com/game/free_exploration", "level", "Free Exploration");
 
@@ -85,7 +211,7 @@ public static class GBL_Interface {
 	}
 
 	public static void SendRightCircleClicked(uint levelNumber, int step) {
-		Agent statementActor = GBLXAPI.Instance.CreateActorStatement(GBL_Interface.userUUID, "https://dig-itgames.com/", "Test User");
+		Agent statementActor = GBLXAPI.Instance.CreateActorStatement(GBL_Interface.userUUID, "http://www.martianmusicinvasion.com/", "Test User");
 		Verb statementVerb = GBLXAPI.Instance.CreateVerbStatement("answered");
 		Activity statementObject = GBLXAPI.Instance.CreateObjectActivityStatement("http://www.martianmusicinvasion.com/game/level/" + levelNumber + "/step/" + step, "question", "Level " + levelNumber + " Step " + step);
 
@@ -106,7 +232,7 @@ public static class GBL_Interface {
 		GBLXAPI.Instance.QueueStatement(statementActor, statementVerb, statementObject, statementResult, statementContext);
 	}
 	public static void SendWrongCircleClicked(uint levelNumber, int step) {
-		Agent statementActor = GBLXAPI.Instance.CreateActorStatement(GBL_Interface.userUUID, "https://dig-itgames.com/", "Test User");
+		Agent statementActor = GBLXAPI.Instance.CreateActorStatement(GBL_Interface.userUUID, "http://www.martianmusicinvasion.com/", "Test User");
 		Verb statementVerb = GBLXAPI.Instance.CreateVerbStatement("answered");
 		Activity statementObject = GBLXAPI.Instance.CreateObjectActivityStatement("http://www.martianmusicinvasion.com/game/level/" + levelNumber + "/step/" + step, "question", "Level " + levelNumber + " Step " + step);
 
@@ -128,7 +254,7 @@ public static class GBL_Interface {
 	}
 
 	public static void SendLevelFailed(uint levelNumber) {
-		Agent statementActor = GBLXAPI.Instance.CreateActorStatement(GBL_Interface.userUUID, "https://dig-itgames.com/", "Test User");
+		Agent statementActor = GBLXAPI.Instance.CreateActorStatement(GBL_Interface.userUUID, "http://www.martianmusicinvasion.com/", "Test User");
 		Verb statementVerb = GBLXAPI.Instance.CreateVerbStatement("attempted");
 		Activity statementObject = GBLXAPI.Instance.CreateObjectActivityStatement("http://www.martianmusicinvasion.com/game/level/" + levelNumber, "level", "Level " + levelNumber);
 
@@ -149,7 +275,7 @@ public static class GBL_Interface {
 		GBLXAPI.Instance.QueueStatement(statementActor, statementVerb, statementObject, statementResult, statementContext);
 	}
 	public static void SendLevelCompleted(uint levelNumber, int levelAttempts, int livesLeft) {
-		Agent statementActor = GBLXAPI.Instance.CreateActorStatement(GBL_Interface.userUUID, "https://dig-itgames.com/", "Test User");
+		Agent statementActor = GBLXAPI.Instance.CreateActorStatement(GBL_Interface.userUUID, "http://www.martianmusicinvasion.com/", "Test User");
 		Verb statementVerb = GBLXAPI.Instance.CreateVerbStatement("completed");
 		Activity statementObject = GBLXAPI.Instance.CreateObjectActivityStatement("http://www.martianmusicinvasion.com/game/level/" + levelNumber, "level", "Level " + levelNumber);
 
@@ -179,7 +305,7 @@ public static class GBL_Interface {
 	}
 
 	public static void SendLevelStarted(uint levelNumber) {
-		Agent statementActor = GBLXAPI.Instance.CreateActorStatement(GBL_Interface.userUUID, "https://dig-itgames.com/", "Test User");
+		Agent statementActor = GBLXAPI.Instance.CreateActorStatement(GBL_Interface.userUUID, "http://www.martianmusicinvasion.com/", "Test User");
 		Verb statementVerb = GBLXAPI.Instance.CreateVerbStatement("started");
 		Activity statementObject = GBLXAPI.Instance.CreateObjectActivityStatement("http://www.martianmusicinvasion.com/game/level/" + levelNumber, "level", "Level " + levelNumber);
 
@@ -197,7 +323,7 @@ public static class GBL_Interface {
 	}
 
 	public static void SendHintRequested(uint levelNumber) {
-		Agent statementActor = GBLXAPI.Instance.CreateActorStatement(GBL_Interface.userUUID, "https://dig-itgames.com/", "Test User");
+		Agent statementActor = GBLXAPI.Instance.CreateActorStatement(GBL_Interface.userUUID, "http://www.martianmusicinvasion.com/", "Test User");
 		Verb statementVerb = GBLXAPI.Instance.CreateVerbStatement("interacted");
 		Activity statementObject = GBLXAPI.Instance.CreateObjectActivityStatement("http://www.martianmusicinvasion.com/game/level/" + levelNumber + "/hint", "non-player-character", "Level " + levelNumber + " Hint");
 
@@ -221,7 +347,7 @@ public static class GBL_Interface {
 		GBLXAPI.Instance.ResetDurationSlot((int)durationSlots.TutorialDialog);
 	}
 	public static void SendTutorialDialogSeen(uint levelNumber, int tutorialIndex, bool audioFinished) {
-		Agent statementActor = GBLXAPI.Instance.CreateActorStatement(GBL_Interface.userUUID, "https://dig-itgames.com/", "Test User");
+		Agent statementActor = GBLXAPI.Instance.CreateActorStatement(GBL_Interface.userUUID, "http://www.martianmusicinvasion.com/", "Test User");
 		Verb statementVerb = GBLXAPI.Instance.CreateVerbStatement("experienced");
 		Activity statementObject = GBLXAPI.Instance.CreateObjectActivityStatement("http://www.martianmusicinvasion.com/game/level/" + levelNumber + "/tutorial/" + tutorialIndex, "page", "Level " + levelNumber + " Tutorial Dialogue " + tutorialIndex);
 
@@ -247,7 +373,7 @@ public static class GBL_Interface {
 		GBLXAPI.Instance.QueueStatement(statementActor, statementVerb, statementObject, statementResult, statementContext);
 	}
 	public static void SendCutsceneChanged(string sceneName, bool audioFinished) {
-		Agent statementActor = GBLXAPI.Instance.CreateActorStatement(GBL_Interface.userUUID, "https://dig-itgames.com/", "Test User");
+		Agent statementActor = GBLXAPI.Instance.CreateActorStatement(GBL_Interface.userUUID, "http://www.martianmusicinvasion.com/", "Test User");
 		Verb statementVerb = GBLXAPI.Instance.CreateVerbStatement("experienced");
 		Activity statementObject = GBLXAPI.Instance.CreateObjectActivityStatement("http://www.martianmusicinvasion.com/game/cutscenes/" + sceneName, "page", sceneName);
 		Result statementResult = null;
@@ -269,17 +395,17 @@ public static class GBL_Interface {
 	}
 	public static void SendTestStatementStarted(){
 
-		Agent statementActor = GBLXAPI.Instance.CreateActorStatement(GBL_Interface.userUUID, "https://dig-itgames.com/", "Test User");
+		Agent statementActor = GBLXAPI.Instance.CreateActorStatement(GBL_Interface.userUUID, "http://www.martianmusicinvasion.com/", "Test User");
 		Verb statementVerb = GBLXAPI.Instance.CreateVerbStatement("started");
-		Activity statementObject = GBLXAPI.Instance.CreateObjectActivityStatement("https://dig-itgames.com/apps/GBLXAPITEST", "serious-game", "GBLXAPI TEST");
+		Activity statementObject = GBLXAPI.Instance.CreateObjectActivityStatement("http://www.martianmusicinvasion.com/apps/GBLXAPITEST", "serious-game", "GBLXAPI TEST");
 		Result statementResult = null;
 
 		// context can be created right in the statement functions
 		List<Activity> parentList = new List<Activity>();
-		parentList.Add(GBLXAPI.Instance.CreateObjectActivityStatement("https://dig-itgames.com/apps/GBLXAPITEST", "serious-game", "GBLXAPI TEST"));
+		parentList.Add(GBLXAPI.Instance.CreateObjectActivityStatement("http://www.martianmusicinvasion.com/apps/GBLXAPITEST", "serious-game", "GBLXAPI TEST"));
 
 		List<Activity> groupingList = new List<Activity>();
-		groupingList.Add(GBLXAPI.Instance.CreateObjectActivityStatement("https://dig-itgames.com/"));
+		groupingList.Add(GBLXAPI.Instance.CreateObjectActivityStatement("http://www.martianmusicinvasion.com/"));
 
 		Context statementContext = GBLXAPI.Instance.CreateContextActivityStatement(parentList, groupingList);
 

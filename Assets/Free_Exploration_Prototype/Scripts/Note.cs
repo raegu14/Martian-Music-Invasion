@@ -56,7 +56,13 @@ namespace MartianMusicInvasion.FreeExploration
         {
             if (_staff == null || !_staff.SetNoteOntoStaff(this))
             {
+                // GBLxAPI
+                GBL_Interface.SendFreeExplorationNotePlaced(_length.ToString(), "None");
                 Destroy(gameObject);
+            }
+            else 
+            {
+                GBL_Interface.SendFreeExplorationNotePlaced(_length.ToString(), _pitch.ToString());
             }
         }
 
@@ -88,6 +94,12 @@ namespace MartianMusicInvasion.FreeExploration
                 if (_staff)
                 {
                     _staff.UnsetNote(this);
+
+                    GBL_Interface.SendFreeExplorationNotePickedUp(_length.ToString(), _pitch.ToString());
+                }
+                else 
+                {
+                    GBL_Interface.SendFreeExplorationNotePickedUp(_length.ToString(), "None");
                 }
             }
         }

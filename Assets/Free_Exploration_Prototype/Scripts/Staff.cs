@@ -102,6 +102,9 @@ namespace MartianMusicInvasion.FreeExploration
         public void StartPlayNotes()
         {
             StartCoroutine(PlayNotes());
+
+            // GBLxAPI
+            GBL_Interface.SendStaffPlayed();
         }
 
         public void ClearStaff()
@@ -111,6 +114,9 @@ namespace MartianMusicInvasion.FreeExploration
                 Destroy(note.gameObject);
             }
             _notesOnStaff.Clear();
+
+            // GBLxAPI
+            GBL_Interface.SendStaffCleared();
         }  
 
         public IEnumerator PlayNotes()
