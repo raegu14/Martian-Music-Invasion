@@ -25,9 +25,27 @@
             "description": {
                 "en-US": ""
             },
-            "id": "http://www.martianmusicinvasion.com/game/extensions/cutsceneaudiofinished/livesleft",
+            "id": "http://www.martianmusicinvasion.com/game/extensions/livesleft",
             "name": {
                 "en-US": "livesleft"
+            }
+        },
+        "noteholding": {
+            "description": {
+                "en-US": ""
+            },
+            "id": "http://www.martianmusicinvasion.com/game/extensions/noteholding",
+            "name": {
+                "en-US": "noteholding"
+            }
+        },
+        "notetarget": {
+            "description": {
+                "en-US": ""
+            },
+            "id": "http://www.martianmusicinvasion.com/game/extensions/notetarget",
+            "name": {
+                "en-US": "notetarget"
             }
         }
     },

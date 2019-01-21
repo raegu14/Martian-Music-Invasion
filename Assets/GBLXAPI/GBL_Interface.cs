@@ -47,6 +47,64 @@ public static class GBL_Interface {
 	Here is where you will put functions to be called whenever you want to send a GBLxAPI statement.
 	 */
 
+	public static void SendIncorrectNoteMatched(uint levelNum, string noteHolding, string noteTarget) {
+		Agent statementActor = GBLXAPI.Instance.CreateActorStatement(GBL_Interface.userUUID, "http://www.martianmusicinvasion.com/", "Test User");
+		Verb statementVerb = GBLXAPI.Instance.CreateVerbStatement("answered");
+		Activity statementObject = GBLXAPI.Instance.CreateObjectActivityStatement("http://www.martianmusicinvasion.com/game/level/" + levelNum + "/matching/" + noteTarget, "question", "Level " + levelNum + " Matching Note " + noteTarget);
+
+		float duration = GBLXAPI.Instance.GetDurationSlot((int)durationSlots.Level);
+		Result statementResult = GBLXAPI.Instance.CreateResultStatement(true, false, duration);
+
+		List<Activity> parentList = new List<Activity>();
+		parentList.Add(GBLXAPI.Instance.CreateObjectActivityStatement("http://www.martianmusicinvasion.com/game", "serious-game", "Martian Music Invasion"));
+
+		//List<Activity> groupingList = new List<Activity>();
+		//groupingList.Add(GBLXAPI.Instance.CreateObjectActivityStatement('http://cocotreestudios.com')) ???
+
+		TinCan.Extensions contextExtensions = new TinCan.Extensions();
+		string noteHoldingURI = GBLXAPI.Instance.GetVocabURI("extension", "noteHolding");
+		contextExtensions.Add(noteHoldingURI, noteHolding);
+
+		Context statementContext = GBLXAPI.Instance.CreateContextActivityStatement(parentList, null, null, contextExtensions);
+
+		GBLXAPI.Instance.QueueStatement(statementActor, statementVerb, statementObject, statementResult, statementContext);
+	}
+	public static void SendCorrectNoteMatched(uint levelNum, string noteHolding) {
+		Agent statementActor = GBLXAPI.Instance.CreateActorStatement(GBL_Interface.userUUID, "http://www.martianmusicinvasion.com/", "Test User");
+		Verb statementVerb = GBLXAPI.Instance.CreateVerbStatement("answered");
+		Activity statementObject = GBLXAPI.Instance.CreateObjectActivityStatement("http://www.martianmusicinvasion.com/game/level/" + levelNum + "/matching/" + noteHolding, "question", "Level " + levelNum + " Matching Note " + noteHolding);
+
+		float duration = GBLXAPI.Instance.GetDurationSlot((int)durationSlots.Level);
+		Result statementResult = GBLXAPI.Instance.CreateResultStatement(true, true, duration);
+
+		List<Activity> parentList = new List<Activity>();
+		parentList.Add(GBLXAPI.Instance.CreateObjectActivityStatement("http://www.martianmusicinvasion.com/game", "serious-game", "Martian Music Invasion"));
+
+		//List<Activity> groupingList = new List<Activity>();
+		//groupingList.Add(GBLXAPI.Instance.CreateObjectActivityStatement('http://cocotreestudios.com')) ???
+
+		Context statementContext = GBLXAPI.Instance.CreateContextActivityStatement(parentList);
+
+		GBLXAPI.Instance.QueueStatement(statementActor, statementVerb, statementObject, statementResult, statementContext);
+	}
+	public static void SendFreeExplorationNotePlaced(string noteName, string notePos) {
+		Agent statementActor = GBLXAPI.Instance.CreateActorStatement(GBL_Interface.userUUID, "http://www.martianmusicinvasion.com/", "Test User");
+		Verb statementVerb = GBLXAPI.Instance.CreateVerbStatement("released");
+		Activity statementObject = GBLXAPI.Instance.CreateObjectActivityStatement("http://www.martianmusicinvasion.com/game/free_exploration/note/" + noteName + "/" + notePos, "item", "Free Exploration Note " + noteName + " at " + notePos);
+
+		float duration = GBLXAPI.Instance.GetDurationSlot((int)durationSlots.Level);
+		Result statementResult = GBLXAPI.Instance.CreateResultStatement(true, true, duration);
+
+		List<Activity> parentList = new List<Activity>();
+		parentList.Add(GBLXAPI.Instance.CreateObjectActivityStatement("http://www.martianmusicinvasion.com/game", "serious-game", "Martian Music Invasion"));
+
+		//List<Activity> groupingList = new List<Activity>();
+		//groupingList.Add(GBLXAPI.Instance.CreateObjectActivityStatement('http://cocotreestudios.com')) ???
+
+		Context statementContext = GBLXAPI.Instance.CreateContextActivityStatement(parentList);
+
+		GBLXAPI.Instance.QueueStatement(statementActor, statementVerb, statementObject, statementResult, statementContext);
+	}
 	public static void SendFreeExplorationNotePlaced(string noteName, string notePos) {
 		Agent statementActor = GBLXAPI.Instance.CreateActorStatement(GBL_Interface.userUUID, "http://www.martianmusicinvasion.com/", "Test User");
 		Verb statementVerb = GBLXAPI.Instance.CreateVerbStatement("released");
