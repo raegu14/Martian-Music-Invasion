@@ -61,9 +61,9 @@ public class CutsceneControl : MonoBehaviour {
     public void BeginIntegrated()
     {
         string name = NameInputField.text.ToLower();
-        Logger.Instance.UserID = name;
+        //Logger.Instance.UserID = name;
         GameVersion.T version = GameVersion.T.Integrated;
-        Logger.Instance.LogAction("Version", "Integrated", name);
+        //Logger.Instance.LogAction("Version", "Integrated", name);
         LevelSelection.SetVersion(version);
         Commands.AutoplayReady = true;
         Session.LoadLevel("IntroCutscene1");
@@ -72,6 +72,7 @@ public class CutsceneControl : MonoBehaviour {
         if (!GBLXAPI.Instance.IsInit()) {
             GBLXAPI.Instance.init(GBL_Interface.lrsURL, GBL_Interface.lrsUser, GBL_Interface.lrsPassword, GBL_Interface.standardsConfigDefault, GBL_Interface.standardsConfigUser);
         }
+        GBL_Interface.userUUID = GBLXAPI.Instance.GenerateActorUUID(name);
         GBLXAPI.Instance.debugStatement = true;
         GBL_Interface.SendGameStarted();
     }

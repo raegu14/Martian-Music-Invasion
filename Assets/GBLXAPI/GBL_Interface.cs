@@ -35,8 +35,8 @@ public static class GBL_Interface {
 	public static string lrsPassword = "c223900d06062192ce613ebb8c1b9c9e38bf7862";
 	public static string standardsConfigDefault = "data/GBLxAPI_Vocab_Default";
 	public static string standardsConfigUser = "data/GBLxAPI_Vocab_User";
-	public static string gameURI = "http://martianmusicinvasion.com/test";
-	public static string gameName = "Martian Music Invasion Test";
+	public static string gameURI = "http://martianmusicinvasion.com/game";
+	public static string gameName = "Martian Music Invasion";
 	public static string companyURI = "http://martianmusicinvasion.com/";
 	public static string userUUID = "f1cd58aa-ad22-49e5-8567-d59d97d3b209";
 
@@ -84,6 +84,27 @@ public static class GBL_Interface {
 		GBLXAPI.Instance.QueueStatement(statementActor, statementVerb, statementObject, null, statementContext);
 	}
 
+	public static void SendRightCircleClicked(uint levelNumber, int step) {
+		Agent statementActor = GBLXAPI.Instance.CreateActorStatement(GBL_Interface.userUUID, "https://dig-itgames.com/", "Test User");
+		Verb statementVerb = GBLXAPI.Instance.CreateVerbStatement("answered");
+		Activity statementObject = GBLXAPI.Instance.CreateObjectActivityStatement("http://www.martianmusicinvasion.com/game/level/" + levelNumber + "/step/" + step, "question", "Level " + levelNumber + " Step " + step);
+
+		float duration = GBLXAPI.Instance.GetDurationSlot((int)durationSlots.Level);
+		Result statementResult = GBLXAPI.Instance.CreateResultStatement(true, true, duration);
+
+		List<Activity> parentList = new List<Activity>();
+		parentList.Add(GBLXAPI.Instance.CreateObjectActivityStatement("http://www.martianmusicinvasion.com/game", "serious-game", "Martian Music Invasion"));
+
+		//List<Activity> groupingList = new List<Activity>();
+		//groupingList.Add(GBLXAPI.Instance.CreateObjectActivityStatement('http://cocotreestudios.com')) ???
+
+		// context extension for # of attempts
+		// context extension for lives left
+
+		Context statementContext = GBLXAPI.Instance.CreateContextActivityStatement(parentList);
+
+		GBLXAPI.Instance.QueueStatement(statementActor, statementVerb, statementObject, statementResult, statementContext);
+	}
 	public static void SendWrongCircleClicked(uint levelNumber, int step) {
 		Agent statementActor = GBLXAPI.Instance.CreateActorStatement(GBL_Interface.userUUID, "https://dig-itgames.com/", "Test User");
 		Verb statementVerb = GBLXAPI.Instance.CreateVerbStatement("answered");
