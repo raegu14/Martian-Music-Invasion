@@ -432,6 +432,9 @@ public class AddressingController : MonoBehaviour {
         // Debug.Log("Successful click " + CurrentStep.name + " and transitionbackgrounds is " + TransitioningBackgrounds);
         TransitioningBackgrounds = true;
         // Logger.Instance.LogAction("Correct Circle", stepsCompleted.ToString(), "");
+
+        // GBLxAPI
+        GBL_Interface.SendRightCircleClicked(levelNumber, stepsCompleted);
         if (++stepsCompleted == LevelSteps.Length)
         {
             StartCoroutine(LevelComplete(circ));
