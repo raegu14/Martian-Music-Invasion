@@ -62,7 +62,7 @@ public static class GBL_Interface {
 		//groupingList.Add(GBLXAPI.Instance.CreateObjectActivityStatement('http://cocotreestudios.com')) ???
 
 		TinCan.Extensions contextExtensions = new TinCan.Extensions();
-		string noteHoldingURI = GBLXAPI.Instance.GetVocabURI("extension", "noteHolding");
+		string noteHoldingURI = GBLXAPI.Instance.GetVocabURI("extension", "noteholding");
 		contextExtensions.Add(noteHoldingURI, noteHolding);
 
 		Context statementContext = GBLXAPI.Instance.CreateContextActivityStatement(parentList, null, null, contextExtensions);
@@ -73,24 +73,6 @@ public static class GBL_Interface {
 		Agent statementActor = GBLXAPI.Instance.CreateActorStatement(GBL_Interface.userUUID, "http://www.martianmusicinvasion.com/", "Test User");
 		Verb statementVerb = GBLXAPI.Instance.CreateVerbStatement("answered");
 		Activity statementObject = GBLXAPI.Instance.CreateObjectActivityStatement("http://www.martianmusicinvasion.com/game/level/" + levelNum + "/matching/" + noteHolding, "question", "Level " + levelNum + " Matching Note " + noteHolding);
-
-		float duration = GBLXAPI.Instance.GetDurationSlot((int)durationSlots.Level);
-		Result statementResult = GBLXAPI.Instance.CreateResultStatement(true, true, duration);
-
-		List<Activity> parentList = new List<Activity>();
-		parentList.Add(GBLXAPI.Instance.CreateObjectActivityStatement("http://www.martianmusicinvasion.com/game", "serious-game", "Martian Music Invasion"));
-
-		//List<Activity> groupingList = new List<Activity>();
-		//groupingList.Add(GBLXAPI.Instance.CreateObjectActivityStatement('http://cocotreestudios.com')) ???
-
-		Context statementContext = GBLXAPI.Instance.CreateContextActivityStatement(parentList);
-
-		GBLXAPI.Instance.QueueStatement(statementActor, statementVerb, statementObject, statementResult, statementContext);
-	}
-	public static void SendFreeExplorationNotePlaced(string noteName, string notePos) {
-		Agent statementActor = GBLXAPI.Instance.CreateActorStatement(GBL_Interface.userUUID, "http://www.martianmusicinvasion.com/", "Test User");
-		Verb statementVerb = GBLXAPI.Instance.CreateVerbStatement("released");
-		Activity statementObject = GBLXAPI.Instance.CreateObjectActivityStatement("http://www.martianmusicinvasion.com/game/free_exploration/note/" + noteName + "/" + notePos, "item", "Free Exploration Note " + noteName + " at " + notePos);
 
 		float duration = GBLXAPI.Instance.GetDurationSlot((int)durationSlots.Level);
 		Result statementResult = GBLXAPI.Instance.CreateResultStatement(true, true, duration);

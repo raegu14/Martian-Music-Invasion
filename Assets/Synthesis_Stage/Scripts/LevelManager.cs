@@ -4,6 +4,8 @@ using UnityEngine.SceneManagement;
 using System.Collections;
 using System.Collections.Generic;
 
+using DIG.GBLXAPI;
+
 
 public class LevelManager : MonoBehaviour {
 	
@@ -85,10 +87,12 @@ public class LevelManager : MonoBehaviour {
 	}
 
 	public void PrePlayNote(Note note, float delay) {
+		GBL_Interface.SendCorrectNoteMatched(levelNumber, note.names[0]);
 		StartCoroutine (NoteMatchDelayed (note, delay));
 	}
 
 	public void PreFailNote(Note note, float delay) {
+		GBL_Interface.SendIncorrectNoteMatched(levelNumber, hero.minionsCarrying[0].letter.ToString(), note.names[0]);
 		StartCoroutine (NoteFailDelayed (delay));
 	}
 
@@ -145,6 +149,9 @@ public class LevelManager : MonoBehaviour {
 			// nice try...
 			return;
 		}
+
+		// GBLxAPI
+		GBL_Interface.SendLevelCompleted(levelNumber, 0, (int)livesRemaining);
 		StartCoroutine (CompleteLevelAsync ());
 	}
 
@@ -279,6 +286,7 @@ public class LevelManager : MonoBehaviour {
 
     //Opens hint
 	public void HelpRequested () {
+		GBL_Interface.SendHintRequested(levelNumber);
 		Logger.Instance.LogAction ("LevelManager", "Help Requested", string.Format ("{0} Lives Remaining. Is tutorial: {1}", this.livesRemaining, this.tutorial != null));
 		if (this.tutorial == null) {
 			this.LoseLife();
@@ -293,6 +301,9 @@ public class LevelManager : MonoBehaviour {
 		StartCoroutine (this.DisappearLife (lifeLost));
 
 		if (this.livesRemaining <= 0) {
+			// GBLxAPI
+			GBL_Interface.SendLevelFailed(levelNumber);
+
 			this.DimChildren (this.gameObject);
 			this.DimChildren (this.measureTransform.gameObject);
 			GameObject noLives = Instantiate<GameObject>(this.allLivesLostPrefab);
@@ -349,7 +360,6 @@ public class LevelManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-
 		this.hero = Hero.singleton;
 		this.background = BackgroundClick.singleton;
 
@@ -471,6 +481,9 @@ public class LevelManager : MonoBehaviour {
             n.gameObject.GetComponent<SpriteRenderer>().color = Color.white;
             n.EnableClicks();
         }
+
+		// GBLxAPI
+		GBL_Interface.SendLevelStarted(levelNumber);
     }
 
 	// Update is called once per frame
