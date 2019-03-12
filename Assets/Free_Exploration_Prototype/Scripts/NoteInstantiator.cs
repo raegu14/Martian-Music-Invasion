@@ -24,7 +24,11 @@ namespace MartianMusicInvasion.FreeExploration
         public void InstantiateNote()
         {
             _instantiatedNote = Instantiate(Note, cloneNoteParent, true).GetComponent<Note>();
-            _instantiatedNote.transform.position = transform.position;
+            
+            // push z pos up by 1 so OnMouseDown will raycast correctly
+            Vector3 pos = transform.position;
+            pos.z = -2.0f;
+            _instantiatedNote.transform.position = pos;
         }
 
         public void OnMouseEnter()

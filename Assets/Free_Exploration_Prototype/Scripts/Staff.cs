@@ -180,6 +180,7 @@ namespace MartianMusicInvasion.FreeExploration
                 }
             }
 
+            pos.z = -1.0f;
             note.transform.position = pos;
             return pitch;
         }
