@@ -5088,6 +5088,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ace77e6de9eff5843956c7325bc49358, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _gameProgress: {fileID: 11400000, guid: 6ea8b3c093535ae4ab58a7b20417bed7, type: 2}
   levelNumber: 1
   sgGrav: 0.075
   sgFriction: 0.92

@@ -6,7 +6,9 @@ using UnityEngine.SceneManagement;
 
 public class AddressingController : MonoBehaviour {
 
-    public uint levelNumber;
+    [SerializeField]
+    private Gameplay_Progress _gameProgress;
+    public int levelNumber;
 
     public float sgGrav = 0.1f;
     public float sgFriction = 0.85f;
@@ -655,7 +657,8 @@ public class AddressingController : MonoBehaviour {
         yield return Transition.TransitionBrightness(gameObject, measureObject, 0.6f, Bright, Dark);
 
         yield return Audio.PlayMeasure();
-        LevelSelection.LevelCompleted(this.levelNumber, measureObject.transform);
+        //LevelSelection.LevelCompleted(this.levelNumber, measureObject.transform);
+        _gameProgress.CompleteLevel(levelNumber);
     }
 
     public void ClearBackground()

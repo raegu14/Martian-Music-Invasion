@@ -66,9 +66,6 @@ public class LevelSelection : MonoBehaviour {
 
     public GameObject PlayButtonCanvas;
     public GameObject PlayButton;
-    public GameObject LoadingButton;
-
-    public EventSystem SavedEventSystem;
 
     public GameObject HeaderPrefab;
 
@@ -590,15 +587,12 @@ public class LevelSelection : MonoBehaviour {
         uint i;
 
         HidePlayButton();
-        Instance.LoadingButton.SetActive(true);
 
         for (i = 0; i < Instance.LevelList.Length; i++)
         {
             AddLevelListItem(i, Instance.LevelList[i]);
             //yield return new WaitForSeconds(Instance.LevelListLoadDelay);
         }
-
-        Instance.LoadingButton.SetActive(false);
 
         yield return new WaitForSeconds(Instance.LevelListLoadDelay);
 

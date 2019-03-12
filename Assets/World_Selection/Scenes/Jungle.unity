@@ -174,7 +174,7 @@ MonoBehaviour:
   - {fileID: 11434398, guid: acdd6b93ef2dfb3438f7a2aa207b54d8, type: 2}
   - {fileID: 11424518, guid: c80d311d8dc52e249a2f532501c9c265, type: 2}
   - {fileID: 11419264, guid: 36a9325fa0d1b614781209c208588a39, type: 2}
-  LevelSelectionManager: {fileID: 1602305778}
+  LevelSelectionManager: {fileID: 0}
   ShowingTransform: {x: 0, y: 0, z: 0}
   TutorialOverlay: {fileID: 1547216672}
   SeeBubbles: {fileID: 971685401}
@@ -4044,7 +4044,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1602305777}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d34808c88cabf4a4b8b60a9e23eaf8f1, type: 3}
+  m_Script: {fileID: 11500000, guid: a991ce371bf912948ad3126e1639ccb3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   DebugBonus: 0
@@ -4079,8 +4079,6 @@ MonoBehaviour:
   MeasureLock: {fileID: 2800000, guid: a452f163aee5413449c4e7d11ea53429, type: 3}
   PlayButtonCanvas: {fileID: 1679507701}
   PlayButton: {fileID: 1446060909}
-  LoadingButton: {fileID: 683564471}
-  SavedEventSystem: {fileID: 0}
   HeaderPrefab: {fileID: 174062, guid: 2043976fb8bd3274793af47c846c24f9, type: 2}
   HeaderLockedColor: {r: 1, g: 1, b: 0, a: 1}
   HeaderCompleteColor: {r: 0.17290226, g: 0.9044118, b: 0.45037124, a: 1}

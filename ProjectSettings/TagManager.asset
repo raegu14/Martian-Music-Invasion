@@ -60,3 +60,6 @@ TagManager:
   - name: Popup
     uniqueID: 1457725199
     locked: 0
+  - name: Level Selection
+    uniqueID: 3793784703
+    locked: 0
