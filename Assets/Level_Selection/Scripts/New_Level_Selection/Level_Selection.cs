@@ -128,11 +128,19 @@ public class Level_Selection : MonoBehaviour {
 
         for (int i = 0; i < _activeWorld.Levels.Length; i++)
         {
-            GameObject obj = Instantiate(_levelButtonPrefab, _levelButtonParent);
-            obj.GetComponent<Level_Button>().Display(_activeWorld.Levels[i]);
+            if (_activeWorld.Levels[i].LevelNumber == levelNum)
+            {
+                GameObject obj = Instantiate(_levelButtonPrefab, _levelButtonParent);
+                obj.GetComponent<Level_Button>().Display(_activeWorld.Levels[i], true);
+            }
+            else
+            {
+                GameObject obj = Instantiate(_levelButtonPrefab, _levelButtonParent);
+                obj.GetComponent<Level_Button>().Display(_activeWorld.Levels[i]);
+            }
         }
 
-        CompleteLevel(levelNum);
+        CompleteLevel(GetLevelIndex(levelNum));
     }
 
     private void ResetLevelSelectionLevels()
@@ -146,31 +154,31 @@ public class Level_Selection : MonoBehaviour {
         _completeLevel.enabled = false;
     }
 
-    private void CompleteLevel(int levelNum)
+    private void CompleteLevel(int index)
     {
-        StartCoroutine(CompleteLevelAsync(levelNum));
+        StartCoroutine(CompleteLevelAsync(index));
     }
 
-    private IEnumerator CompleteLevelAsync(int levelNum)
+    private IEnumerator CompleteLevelAsync(int index)
     {
-        yield return CompleteLevelAnimation(levelNum);
+        yield return CompleteLevelAnimation(index);
         yield return PlayLevelAudioAsync(0);
     }
 
-    private IEnumerator CompleteLevelAnimation(int levelNum)
+    private IEnumerator CompleteLevelAnimation(int index)
     {
+        yield return new WaitForEndOfFrame();
+
         _completeLevel.enabled = true;
-        _completeLevel.sprite = _activeWorld.Levels[levelNum].MusicSprite;
+        _completeLevel.sprite = _activeWorld.Levels[index].MusicSprite;
 
         Vector3 initialPosition = _completeLevel.transform.position;
         Vector2 initialScale = _completeLevel.GetComponent<RectTransform>().sizeDelta;
-        RectTransform target = _levelButtonParent.GetChild(levelNum).GetComponent<Level_Button>().MusicTile.GetComponent<RectTransform>();
+        Level_Button targetButton = _levelButtonParent.GetChild(index).GetComponent<Level_Button>();
+        RectTransform target = targetButton.MusicTile.GetComponent<RectTransform>();
         Vector3 targetPosition = target.position;
         Vector2 targetScale = target.sizeDelta;
         float t = 0;
-
-        Debug.Log(initialPosition);
-        Debug.Log(targetPosition);
 
         //lerp completeLevel sprite back to position
         while(t < 1)
@@ -184,6 +192,8 @@ public class Level_Selection : MonoBehaviour {
         _completeLevel.transform.position = initialPosition;
         _completeLevel.GetComponent<RectTransform>().sizeDelta = initialScale;
         _completeLevel.enabled = false;
+
+        targetButton.GetComponent<Level_Button>().Display(_activeWorld.Levels[index]);
     }
 
     private void PlayLevelAudio()
@@ -281,6 +291,18 @@ public class Level_Selection : MonoBehaviour {
                 break;
             }
         }
+    }
+
+    private int GetLevelIndex(int levelNum)
+    {
+        for(int i = 0; i < _activeWorld.Levels.Length; i++)
+        {
+            if(_activeWorld.Levels[i].LevelNumber == levelNum)
+            {
+                return i;
+            }
+        }
+        return 0;
     }
 
     private void SetMode(LevelSelectionMode mode)

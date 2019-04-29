@@ -25,12 +25,12 @@ public class Level_Button : MonoBehaviour {
     private Level_Info _levelInfo;
     private bool _selected;
 
-    public void Display(Level_Info level)
+    public void Display(Level_Info level, bool locked = false)
     {
         _levelInfo = level;
         _levelNumber.text = level.LevelNumber.ToString();
 
-        if (level.Unlocked)
+        if (level.Unlocked && !locked)
         {
             _musicTile.sprite = level.MusicSprite;
             _comicTile.sprite = level.ComicSprite;
