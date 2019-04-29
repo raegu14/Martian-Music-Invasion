@@ -18,8 +18,8 @@ TagManager:
   - ComicLockTiles
   - DialogueBoxItems
   - 
-  - 
-  - 
+  - LevelSelection
+  - LevelSelectionAnimation
   - 
   - 
   - 
@@ -60,6 +60,9 @@ TagManager:
   - name: Popup
     uniqueID: 1457725199
     locked: 0
-  - name: Level Selection
+  - name: LevelSelection
     uniqueID: 3793784703
+    locked: 0
+  - name: LevelSelectionAnimation
+    uniqueID: 4076582391
     locked: 0

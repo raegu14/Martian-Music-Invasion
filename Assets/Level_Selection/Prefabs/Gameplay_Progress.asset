@@ -11,9 +11,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03aa21cb5713a1c4db9cdbc752365846, type: 3}
   m_Name: Gameplay_Progress
   m_EditorClassIdentifier: 
-  _worldsUnlocked: 0
-  _worldIndex: 0
-  _totalLevels: 12
-  _levelsUnlocked: 6
+  SaveProgress: 1
+  _totalLevels: 24
+  _levelsUnlocked: 3
+  _specificLevelsUnlocked: 
   _levelSelectionPrefab: {fileID: 1466417231705132, guid: e0e01d1badacbb24d95ad7db1cb9b1ea,
     type: 2}

@@ -8,13 +8,6 @@ public class Gameplay_Progress : ScriptableObject {
     public bool SaveProgress = false;
 
     [SerializeField]
-    private int _worldsUnlocked;
-    public int WorldsUnlocked => _worldsUnlocked;
-
-    [SerializeField]
-    private int _worldIndex;
-
-    [SerializeField]
     private int _totalLevels;
     public int TotalLevels => _totalLevels;
 
@@ -25,7 +18,7 @@ public class Gameplay_Progress : ScriptableObject {
     [SerializeField]
     private int[] _specificLevelsUnlocked;
 
-    public  int LevelAvailable => _levelsUnlocked + 1;
+    public int LevelAvailable => _levelsUnlocked + 1;
 
     [SerializeField]
     private GameObject _levelSelectionPrefab;
@@ -34,7 +27,6 @@ public class Gameplay_Progress : ScriptableObject {
 
     public void Reset()
     {
-        _worldsUnlocked = 1;
         _levelsUnlocked = 1;
     }
 
@@ -51,18 +43,24 @@ public class Gameplay_Progress : ScriptableObject {
     public void CompleteLevel(int levelNum)
     {
         _levelsUnlocked = Mathf.Max(_levelsUnlocked, levelNum);
-        DisplayLevelSelection();
+        DisplayLevelSelection(levelNum);
     }
 
     public void UnlockAllLevels()
     {
         _levelsUnlocked = _totalLevels;
-        DisplayLevelSelection();
+        DisplayWorldSelection();
     }
 
-    public void DisplayLevelSelection()
+    public void DisplayWorldSelection()
     {
         GameObject levelSelection = Instantiate(_levelSelectionPrefab);
-        levelSelection.GetComponent<Level_Selection>().InstantiateLevelSelection();
+        levelSelection.GetComponent<Level_Selection>().DisplayWorldSelection();
+    }
+
+    public void DisplayLevelSelection(int levelNum)
+    {
+        GameObject levelSelection = Instantiate(_levelSelectionPrefab);
+        levelSelection.GetComponent<Level_Selection>().DisplayLevelSelectionByLevel(levelNum);
     }
 }

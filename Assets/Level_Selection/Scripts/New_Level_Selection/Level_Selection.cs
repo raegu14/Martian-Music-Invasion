@@ -1,8 +1,32 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class Level_Selection : MonoBehaviour {
+
+    [Header("World Selection")]
+    [SerializeField]
+    private GameObject _worldSelectionParent;
+
+    [SerializeField]
+    private Transform _worldButtonParent = null;
+
+    [SerializeField]
+    private GameObject _worldButtonPrefab;
+
+    [SerializeField]
+    private World_Info[] _worldInfoList = null;
+
+    [Header("Level Selection")]
+    [SerializeField]
+    private GameObject _levelSelectionParent = null;
+
+    [SerializeField]
+    private Image _levelSelectionBackground = null;
 
     [SerializeField]
     private Transform _levelButtonParent = null;
@@ -11,7 +35,13 @@ public class Level_Selection : MonoBehaviour {
     private GameObject _levelButtonPrefab = null;
 
     [SerializeField]
-    private Level_Info[] _levelInfoList = null;
+    private Image _selectionMarker = null;
+
+    [SerializeField]
+    private Image _completeLevel = null;
+
+    [SerializeField]
+    private float _completeLevelAnimationTime = 1f;
 
     [SerializeField]
     private Gameplay_Progress _progress = null;
@@ -22,31 +52,157 @@ public class Level_Selection : MonoBehaviour {
     [SerializeField]
     private AudioClip _lockedAudio = null;
 
-    //instantiate level prefabs
-    public void InstantiateLevelSelection()
+    private World_Info _activeWorld = null;
+    private string _selectedLevelName;
+
+    #region World Selection 
+
+    public void DisplayWorldSelection()
     {
-        foreach(Level_Info level in _levelInfoList)
-        {
-            level.SetUnlocked(_progress.LevelsUnlocked);
-            level.SetAvailable(_progress.LevelAvailable);
-        }
+        SetMode(LevelSelectionMode.World);
 
-        for(int i = 0; i < _levelInfoList.Length; i++)
-        {
-            GameObject obj = Instantiate(_levelButtonPrefab, _levelButtonParent);
-            obj.GetComponent<Level_Button>().Display(_levelInfoList[i]);
-        }
+        UpdateLevels();
+        ResetWorld();
 
-        StartCoroutine(PlayAudio(0));
+        for (int i = 0; i < _worldInfoList.Length; i++)
+        {
+            int index = i;
+            GameObject obj = Instantiate(_worldButtonPrefab, _worldButtonParent);
+            obj.GetComponent<World_Button>().Display(_worldInfoList[index]);
+            obj.GetComponent<World_Button>().Button.onClick.AddListener(() => DisplayLevelSelectionByWorld(index));
+        }
     }
 
-    public IEnumerator PlayAudio(int clipNum)
+    private void ResetWorld()
     {
-        if (clipNum < _levelInfoList.Length)
+        for (int i = 0; i < _worldButtonParent.childCount; i++)
         {
-            if (_levelInfoList[clipNum].Unlocked)
+            Destroy(_worldButtonParent.GetChild(i).gameObject);
+        }
+    }
+
+    #endregion
+
+    #region Level Selection
+
+    public void DisplayLevelSelectionByWorld(int worldNum)
+    {
+        SetMode(LevelSelectionMode.Level);
+        _activeWorld = _worldInfoList[worldNum];
+
+        _levelSelectionBackground.sprite = _activeWorld.Background;
+
+        UpdateLevels();
+        ResetLevelSelectionLevels();
+        ResetLevelSelectionSelection();
+
+        Level_Selection_Util.SelectLevel.RemoveListener(SelectLevel);
+        Level_Selection_Util.SelectLevel.AddListener(SelectLevel);
+
+        for (int i = 0; i < _activeWorld.Levels.Length; i++)
+        {
+            GameObject obj = Instantiate(_levelButtonPrefab, _levelButtonParent);
+            obj.GetComponent<Level_Button>().Display(_activeWorld.Levels[i]);
+        }
+
+        Level_Selection_Util.SetButtonInteractivity.Invoke(false);
+
+        PlayLevelAudio();
+    }
+
+    //instantiate level prefabs
+    //Complete Level
+    public void DisplayLevelSelectionByLevel(int levelNum)
+    {
+        SetMode(LevelSelectionMode.Level);
+        SetActiveWorld(levelNum);
+
+        _levelSelectionBackground.sprite = _activeWorld.Background;
+
+        UpdateLevels();
+        ResetLevelSelectionLevels();
+        ResetLevelSelectionSelection();
+
+        Level_Selection_Util.SelectLevel.RemoveListener(SelectLevel);
+        Level_Selection_Util.SelectLevel.AddListener(SelectLevel);
+
+        for (int i = 0; i < _activeWorld.Levels.Length; i++)
+        {
+            GameObject obj = Instantiate(_levelButtonPrefab, _levelButtonParent);
+            obj.GetComponent<Level_Button>().Display(_activeWorld.Levels[i]);
+        }
+
+        CompleteLevel(levelNum);
+    }
+
+    private void ResetLevelSelectionLevels()
+    {
+        for (int i = 0; i < _levelButtonParent.childCount; i++)
+        {
+            Destroy(_levelButtonParent.GetChild(i).gameObject);
+        }
+        _selectedLevelName = "";
+
+        _completeLevel.enabled = false;
+    }
+
+    private void CompleteLevel(int levelNum)
+    {
+        StartCoroutine(CompleteLevelAsync(levelNum));
+    }
+
+    private IEnumerator CompleteLevelAsync(int levelNum)
+    {
+        yield return CompleteLevelAnimation(levelNum);
+        yield return PlayLevelAudioAsync(0);
+    }
+
+    private IEnumerator CompleteLevelAnimation(int levelNum)
+    {
+        _completeLevel.enabled = true;
+        _completeLevel.sprite = _activeWorld.Levels[levelNum].MusicSprite;
+
+        Vector3 initialPosition = _completeLevel.transform.position;
+        Vector2 initialScale = _completeLevel.GetComponent<RectTransform>().sizeDelta;
+        RectTransform target = _levelButtonParent.GetChild(levelNum).GetComponent<Level_Button>().MusicTile.GetComponent<RectTransform>();
+        Vector3 targetPosition = target.position;
+        Vector2 targetScale = target.sizeDelta;
+        float t = 0;
+
+        Debug.Log(initialPosition);
+        Debug.Log(targetPosition);
+
+        //lerp completeLevel sprite back to position
+        while(t < 1)
+        {
+            t = Mathf.Min(1, t + (Time.deltaTime / _completeLevelAnimationTime));
+            _completeLevel.transform.position = Vector3.Lerp(initialPosition, targetPosition, t);
+            _completeLevel.GetComponent<RectTransform>().sizeDelta = Vector2.Lerp(initialScale, targetScale, t);
+            yield return new WaitForEndOfFrame();
+        }
+
+        _completeLevel.transform.position = initialPosition;
+        _completeLevel.GetComponent<RectTransform>().sizeDelta = initialScale;
+        _completeLevel.enabled = false;
+    }
+
+    private void PlayLevelAudio()
+    {
+        StartCoroutine(PlayLevelAudioAsync(0));
+    }
+
+    private IEnumerator PlayLevelAudioAsync(int clipNum)
+    {
+        if (clipNum < _activeWorld.Levels.Length)
+        {
+            GameObject levelButton = _levelButtonParent.GetChild(clipNum).gameObject;
+            levelButton.transform.localScale = new Vector3(1.1f, 1.1f, 1.1f);
+            levelButton.GetComponent<Canvas>().overrideSorting = true;
+            levelButton.GetComponent<Canvas>().sortingOrder = SortingLayer.GetLayerValueFromName("LevelSelectionAnimation");
+
+            if (_activeWorld.Levels[clipNum].Unlocked)
             {
-                _audioSource.clip = _levelInfoList[clipNum].Audio;
+                _audioSource.clip = _activeWorld.Levels[clipNum].Audio;
             }
             else
             {
@@ -55,7 +211,97 @@ public class Level_Selection : MonoBehaviour {
             _audioSource.Play();
             yield return new WaitWhile(() => _audioSource.isPlaying);
 
-            StartCoroutine(PlayAudio(clipNum + 1));
+            levelButton = _levelButtonParent.GetChild(clipNum).gameObject;
+            levelButton.transform.localScale = new Vector3(1f, 1f, 1f);
+            levelButton.GetComponent<Canvas>().sortingOrder = SortingLayer.GetLayerValueFromName("LevelSelection");
+            levelButton.GetComponent<Canvas>().overrideSorting = false;
+
+            StartCoroutine(PlayLevelAudioAsync(clipNum + 1));
+        }
+    }
+
+    public void SelectLevel(int selectedLevel)
+    {
+        ResetLevelSelectionSelection();
+
+        _selectionMarker.enabled = true;
+        _selectionMarker.color = Color.green;
+        for(int i = 0; i < _activeWorld.Levels.Length; i++)
+        {
+            if(_activeWorld.Levels[i].LevelNumber == selectedLevel)
+            {
+                _selectionMarker.transform.position = _levelButtonParent.GetChild(i).position;
+                _levelButtonParent.GetChild(i).GetComponent<Level_Button>().Select();
+            }
+        }
+        _selectedLevelName = "Level_Play" + selectedLevel;
+    }
+
+    private void ResetLevelSelectionSelection()
+    {
+        for (int i = 0; i < _levelButtonParent.childCount; i++)
+        {
+            Level_Button level = _levelButtonParent.GetChild(i).GetComponent<Level_Button>();
+            level.UnSelect();
+        }
+        _selectionMarker.enabled = false;
+    }
+
+    public void LoadLevel()
+    {
+        if (_selectedLevelName != "")
+        {
+            SceneManager.LoadScene(_selectedLevelName);
+        }
+    }
+
+    #endregion
+
+    private void UpdateLevels()
+    {
+        foreach(World_Info world in _worldInfoList)
+        {
+            foreach(Level_Info level in world.Levels)
+            {
+                level.SetUnlocked(_progress.LevelsUnlocked);
+                level.SetAvailable(_progress.LevelAvailable);
+            }
+            world.SetUnlocked();
+        }
+    }
+
+    private void SetActiveWorld(int levelNum)
+    {
+        _activeWorld = null;
+        for(int i = 0; i < _worldInfoList.Length; i++)
+        {
+            if (_worldInfoList[i].ContainsLevel(levelNum))
+            {
+                _activeWorld = _worldInfoList[i];
+                break;
+            }
+        }
+    }
+
+    private void SetMode(LevelSelectionMode mode)
+    {
+        if(mode == LevelSelectionMode.World)
+        {
+            _levelSelectionParent.SetActive(false);
+            _worldSelectionParent.SetActive(true);
+        }
+
+        else
+        {
+            _levelSelectionParent.SetActive(true);
+            _worldSelectionParent.SetActive(false);
         }
     }
 }
+
+public enum LevelSelectionMode
+{
+    World = 0,
+    Level = 1
+}
+

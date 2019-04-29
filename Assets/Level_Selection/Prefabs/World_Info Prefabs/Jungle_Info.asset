@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22d617c33eb2a144b9c9030fad651b5d, type: 3}
+  m_Name: Jungle_Info
+  m_EditorClassIdentifier: 
+  _worldNumber: 0
+  _worldSprite: {fileID: 21300000, guid: 36f3a971258dab6499f93d7c35e55115, type: 3}
+  _background: {fileID: 21300000, guid: c8c09874784dea14bb1a7796258d1ed7, type: 3}
+  _levels:
+  - {fileID: 11400000, guid: d3182fe01f7c7e84e90082c179453154, type: 2}
+  - {fileID: 11400000, guid: 3bb1fb29fd00c144ea08edbb8d3d1bca, type: 2}
+  - {fileID: 11400000, guid: 1cf0cd27706952b43be4f7d300ad3ee7, type: 2}
+  - {fileID: 11400000, guid: b306d99e552723a45b4949996464e6ff, type: 2}
+  - {fileID: 11400000, guid: f8279dd90721f4d43aaca82237d62f3e, type: 2}
+  - {fileID: 11400000, guid: 5dc13c99d23b7bf468076b5bba479d44, type: 2}

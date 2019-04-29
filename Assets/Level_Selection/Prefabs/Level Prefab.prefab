@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 224927485888851990}
   - component: {fileID: 222326287085662150}
   - component: {fileID: 114648068179961652}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Comic Tile 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -40,7 +40,8 @@ GameObject:
   - component: {fileID: 114870220903856366}
   - component: {fileID: 114848172260605998}
   - component: {fileID: 114427711184746114}
-  m_Layer: 0
+  - component: {fileID: 114302924773850834}
+  m_Layer: 12
   m_Name: Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -57,7 +58,7 @@ GameObject:
   - component: {fileID: 224938231961803094}
   - component: {fileID: 222697476550774874}
   - component: {fileID: 114953188518365348}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Measure Tile 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -74,7 +75,7 @@ GameObject:
   - component: {fileID: 224674220631396310}
   - component: {fileID: 222836508974174402}
   - component: {fileID: 114334585137199208}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Comic Background 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -91,7 +92,7 @@ GameObject:
   - component: {fileID: 224851597938261412}
   - component: {fileID: 222443054945081374}
   - component: {fileID: 114670537170644464}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Measure Background 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -108,7 +109,7 @@ GameObject:
   - component: {fileID: 224077857500290208}
   - component: {fileID: 222355314141860130}
   - component: {fileID: 114322246946178050}
-  m_Layer: 5
+  m_Layer: 12
   m_Name: Number Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -125,7 +126,7 @@ GameObject:
   - component: {fileID: 224678419863672556}
   - component: {fileID: 222041475469306128}
   - component: {fileID: 114241010038693396}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Ball
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -143,7 +144,9 @@ GameObject:
   - component: {fileID: 114647153063084040}
   - component: {fileID: 114927152045893568}
   - component: {fileID: 114788403625811596}
-  m_Layer: 0
+  - component: {fileID: 223493388856932448}
+  - component: {fileID: 114633043692159964}
+  m_Layer: 12
   m_Name: Level Prefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -177,6 +180,53 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114302924773850834
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1220658589276482}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1862395651, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 114788403625811596}
+          m_MethodName: OnPointerEnter
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+      m_TypeName: UnityEngine.EventSystems.EventTrigger+TriggerEvent, UnityEngine.UI,
+        Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  - eventID: 1
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 114788403625811596}
+          m_MethodName: OnPointerExit
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+      m_TypeName: UnityEngine.EventSystems.EventTrigger+TriggerEvent, UnityEngine.UI,
+        Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  delegates: []
 --- !u!114 &114322246946178050
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -256,6 +306,22 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
+--- !u!114 &114633043692159964
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1902147808329980}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1301386320, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IgnoreReversedGraphics: 1
+  m_BlockingObjects: 0
+  m_BlockingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
 --- !u!114 &114647153063084040
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -343,6 +409,7 @@ MonoBehaviour:
   _musicTile: {fileID: 114953188518365348}
   _comicTile: {fileID: 114648068179961652}
   _levelNumber: {fileID: 114322246946178050}
+  _canvas: {fileID: 223493388856932448}
   _button: {fileID: 114848172260605998}
 --- !u!114 &114848172260605998
 MonoBehaviour:
@@ -384,7 +451,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 114788403625811596}
-        m_MethodName: LoadLevelScene
+        m_MethodName: SelectLevelRaiser
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -514,6 +581,26 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1588570456145418}
+--- !u!223 &223493388856932448
+Canvas:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1902147808329980}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_RenderMode: 2
+  m_Camera: {fileID: 0}
+  m_PlaneDistance: 100
+  m_PixelPerfect: 0
+  m_ReceivesEvents: 1
+  m_OverrideSorting: 0
+  m_OverridePixelPerfect: 0
+  m_SortingBucketNormalizedSize: 0
+  m_AdditionalShaderChannelsFlag: 0
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
+  m_TargetDisplay: 0
 --- !u!224 &224077857500290208
 RectTransform:
   m_ObjectHideFlags: 1
@@ -655,7 +742,7 @@ RectTransform:
   m_GameObject: {fileID: 1466775251889476}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -0.099999905}
-  m_LocalScale: {x: 1, y: 0.89391994, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 224851597938261412}
   m_RootOrder: 0
