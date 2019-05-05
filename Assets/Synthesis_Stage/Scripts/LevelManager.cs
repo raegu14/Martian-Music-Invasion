@@ -6,8 +6,10 @@ using System.Collections.Generic;
 
 
 public class LevelManager : MonoBehaviour {
-	
-	public uint levelNumber;
+
+    [SerializeField]
+    private Gameplay_Progress _gameProgress = null;
+    public uint levelNumber;
 	public uint maxLives = 3;
 
 	public GameObject[] lifePrefabs;
@@ -236,15 +238,19 @@ public class LevelManager : MonoBehaviour {
 
         this.SuperdimChildren(this.gameObject);
 
+        /*
 		// Conditional for demo popup
 		if (this.levelNumber == 12) {
 			this.ShowDemoPopup();
 		} else {
 			LevelSelection.LevelCompleted(this.levelNumber, this.measureTransform);
 		}
-	}
+        */
 
-	public void RegisterNote(Note note) {
+        _gameProgress.CompleteLevel((int)levelNumber);
+    }
+
+    public void RegisterNote(Note note) {
 		uint charCount;
 		foreach (char c in note.letters) {
 			charCount = 0;

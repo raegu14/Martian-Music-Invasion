@@ -40,6 +40,7 @@ public class Level_Button : MonoBehaviour {
         else if (level.Available)
         {
             _button.interactable = true;
+            _comicTile.sprite = level.ComicSprite;
         }
         else
         {

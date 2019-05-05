@@ -2759,6 +2759,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01c4d36fa42cf4354b255625be2cf08f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _gameProgress: {fileID: 11400000, guid: 6ea8b3c093535ae4ab58a7b20417bed7, type: 2}
   levelNumber: 17
   maxLives: 3
   lifePrefabs:
@@ -2792,6 +2793,7 @@ MonoBehaviour:
   measureClip: {fileID: 8300000, guid: a0b25c1f09196f341a1e5c7c8af8992e, type: 3}
   noteFailClip: {fileID: 8300000, guid: 3210714fd6b6e4ddebeddb7ef08bfce2, type: 3}
   buildingsBackground: {fileID: 8300000, guid: 76344ffa1c0df6040b89c300fc3978a6, type: 3}
+  DemoPopupGO: {fileID: 0}
 --- !u!1 &1688944380
 GameObject:
   m_ObjectHideFlags: 0

@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 public class AddressingController : MonoBehaviour {
 
     [SerializeField]
-    private Gameplay_Progress _gameProgress;
+    private Gameplay_Progress _gameProgress = null;
     public int levelNumber;
 
     public float sgGrav = 0.1f;

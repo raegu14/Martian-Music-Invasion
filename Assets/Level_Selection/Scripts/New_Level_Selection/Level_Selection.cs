@@ -319,6 +319,40 @@ public class Level_Selection : MonoBehaviour {
             _worldSelectionParent.SetActive(false);
         }
     }
+
+    public void StartGame()
+    {
+        if (_progress.LevelAvailable == 0)
+        {
+            SceneManager.LoadScene("IntroCutscene1");
+        }
+        else
+        {
+            StartCoroutine(StartGameAsync());
+        }
+    }
+
+    private IEnumerator StartGameAsync()
+    {
+        bool loaded = false;
+        yield return new WaitForEndOfFrame();
+        int level = Mathf.Min(_progress.LevelAvailable, _progress.TotalLevels);
+        Debug.Log(level);
+        for (int i = 0; i < _worldInfoList.Length; i++)
+        {
+            if (_worldInfoList[i].ContainsLevel(level))
+            {
+                DisplayLevelSelectionByWorld(i);
+                loaded = true;
+                break;
+            }
+        }
+
+        if (!loaded)
+        {
+            DisplayLevelSelectionByWorld(0);
+        }
+    }
 }
 
 public enum LevelSelectionMode
