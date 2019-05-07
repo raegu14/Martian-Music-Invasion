@@ -15,3 +15,4 @@ MonoBehaviour:
   _musicSprite: {fileID: 21300000, guid: 584c706bcefbb1342b2ab7bfd98baa99, type: 3}
   _comicSprite: {fileID: 21300000, guid: 3a85a87f9dbb14640b395d534c5aceb2, type: 3}
   _audio: {fileID: 8300000, guid: 9fc70aa10fd0650478c6ead3a370b434, type: 3}
+  _available: 0

@@ -7,6 +7,8 @@ using UnityEngine.UI;
 public class ResetButton : MonoBehaviour
 {
 
+    public Gameplay_Progress _progress;
+
     public GameObject ResetCanvas;
     public Button button;
 

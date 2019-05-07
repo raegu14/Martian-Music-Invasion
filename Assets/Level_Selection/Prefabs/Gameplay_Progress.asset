@@ -2,7 +2,7 @@
 %TAG !u! tag:unity3d.com,2011:
 --- !u!114 &11400000
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 32
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 0}
@@ -13,11 +13,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SaveProgress: 0
   _totalLevels: 24
-  _levelsUnlocked: 1
+  _levelsUnlocked: 6
   _specificLevelsUnlocked: 
   _levelSelectionPrefab: {fileID: 1466417231705132, guid: e0e01d1badacbb24d95ad7db1cb9b1ea,
     type: 2}
   _worldUnlockPasswords:
+  - Start
   - Rainbow Piano
   - Striped Guitar
   - Metallic Drums

@@ -21,10 +21,10 @@ public class Level_Info : ScriptableObject
     private AudioClip _audio = null;
     public AudioClip Audio => _audio;
 
-    private bool _unlocked;
+    private bool _unlocked = false;
     public bool Unlocked => _unlocked;
 
-    private bool _available;
+    private bool _available = false;
     public bool Available => _available || _unlocked;
 
     public void SetUnlocked(bool unlocked)

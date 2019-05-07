@@ -52,6 +52,15 @@ public class Level_Selection : MonoBehaviour {
     [SerializeField]
     private AudioClip _lockedAudio = null;
 
+    [SerializeField]
+    private Button[] _buttons = null;
+
+    [SerializeField]
+    private GameObject _worldFinishObj = null;
+
+    [SerializeField]
+    private Text _worldFinishText = null;
+
     private World_Info _activeWorld = null;
     private string _selectedLevelName;
 
@@ -105,8 +114,6 @@ public class Level_Selection : MonoBehaviour {
             obj.GetComponent<Level_Button>().Display(_activeWorld.Levels[i]);
         }
 
-        Level_Selection_Util.SetButtonInteractivity.Invoke(false);
-
         PlayLevelAudio();
     }
 
@@ -152,6 +159,7 @@ public class Level_Selection : MonoBehaviour {
         _selectedLevelName = "";
 
         _completeLevel.enabled = false;
+        _worldFinishObj.SetActive(false);
     }
 
     private void CompleteLevel(int index)
@@ -161,8 +169,24 @@ public class Level_Selection : MonoBehaviour {
 
     private IEnumerator CompleteLevelAsync(int index)
     {
+        SetButtonInteractivity(false);
+
         yield return CompleteLevelAnimation(index);
-        yield return PlayLevelAudioAsync(0);
+
+        for (int i = 0; i < _activeWorld.Levels.Length; i++)
+        {
+            yield return PlayLevelMeasureAudio(i);
+        }
+
+        if (_activeWorld.Levels[index].LevelNumber == _progress.LevelCap)
+        {
+            _worldFinishObj.SetActive(true);
+            _worldFinishText.text = _worldFinishText.text.Replace("[Insert Here]", _progress.CompletePassword);
+        }
+        else
+        {
+            SetButtonInteractivity(true);
+        }
     }
 
     private IEnumerator CompleteLevelAnimation(int index)
@@ -194,14 +218,27 @@ public class Level_Selection : MonoBehaviour {
         _completeLevel.enabled = false;
 
         targetButton.GetComponent<Level_Button>().Display(_activeWorld.Levels[index]);
+        SetButtonInteractivity(false);
     }
 
     private void PlayLevelAudio()
     {
-        StartCoroutine(PlayLevelAudioAsync(0));
+        StartCoroutine(PlayLevelAudioAsync());
     }
 
-    private IEnumerator PlayLevelAudioAsync(int clipNum)
+    private IEnumerator PlayLevelAudioAsync()
+    {
+        SetButtonInteractivity(false);
+
+        for(int i = 0; i < _activeWorld.Levels.Length; i++)
+        {
+            yield return PlayLevelMeasureAudio(i);
+        }
+
+        SetButtonInteractivity(true);
+    }
+
+    private IEnumerator PlayLevelMeasureAudio(int clipNum)
     {
         if (clipNum < _activeWorld.Levels.Length)
         {
@@ -225,8 +262,6 @@ public class Level_Selection : MonoBehaviour {
             levelButton.transform.localScale = new Vector3(1f, 1f, 1f);
             levelButton.GetComponent<Canvas>().sortingOrder = SortingLayer.GetLayerValueFromName("LevelSelection");
             levelButton.GetComponent<Canvas>().overrideSorting = false;
-
-            StartCoroutine(PlayLevelAudioAsync(clipNum + 1));
         }
     }
 
@@ -320,11 +355,20 @@ public class Level_Selection : MonoBehaviour {
         }
     }
 
+    public void SetButtonInteractivity(bool enabled)
+    {
+        foreach(Button button in _buttons)
+        {
+            button.interactable = enabled;
+        }
+        Level_Selection_Util.SetButtonInteractivity.Invoke(enabled);
+    }
+
     public void StartGame()
     {
-        if (_progress.LevelAvailable == 0)
+        if (_progress.LevelAvailable == 1)
         {
-            SceneManager.LoadScene("IntroCutscene1");
+            StartCoroutine(StartGameFromBeginning());
         }
         else
         {
@@ -332,12 +376,17 @@ public class Level_Selection : MonoBehaviour {
         }
     }
 
+    private IEnumerator StartGameFromBeginning()
+    {
+        yield return new WaitForEndOfFrame();
+        SceneManager.LoadScene("IntroCutscene1");
+    }
+
     private IEnumerator StartGameAsync()
     {
         bool loaded = false;
         yield return new WaitForEndOfFrame();
         int level = Mathf.Min(_progress.LevelAvailable, _progress.TotalLevels);
-        Debug.Log(level);
         for (int i = 0; i < _worldInfoList.Length; i++)
         {
             if (_worldInfoList[i].ContainsLevel(level))

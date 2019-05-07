@@ -20,7 +20,10 @@ public class Gameplay_Progress : ScriptableObject {
     [SerializeField]
     private int[] _specificLevelsUnlocked;
 
-    public int LevelAvailable => _levelsUnlocked + 1;
+    public int LevelAvailable => Mathf.Min(_levelsUnlocked + 1, _levelCap);
+
+    private int _levelCap;
+    public int LevelCap => _levelCap;
 
     [SerializeField]
     private GameObject _levelSelectionPrefab;
@@ -32,21 +35,30 @@ public class Gameplay_Progress : ScriptableObject {
     [SerializeField]
     private string[] _worldCompletePasswords;
 
+    private string _completePassword;
+    public string CompletePassword => _completePassword;
+
+    private bool _enteredCorrectPassword = false;
+    public bool EnteredCorrectPassword => _enteredCorrectPassword;
+
     #region Not Saving Progress
 
     public void Reset()
     {
-        _levelsUnlocked = 1;
+        _levelsUnlocked = 0;
     }
 
     #endregion
 
     public void OnEnable()
     {
-        if (!SaveProgress)
+        hideFlags = HideFlags.DontUnloadUnusedAsset;
+       if (!SaveProgress)
         {
             Reset();
         }
+
+        _enteredCorrectPassword = false;
     }
 
     public void SetPassword(string str)
@@ -56,24 +68,25 @@ public class Gameplay_Progress : ScriptableObject {
 
     public void UnlockWorld()
     {
-        bool set = false;
         for(int i = 0; i < _worldUnlockPasswords.Length; i++)
         {
             if(_inputPassword.Equals(_worldUnlockPasswords[i], System.StringComparison.OrdinalIgnoreCase))
             {
-                _levelsUnlocked = (i + 1) * 6;
-                set = true;
+                _levelsUnlocked = i * 6;
+                _levelCap = Mathf.Min((i + 1) * 6, _totalLevels);
+                if (i < _worldCompletePasswords.Length)
+                {
+                    _completePassword = _worldCompletePasswords[i];
+                }
+                _enteredCorrectPassword = true;
+                break;
             }
-        }
-        if (!set)
-        {
-            _levelsUnlocked = 1;
         }
     }
 
     public void CompleteLevel(int levelNum)
     {
-        _levelsUnlocked = Mathf.Max(_levelsUnlocked, levelNum);
+        _levelsUnlocked = Mathf.Min(Mathf.Max(_levelsUnlocked, levelNum), _levelCap);
         DisplayLevelSelection(levelNum);
     }
 
@@ -132,8 +145,11 @@ public class Gameplay_Progress : ScriptableObject {
         SceneManager.LoadScene("Level_Selection", LoadSceneMode.Single);
         SceneManager.sceneLoaded -= loadLevelSelection;
         */
+        if (_enteredCorrectPassword)
+        {
 
-        GameObject levelSelection = Instantiate(_levelSelectionPrefab);
-        levelSelection.GetComponent<Level_Selection>().StartGame();
+            GameObject levelSelection = Instantiate(_levelSelectionPrefab);
+            levelSelection.GetComponent<Level_Selection>().StartGame();
+        }
     }
 }
