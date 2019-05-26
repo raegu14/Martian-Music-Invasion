@@ -4921,7 +4921,7 @@ AudioSource:
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -5011,7 +5011,7 @@ MonoBehaviour:
   glow:
   - {fileID: 2107520405}
   - {fileID: 2006880484}
-  MeasureSR: {fileID: 0}
+  MeasureSR: {fileID: 148814216}
   tutorial: {fileID: 0}
   noteClips:
   - {fileID: 8300000, guid: 1b4657e8de9f6c645bcd1c1503b4a185, type: 3}
@@ -5034,7 +5034,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: dece2500dba83e7438fd2db90262cfeb, type: 3}
   measureClip: {fileID: 8300000, guid: b67c8590722445d409aca2cc70d5c048, type: 3}
   noteFailClip: {fileID: 8300000, guid: 3210714fd6b6e4ddebeddb7ef08bfce2, type: 3}
-  buildingsBackground: {fileID: 8300000, guid: 61d1fc4c62a5c4eb28473edf2ece99dc, type: 3}
+  buildingsBackground: {fileID: 8300000, guid: 8b013647547968e47a0f65ea6dbe1450, type: 3}
   DemoPopupGO: {fileID: 0}
 --- !u!1001 &1239589743
 Prefab:

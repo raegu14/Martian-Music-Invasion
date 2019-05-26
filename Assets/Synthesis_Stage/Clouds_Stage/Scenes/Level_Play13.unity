@@ -1150,7 +1150,7 @@ AudioSource:
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -1239,7 +1239,7 @@ MonoBehaviour:
   allLivesLostPrefab: {fileID: 159236, guid: 8d5577fd9fa82944b83cc2bc81dfb51a, type: 2}
   glow:
   - {fileID: 341702730}
-  MeasureSR: {fileID: 0}
+  MeasureSR: {fileID: 1832809201}
   tutorial: {fileID: 574252782}
   noteClips:
   - {fileID: 8300000, guid: 1b4657e8de9f6c645bcd1c1503b4a185, type: 3}
@@ -1262,7 +1262,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: dece2500dba83e7438fd2db90262cfeb, type: 3}
   measureClip: {fileID: 8300000, guid: 57b2595ab9cb38c4d95c4aa3f170e87f, type: 3}
   noteFailClip: {fileID: 8300000, guid: 3210714fd6b6e4ddebeddb7ef08bfce2, type: 3}
-  buildingsBackground: {fileID: 8300000, guid: 76344ffa1c0df6040b89c300fc3978a6, type: 3}
+  buildingsBackground: {fileID: 8300000, guid: ac40671edf171944bb4a3db2fe2f58e5, type: 3}
   DemoPopupGO: {fileID: 0}
 --- !u!114 &574252782
 MonoBehaviour:
@@ -1889,7 +1889,7 @@ ParticleSystemRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 31
   m_RenderMode: 0
   m_SortMode: 0
   m_MinParticleSize: 0
@@ -1969,7 +1969,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 0
+  randomSeed: -973898508
   InitialModule:
     serializedVersion: 3
     enabled: 1

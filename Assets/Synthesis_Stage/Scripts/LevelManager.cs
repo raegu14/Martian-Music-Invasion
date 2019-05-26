@@ -228,6 +228,7 @@ public class LevelManager : MonoBehaviour {
 		this.backgroundAudioSource.clip = clip;
 		this.backgroundAudioSource.volume = 1f;
 		this.backgroundAudioSource.Play ();
+        this.backgroundAudioSource.loop = false;
 
         for (int i = 0; i < glow.Length; i++)
         {

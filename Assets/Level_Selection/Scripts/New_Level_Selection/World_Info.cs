@@ -18,6 +18,10 @@ public class World_Info : ScriptableObject
     public Sprite Background => _background;
 
     [SerializeField]
+    private AudioClip _backgroundAudio;
+    public AudioClip BackgroundAudio => _backgroundAudio;
+
+    [SerializeField]
     private Level_Info[] _levels = null;
     public Level_Info[] Levels => _levels;
 

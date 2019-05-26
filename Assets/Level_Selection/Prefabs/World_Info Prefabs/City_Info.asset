@@ -14,6 +14,7 @@ MonoBehaviour:
   _worldNumber: 1
   _worldSprite: {fileID: 21300000, guid: a7d426ab91800c24281d3547b294082c, type: 3}
   _background: {fileID: 21300000, guid: 8e13a4b7a6e6fae4196135d809d2d3d2, type: 3}
+  _backgroundAudio: {fileID: 8300000, guid: 730fcf3fc20655a49aa9d2903a83abf9, type: 3}
   _levels:
   - {fileID: 11400000, guid: e3bee3c1a6885d84db7a7e1e3ff7e790, type: 2}
   - {fileID: 11400000, guid: 0d3d356bfea5c9a498d5b31b7cdb71a7, type: 2}

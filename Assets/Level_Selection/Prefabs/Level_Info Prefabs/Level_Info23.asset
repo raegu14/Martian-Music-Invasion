@@ -13,5 +13,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _levelNumber: 23
   _musicSprite: {fileID: 21300000, guid: 056847c807563fa4f810ce797018660c, type: 3}
-  _comicSprite: {fileID: 21300000, guid: 8f82883ff351e471b9e3f11ce3855cc2, type: 3}
+  _comicSprite: {fileID: 21300000, guid: 87e662d791056c441bcb96db604f8975, type: 3}
   _audio: {fileID: 8300000, guid: e12a209dd6cc4254d9d3201b0b9f2878, type: 3}

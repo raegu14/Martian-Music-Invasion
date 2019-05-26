@@ -41,6 +41,8 @@ public class Gameplay_Progress : ScriptableObject {
     private bool _enteredCorrectPassword = false;
     public bool EnteredCorrectPassword => _enteredCorrectPassword;
 
+    private UnityAction<Scene, LoadSceneMode> _sceneLoadEvent;
+
     #region Not Saving Progress
 
     public void Reset()
@@ -98,58 +100,63 @@ public class Gameplay_Progress : ScriptableObject {
 
     public void DisplayWorldSelection()
     {
-        /*
-        UnityAction<Scene, LoadSceneMode> loadLevelSelection = new UnityAction<Scene, LoadSceneMode>((Scene scene, LoadSceneMode mode) => {
-            Debug.Log("loaded");
-            GameObject levelSelection = Instantiate(_levelSelectionPrefab);
-            levelSelection.GetComponent<Level_Selection>().DisplayWorldSelection();
-        });
-        SceneManager.sceneLoaded += loadLevelSelection;
-        SceneManager.LoadScene("Level_Selection", LoadSceneMode.Single);
-        SceneManager.sceneLoaded -= loadLevelSelection;
-        */
-
+        Scene oldScene = SceneManager.GetActiveScene();
         GameObject levelSelection = Instantiate(_levelSelectionPrefab);
+
+        _sceneLoadEvent = new UnityAction<Scene, LoadSceneMode>((Scene scene, LoadSceneMode mode) => {
+            Scene levelSelectionScene = SceneManager.GetSceneByName("Level_Selection");
+            SceneManager.MoveGameObjectToScene(levelSelection, levelSelectionScene);
+            SceneManager.UnloadSceneAsync(oldScene);
+            RemoveSceneLoadEvent();
+        });
+
+        SceneManager.sceneLoaded += _sceneLoadEvent;
+        SceneManager.LoadScene("Level_Selection", LoadSceneMode.Additive);
+
         levelSelection.GetComponent<Level_Selection>().DisplayWorldSelection();
     }
 
     public void DisplayLevelSelection(int levelNum)
     {
-        /*
-        UnityAction<Scene, LoadSceneMode> loadLevelSelection = new UnityAction<Scene, LoadSceneMode>((Scene scene, LoadSceneMode mode) => {
-            Debug.Log("loaded");
-            GameObject levelSelection = Instantiate(_levelSelectionPrefab);
-            Debug.Log("loaded");
-
-            levelSelection.GetComponent<Level_Selection>().DisplayLevelSelectionByLevel(levelNum);
-        });
-        SceneManager.sceneLoaded += loadLevelSelection;
-        SceneManager.LoadScene("Level_Selection", LoadSceneMode.Single);
-        SceneManager.sceneLoaded -= loadLevelSelection;
-        */
-
+        Scene oldScene = SceneManager.GetActiveScene();
         GameObject levelSelection = Instantiate(_levelSelectionPrefab);
+
+        _sceneLoadEvent = new UnityAction<Scene, LoadSceneMode>((Scene scene, LoadSceneMode mode) => {
+            Scene levelSelectionScene = SceneManager.GetSceneByName("Level_Selection");
+            SceneManager.MoveGameObjectToScene(levelSelection, levelSelectionScene);
+            SceneManager.UnloadSceneAsync(oldScene);
+            RemoveSceneLoadEvent();
+        });
+
+        SceneManager.sceneLoaded += _sceneLoadEvent;
+        SceneManager.LoadScene("Level_Selection", LoadSceneMode.Additive);
+
         levelSelection.GetComponent<Level_Selection>().DisplayLevelSelectionByLevel(levelNum);
     }
 
     public void StartGame()
     {
-        /*
-        UnityAction<Scene, LoadSceneMode> loadLevelSelection = new UnityAction<Scene, LoadSceneMode>((Scene scene, LoadSceneMode mode) => {
-            Debug.Log("loaded");
-            GameObject levelSelection = Instantiate(_levelSelectionPrefab);
-            Debug.Log("loaded");
-            levelSelection.GetComponent<Level_Selection>().StartGame();
-        });
-        SceneManager.sceneLoaded += loadLevelSelection;
-        SceneManager.LoadScene("Level_Selection", LoadSceneMode.Single);
-        SceneManager.sceneLoaded -= loadLevelSelection;
-        */
         if (_enteredCorrectPassword)
         {
-
+            Scene oldScene = SceneManager.GetActiveScene();
             GameObject levelSelection = Instantiate(_levelSelectionPrefab);
+
+            _sceneLoadEvent = new UnityAction<Scene, LoadSceneMode>((Scene scene, LoadSceneMode mode) => {
+                Scene levelSelectionScene = SceneManager.GetSceneByName("Level_Selection");
+                SceneManager.MoveGameObjectToScene(levelSelection, levelSelectionScene);
+                SceneManager.UnloadSceneAsync(oldScene);
+                RemoveSceneLoadEvent();
+            });
+
+            SceneManager.sceneLoaded += _sceneLoadEvent;
+            SceneManager.LoadScene("Level_Selection", LoadSceneMode.Additive);
+
             levelSelection.GetComponent<Level_Selection>().StartGame();
         }
+    }
+
+    private void RemoveSceneLoadEvent()
+    {
+        SceneManager.sceneLoaded -= _sceneLoadEvent;
     }
 }

@@ -5151,7 +5151,7 @@ AudioSource:
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -5263,7 +5263,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: dece2500dba83e7438fd2db90262cfeb, type: 3}
   measureClip: {fileID: 8300000, guid: 201cde9420fd2274c8e649f2894c8b97, type: 3}
   noteFailClip: {fileID: 8300000, guid: 3210714fd6b6e4ddebeddb7ef08bfce2, type: 3}
-  buildingsBackground: {fileID: 8300000, guid: 8c65efa75a651401e896437c24c19fde, type: 3}
+  buildingsBackground: {fileID: 8300000, guid: 730fcf3fc20655a49aa9d2903a83abf9, type: 3}
   DemoPopupGO: {fileID: 0}
 --- !u!1 &1608116186
 GameObject:

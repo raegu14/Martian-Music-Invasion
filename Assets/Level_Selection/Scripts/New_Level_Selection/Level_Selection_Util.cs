@@ -17,5 +17,7 @@ public class Level_Selection_Util : ScriptableObject
 
     public static IntEvent SelectLevel = new IntEvent();
 
+    public static IntEvent SelectWorld = new IntEvent();
+
     public static BoolEvent SetButtonInteractivity = new BoolEvent(); 
 }

@@ -21,6 +21,14 @@ public class Level_Selection : MonoBehaviour {
     [SerializeField]
     private World_Info[] _worldInfoList = null;
 
+    [SerializeField]
+    private Image _worldSelectionMarker = null;
+
+    [SerializeField]
+    private Button _worldPlayButton = null;
+
+    private int _selectedWorld = -1;
+
     [Header("Level Selection")]
     [SerializeField]
     private GameObject _levelSelectionParent = null;
@@ -29,13 +37,16 @@ public class Level_Selection : MonoBehaviour {
     private Image _levelSelectionBackground = null;
 
     [SerializeField]
+    private AudioSource _backgroundAudio = null;
+
+    [SerializeField]
     private Transform _levelButtonParent = null;
 
     [SerializeField]
     private GameObject _levelButtonPrefab = null;
 
     [SerializeField]
-    private Image _selectionMarker = null;
+    private Image _levelSelectionMarker = null;
 
     [SerializeField]
     private Image _completeLevel = null;
@@ -72,14 +83,18 @@ public class Level_Selection : MonoBehaviour {
 
         UpdateLevels();
         ResetWorld();
+        ResetWorldSelectionSelection();
 
         for (int i = 0; i < _worldInfoList.Length; i++)
         {
             int index = i;
             GameObject obj = Instantiate(_worldButtonPrefab, _worldButtonParent);
             obj.GetComponent<World_Button>().Display(_worldInfoList[index]);
-            obj.GetComponent<World_Button>().Button.onClick.AddListener(() => DisplayLevelSelectionByWorld(index));
+            //obj.GetComponent<World_Button>().Button.onClick.AddListener(() => DisplayLevelSelectionByWorld(index));
         }
+
+        Level_Selection_Util.SelectWorld.RemoveListener(SelectWorld);
+        Level_Selection_Util.SelectWorld.AddListener(SelectWorld);
     }
 
     private void ResetWorld()
@@ -88,6 +103,48 @@ public class Level_Selection : MonoBehaviour {
         {
             Destroy(_worldButtonParent.GetChild(i).gameObject);
         }
+    }
+
+    public void PlayWorld()
+    {
+        for(int i = 0; i < _worldInfoList.Length; i++)
+        {
+            if (_worldInfoList[i].WorldNumber == _selectedWorld)
+            {
+                DisplayLevelSelectionByWorld(i);
+                break;
+            }
+        }
+    }
+
+    private void SelectWorld(int selectedWorld)
+    {
+        ResetWorldSelectionSelection();
+
+        _worldSelectionMarker.enabled = true;
+        _worldSelectionMarker.color = Color.green;
+        for (int i = 0; i < _worldInfoList.Length; i++)
+        {
+            if (_worldInfoList[i].WorldNumber == selectedWorld)
+            {
+                _worldSelectionMarker.transform.position = _worldButtonParent.GetChild(i).position;
+                _worldButtonParent.GetChild(i).GetComponent<World_Button>().Select();
+                _worldPlayButton.interactable = true;
+            }
+        }
+        _selectedWorld = selectedWorld;
+    }
+
+    private void ResetWorldSelectionSelection()
+    {
+        for (int i = 0; i < _worldButtonParent.childCount; i++)
+        {
+            World_Button world = _worldButtonParent.GetChild(i).GetComponent<World_Button>();
+            world.UnSelect();
+        }
+        _worldSelectionMarker.enabled = false;
+        _worldPlayButton.interactable = false;
+
     }
 
     #endregion
@@ -100,6 +157,16 @@ public class Level_Selection : MonoBehaviour {
         _activeWorld = _worldInfoList[worldNum];
 
         _levelSelectionBackground.sprite = _activeWorld.Background;
+
+        if (worldNum == 0)
+        {
+            _backgroundAudio.clip = AudioManagerUtility.JungleClip;
+        }
+        else
+        {
+            _backgroundAudio.clip = _activeWorld.BackgroundAudio;
+        }
+        _backgroundAudio.Play();
 
         UpdateLevels();
         ResetLevelSelectionLevels();
@@ -117,7 +184,6 @@ public class Level_Selection : MonoBehaviour {
         PlayLevelAudio();
     }
 
-    //instantiate level prefabs
     //Complete Level
     public void DisplayLevelSelectionByLevel(int levelNum)
     {
@@ -126,12 +192,24 @@ public class Level_Selection : MonoBehaviour {
 
         _levelSelectionBackground.sprite = _activeWorld.Background;
 
+        if (_activeWorld.WorldNumber == 0)
+        {
+            _backgroundAudio.clip = AudioManagerUtility.JungleClip;
+        }
+        else
+        {
+            _backgroundAudio.clip = _activeWorld.BackgroundAudio;
+        }
+        _backgroundAudio.Play();
+
         UpdateLevels();
         ResetLevelSelectionLevels();
         ResetLevelSelectionSelection();
 
         Level_Selection_Util.SelectLevel.RemoveListener(SelectLevel);
         Level_Selection_Util.SelectLevel.AddListener(SelectLevel);
+
+        SetButtonInteractivity(false);
 
         for (int i = 0; i < _activeWorld.Levels.Length; i++)
         {
@@ -169,7 +247,7 @@ public class Level_Selection : MonoBehaviour {
 
     private IEnumerator CompleteLevelAsync(int index)
     {
-        SetButtonInteractivity(false);
+        //SetButtonInteractivity(false);
 
         yield return CompleteLevelAnimation(index);
 
@@ -230,6 +308,7 @@ public class Level_Selection : MonoBehaviour {
     {
         SetButtonInteractivity(false);
 
+        yield return new WaitForEndOfFrame();
         for(int i = 0; i < _activeWorld.Levels.Length; i++)
         {
             yield return PlayLevelMeasureAudio(i);
@@ -269,13 +348,13 @@ public class Level_Selection : MonoBehaviour {
     {
         ResetLevelSelectionSelection();
 
-        _selectionMarker.enabled = true;
-        _selectionMarker.color = Color.green;
+        _levelSelectionMarker.enabled = true;
+        _levelSelectionMarker.color = Color.green;
         for(int i = 0; i < _activeWorld.Levels.Length; i++)
         {
             if(_activeWorld.Levels[i].LevelNumber == selectedLevel)
             {
-                _selectionMarker.transform.position = _levelButtonParent.GetChild(i).position;
+                _levelSelectionMarker.transform.position = _levelButtonParent.GetChild(i).position;
                 _levelButtonParent.GetChild(i).GetComponent<Level_Button>().Select();
             }
         }
@@ -289,7 +368,7 @@ public class Level_Selection : MonoBehaviour {
             Level_Button level = _levelButtonParent.GetChild(i).GetComponent<Level_Button>();
             level.UnSelect();
         }
-        _selectionMarker.enabled = false;
+        _levelSelectionMarker.enabled = false;
     }
 
     public void LoadLevel()
@@ -372,6 +451,7 @@ public class Level_Selection : MonoBehaviour {
         }
         else
         {
+            Destroy(GameObject.Find("CutsceneAudio"));
             StartCoroutine(StartGameAsync());
         }
     }
